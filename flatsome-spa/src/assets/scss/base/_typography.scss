@@ -1,0 +1,31 @@
+@import "./font-awesome";
+
+html, body {
+  font-size: 62.5%;
+  font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  h1 {
+    font-size: 4.8em;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 2.4em;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1.8em;
+    font-weight: 700;
+  }
+  h4 {
+    font-size: 1.8em;
+    font-weight: 600;
+  }
+  h5 {
+    font-size: 1.6em;
+    font-weight: 600;
+  }
+  p {
+    font-size: 1.6em;
+    font-weight: 400;
+  }
+}
