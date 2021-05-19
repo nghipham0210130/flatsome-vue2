@@ -20,7 +20,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+body {
+  margin: 0;
+}
 #app {
   background-color: rgb(13,13,13);
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
