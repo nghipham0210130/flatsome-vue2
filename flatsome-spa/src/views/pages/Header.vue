@@ -51,55 +51,85 @@ header {
       .menu__btn {
         display: none;
         &:hover {
-            background-color: #f4f4f4;
-            cursor: pointer;
+          cursor: pointer;
         }
         &:checked {
-          .menu {
-              width: 70%;
-          }
-          .menu__icon {
+          & ~ .menu__icon {
+            &:not(.steps) {
+              .nav__icon {
+                &::before,
+                &::after {
+                  top: 0;
+                }
+              }
+            }
             .nav__icon {
+              @media only screen and (max-width: 900px) {
                 background: transparent;
+              }
               &:before {
+                @media only screen and (max-width: 900px) {
                   transform: rotate(-45deg);
+                }
               }
               &:after {
+                @media only screen and (max-width: 900px) {
                   transform: rotate(45deg);
+                }
+              }
+            }
+          }
+          & ~ .menu {
+            @media only screen and (max-width: 900px) {
+              margin: 0;
+              max-height: 500px;
+              display: block;
+              width: 70%;
+              color: rgb(245, 245, 245);
+              background-color: rgba(13, 13, 13, 0.5);
+              position: absolute;
+              top: 86px;
+              right: 0;
+            }
+            li {
+              &:hover {
+                cursor: pointer;
+                opacity: 0.9;
+              }
+              &.nav__card {
+                margin: 0;
               }
             }
           }
         }
       }
-    .menu__icon {
-        display: none; 
+      .menu__icon {
+        display: none;
         float: right;
         cursor: pointer;
         padding: 28px 20px;
         position: relative;
         user-select: none;
         .nav__icon {
-            background: #333;
-            display: block;
-            height: 2px;
-            position: relative;
-            transition: background 0.2s ease-out;
-            width: 18px;
+          background: #333;
+          display: block;
+          height: 2px;
+          position: relative;
+          width: 18px;
           &::before,
           &::after {
-              background: #333;
-              content: "";
-              display: block;
-              height: 100%;
-              position: absolute;
-              transition: all 0.2s ease-out;
-              width: 100%;
+            background: #333;
+            content: "";
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 100%;
           }
           &::before {
-              top: 5px;
+            top: 5px;
           }
           &::after {
-              top: -5px;
+            top: -5px;
           }
         }
         @media only screen and (max-width: 900px) {
@@ -117,21 +147,20 @@ header {
           @media only screen and (max-width: 900px) {
             clear: both;
             max-height: 0;
-            transition: max-height 0.2s ease-out;
           }
           li {
             display: inline-block;
             @media only screen and (max-width: 900px) {
-                display: block;
-                padding: 20px 20px;
-                border-right: 1px solid #f4f4f4;
-                text-decoration: none;
+              display: block;
+              padding: 20px 20px;
+              border-right: 1px solid #f4f4f4;
+              text-decoration: none;
             }
             &.nav__card {
               position: relative;
               margin-left: 30px;
               a {
-               margin-right: 10px;
+                margin-right: 10px;
                 &::before {
                   content: "";
                   height: 29px;
@@ -179,10 +208,7 @@ header {
               font-weight: bold;
               // padding: 20px 20px;
               &:hover {
-                background-color: #fff;
-                @media only screen and (max-width: 900px) {
-                  background-color: #f4f4f4;
-                }
+                cursor: pointer;
               }
             }
             img {
