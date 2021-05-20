@@ -7,7 +7,7 @@
       <nav>
         <input class="menu__btn" type="checkbox" id="menu__btn" />
         <label class="menu__icon" for="menu__btn"
-          ><span class="navicon"></span
+          ><span class="nav__icon"></span
         ></label>
         <ul class="menu">
           <li class="nav__account"><a href="/">Login</a></li>
@@ -46,66 +46,47 @@ header {
         width: 197px;
         color: #ffff;
       }
-      @media only screen and (max-width: 900px) {
-        float: center;
-      }
     }
     nav {
       .menu__btn {
         display: none;
         &:hover {
-          @media only screen and (max-width: 900px) {
             background-color: #f4f4f4;
             cursor: pointer;
-          }
         }
         &:checked {
           .menu {
-            @media only screen and (max-width: 900px) {
-              max-height: 240px;
-            }
+              width: 70%;
           }
-          .menu-icon {
-            .navicon {
-              @media only screen and (max-width: 900px) {
+          .menu__icon {
+            .nav__icon {
                 background: transparent;
-              }
               &:before {
-                @media only screen and (max-width: 900px) {
                   transform: rotate(-45deg);
-                }
               }
               &:after {
-                @media only screen and (max-width: 900px) {
                   transform: rotate(45deg);
-                }
               }
             }
           }
         }
       }
-      .menu__icon {
-        display: none;
-        @media only screen and (max-width: 900px) {
-          display: inline-block;
-          float: right;
-          cursor: pointer;
-          padding: 28px 20px;
-          position: relative;
-          user-select: none;
-        }
-        .navicon {
-          @media only screen and (max-width: 900px) {
+    .menu__icon {
+        display: none; 
+        float: right;
+        cursor: pointer;
+        padding: 28px 20px;
+        position: relative;
+        user-select: none;
+        .nav__icon {
             background: #333;
             display: block;
             height: 2px;
             position: relative;
             transition: background 0.2s ease-out;
             width: 18px;
-          }
           &::before,
           &::after {
-            @media only screen and (max-width: 900px) {
               background: #333;
               content: "";
               display: block;
@@ -113,18 +94,16 @@ header {
               position: absolute;
               transition: all 0.2s ease-out;
               width: 100%;
-            }
           }
           &::before {
-            @media only screen and (max-width: 900px) {
               top: 5px;
-            }
           }
           &::after {
-            @media only screen and (max-width: 900px) {
               top: -5px;
-            }
           }
+        }
+        @media only screen and (max-width: 900px) {
+          display: inline-block;
         }
       }
       ul {
@@ -134,24 +113,33 @@ header {
           list-style: none;
           overflow: hidden;
         }
-
-        .menu {
-          //   clear: none;
-          //   float: right;
-          //   max-height: none;
+        &.menu {
           @media only screen and (max-width: 900px) {
             clear: both;
             max-height: 0;
             transition: max-height 0.2s ease-out;
           }
-
           li {
-            padding: 0 15px;
             display: inline-block;
+            @media only screen and (max-width: 900px) {
+                display: block;
+                padding: 20px 20px;
+                border-right: 1px solid #f4f4f4;
+                text-decoration: none;
+            }
             &.nav__card {
               position: relative;
+              margin-left: 30px;
               a {
-                border-left: 1px solid rgba(37, 37, 37);
+               margin-right: 10px;
+                &::before {
+                  content: "";
+                  height: 29px;
+                  border: 1px solid rgba(37, 37, 37);
+                  position: absolute;
+                  top: 0;
+                  left: -14px;
+                }
               }
               span {
                 color: #ffff;
@@ -167,7 +155,6 @@ header {
                 height: 1.85em;
                 font-size: 1.3em;
                 line-height: 1.9em;
-
                 &::after {
                   content: "";
                   top: -0.6em;
@@ -190,18 +177,12 @@ header {
               font-size: 1.3em;
               text-transform: uppercase;
               font-weight: bold;
-              display: block;
-              padding: 20px 20px;
+              // padding: 20px 20px;
               &:hover {
+                background-color: #fff;
                 @media only screen and (max-width: 900px) {
-                background-color: #f4f4f4;
+                  background-color: #f4f4f4;
                 }
-              }
-              @media only screen and (max-width: 900px) {
-                display: block;
-                padding: 20px 20px;
-                border-right: 1px solid #f4f4f4;
-                text-decoration: none;
               }
             }
             img {
