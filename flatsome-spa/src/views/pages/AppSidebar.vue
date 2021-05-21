@@ -18,7 +18,7 @@
         </li>
         <li class="nav__title"><h3>Filter by color</h3></li>
         <li class="nav__category" v-for="item in colors" :key="item.id">
-          <a>{{ item.name }}<span>({{analyticsAmountFollowColorID(item.id)}})</span></a>
+          <a>{{ item.name }}<span>({{amountProductByColorID(item.id)}})</span></a>
         </li>
       </ul>
     </nav>
@@ -42,7 +42,8 @@ export default {
     };
   },
   methods: {
-    analyticsAmountFollowColorID(idColor) {
+    // analysis amount product follow input idColor
+    amountProductByColorID(idColor) {
       let amountProduct = 0;
       this.products.find(x => {
         if (x.idColor === idColor) {
@@ -59,9 +60,10 @@ export default {
 .app__sidebar {
   display: block;
   float: left;
+  margin-right: 30px;
   .sidebar__nav {
     ul {
-      padding-top: 185px;
+      padding-top: 176px;
       li {
         display: flex;
         flex-direction: column;

@@ -1,20 +1,25 @@
 <template>
   <div id="app">
-    <appHeader></appHeader>
-    <app-sidebar></app-sidebar>
-    <router-view></router-view>
+    <app-header></app-header>
+    <div class="container">
+      <app-sidebar></app-sidebar>
+      <app-main></app-main>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
 import Header from './views/pages/Header'
 import AppSidebar from './views/pages/AppSidebar.vue'
+import Main from './views/pages/Main.vue'
 
 export default {
   name: 'App',
   components: {
     appHeader: Header,
-    appSidebar: AppSidebar
+    appSidebar: AppSidebar,
+    appMain: Main,
   }
 }
 </script>
@@ -24,7 +29,6 @@ body {
   margin: 0;
 }
 #app {
-  background-color: rgb(13,13,13);
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -66,6 +70,12 @@ body {
   a {
     font-size: 1.6em;
     cursor: pointer;
+  }
+  .container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 </style>

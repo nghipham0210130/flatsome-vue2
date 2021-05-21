@@ -1,17 +1,19 @@
+const baseUrlImage = "../../assets/img/product-category/";
+
 export const rootCategories = [
-  { idRootCategory: "Bags", hasChild: false },
-  { idRootCategory: "Booking", hasChild: false },
-  { idRootCategory: "Clothing", hasChild: true },
-  { idRootCategory: "Men", hasChild: true },
-  { idRootCategory: "Music", hasChild: true },
-  { idRootCategory: "Posters", hasChild: false },
-  { idRootCategory: "Shoes", hasChild: false },
-  { idRootCategory: "Uncategorized", hasChild: false },
-  { idRootCategory: "Women", hasChild: true },
+  { idRootCategory: "Clothing", hasChild: true, urlImage: baseUrlImage + "clothing.jpeg" },
+  { idRootCategory: "Women", hasChild: true, urlImage: baseUrlImage + "women.jpeg" },
+  { idRootCategory: "Booking", hasChild: false, urlImage: baseUrlImage + "booking.jpeg" },
+  { idRootCategory: "Men", hasChild: true, urlImage: baseUrlImage + "men.jpeg" },
+  { idRootCategory: "Bags", hasChild: false, urlImage: baseUrlImage + "bags.jpeg" },
+  { idRootCategory: "Music", hasChild: true, urlImage: baseUrlImage + "music.jpeg" },
+  { idRootCategory: "Posters", hasChild: false, urlImage: baseUrlImage + "posters.jpeg" },
+  { idRootCategory: "Shoes", hasChild: false, urlImage: baseUrlImage + "shoes.jpeg" },
+  { idRootCategory: "Uncategorized", hasChild: false, urlImage: baseUrlImage + "" },
 ];
 
 export const categories = [
-  { idCategory: "Hoodie", rootCategory: "Clothing" },
+  { idCategory: "Hoodie", rootCategory: "Clothing", },
   { idCategory: "T-Shirts", rootCategory: "Men" },
   { idCategory: "Albums", rootCategory: "Music" },
   { idCategory: "Singles", rootCategory: "Music" },
@@ -80,7 +82,7 @@ export const products = [
     id: 5,
     name: "Happy Ninja A",
     price: 38,
-    category: "Hoodie",
+    category: "Shoes",
     img: "../assets/img/products/T_7_front.jpeg",
     isNew: false,
     isSale: false,
