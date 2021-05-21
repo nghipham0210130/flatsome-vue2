@@ -62,9 +62,28 @@ span {
     }
   }
 }
-li {
-  list-style: none;
-
-    line-height: 38px;
+ul {
+  padding: 0;
+  padding-bottom: 10px;
+  li {
+    list-style: none;
+    padding-left: 20px;
+    line-height: 29px;
+    position: relative;
+    &::before {
+      content: "";
+      height: 29px;
+      border: 1px solid rgba(221, 221, 221);
+      position: absolute;
+      top: 0;
+      left: 4px;
+    }
+    a {
+      &:hover {
+        font-weight: 700px;
+        color: #000;
+      }
+    }
+  }
 }
 </style>

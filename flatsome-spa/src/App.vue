@@ -66,9 +66,6 @@ body {
   a {
     font-size: 1.6em;
     cursor: pointer;
-    &:hover {
-      opacity: 0.5;
-    }
   }
 }
 </style>
