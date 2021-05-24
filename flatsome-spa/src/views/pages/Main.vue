@@ -1,15 +1,19 @@
 <template>
     <div class="main">
-        <product-category></product-category>
+        <!-- <product-category></product-category> -->
+        <product-list></product-list>
     </div>
 </template>
 
 <script>
-import ProductCategory from '../components/ProductCategory.vue'
+// import ProductCategory from '../components/products/ProductCategory.vue'
+import ProductList from '../components/products/ProductList.vue'
+
     export default {
         name: "Main",
         components: {
-            ProductCategory,
+            // ProductCategory,
+            ProductList,
         },
     }
 </script>

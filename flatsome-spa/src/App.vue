@@ -49,18 +49,6 @@ body {
     font-size: 1.8em;
     font-weight: 700;
   }
-  h4 {
-    font-size: 1.8em;
-    font-weight: 600;
-  }
-  h5 {
-    font-size: 1.6em;
-    font-weight: 600;
-  }
-  p {
-    font-size: 1.6em;
-    font-weight: 400;
-  }
 
   router-view {
     font-size: 60px;

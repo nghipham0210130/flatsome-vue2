@@ -31,6 +31,7 @@ template {
 header {
   position: fixed;
   width: 100%;
+  z-index: 1;
   .header {
     display: flex;
     justify-content: space-between;
