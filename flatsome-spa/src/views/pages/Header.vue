@@ -1,14 +1,18 @@
 <template>
   <header>
+    <!-- Header -->
     <div class="header">
+      <!-- Logo -->
       <div class="header__logo">
         <img src="../../assets/img/logo-light.png" alt="Logo" />
       </div>
+      <!-- Nav -->
       <nav>
         <input class="menu__btn" type="checkbox" id="menu__btn" />
         <label class="menu__icon" for="menu__btn"
           ><span class="nav__icon"></span
         ></label>
+        <!-- Menu nav  -->
         <ul class="menu">
           <li class="nav__account"><a href="/">Login</a></li>
           <li class="nav__card"><a href="/">Card/$0,00</a><span>0</span></li>
@@ -28,6 +32,7 @@ export default {
 template {
   font-size: 62.5%;
 }
+// Style header to header fixed top when sroll
 header {
   position: fixed;
   width: 100%;
@@ -54,7 +59,9 @@ header {
         &:hover {
           cursor: pointer;
         }
+        // Style menu again when checked hamburger
         &:checked {
+          // Hamburger change shape when checked
           & ~ .menu__icon {
             &:not(.steps) {
               .nav__icon {
@@ -104,6 +111,7 @@ header {
           }
         }
       }
+      // Style menu icon with screen more than 900px
       .menu__icon {
         display: none;
         float: right;
@@ -171,6 +179,7 @@ header {
                   left: -14px;
                 }
               }
+              // Style basket shape
               span {
                 color: #ffff;
                 font-weight: bold;

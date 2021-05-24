@@ -127,17 +127,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// Style product category
 .product__category {
   display: grid;
   grid-template-columns: repeat(3, calc((100% - 40px) / 3));
   grid-template-rows: 296px 296px 296px;
   gap: 20px;
   column-gap: 20px;
+  // Style product category item
   .product__category__item {
     position: relative;
     img {
       height: 100%;
     }
+    // Tag of category item
     .item__tag {
       position: absolute;
       padding-top: 15px;
@@ -160,6 +163,7 @@ export default {
         font-weight: 300;
       }
     }
+    // Change color text and color background of item__tag when hover card
     &:hover {
       .item__tag {
         background-color: rgb(12, 135, 170);

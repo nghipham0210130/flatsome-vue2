@@ -1,12 +1,14 @@
 <template>
   <div class="category__child">
+    <!-- Show arrow icon when root category have child category -->
     <div v-if="!isShowCategoryChild" class="category__child--hidden">
       <span @click="showCategoryChild()" class="arrow down"></span>
     </div>
-
+    <!-- Show category child when click arrow icon of root category -->
     <div v-if="isShowCategoryChild" class="category__child--show">
       <span @click="showCategoryChild()" class="arrow up"></span>
       <ul>
+        <!-- Show list category child of root category -->
         <div v-for="item in categories" :key="item.idCategory">
           <li v-if="item.rootCategory === rootCategory">
             <a>{{ item.idCategory }}</a>
@@ -29,15 +31,16 @@ export default {
     };
   },
   methods: {
+    // Change status show category child when click arrow icon
     showCategoryChild: function() {
       this.isShowCategoryChild = !this.isShowCategoryChild;
-      console.log(this.isShowCategoryChild);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+// style arrow icon
 span {
   position: absolute;
   right: 3px;
@@ -62,6 +65,7 @@ span {
     }
   }
 }
+// Style category child
 ul {
   padding: 0;
   padding-bottom: 10px;

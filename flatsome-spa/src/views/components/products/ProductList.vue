@@ -1,25 +1,35 @@
 <template>
   <div class="product">
+    <!-- Product card  -->
     <div class="product__card">
+      <!-- Header card -->
       <div class="card__header">
+        <!-- Image -->
         <img
           class="card__image"
           src="../../../assets/img/product-category/bags.jpeg"
           alt="Product Item"
         />
+        <!-- Image when hover -->
         <img
           class="card__image hover"
           src="../../../assets/img/product-category/women.jpeg"
           alt=""
         />
+        <!-- Status of product: available or out of stock -->
         <div class="card__status">Out of stock</div>
         <div class="card__quick__view hover">Quick view</div>
       </div>
+      <!-- Body card with description of product -->
       <div class="card__body">
+        <!-- Category -->
         <h5 class="card__category">Clothing</h5>
+        <!-- Name -->
         <h4 class="card__name">Happy Ninja</h4>
+        <!-- Price -->
         <p class="card__price">$ 35,00</p>
       </div>
+      <!-- Mark Product: Sale | New | Hot  -->
       <div class="card__urgent">
         <p class="sale">Sale!</p>
         <p class="new">New</p>
@@ -194,8 +204,10 @@ export default {
       visibility: hidden;
       opacity: 0;
     }
+    // Style card header
     .card__header {
       position: relative;
+      // Style imge
       .card__image {
         height: 296px;
         width: 100%;
@@ -205,6 +217,7 @@ export default {
           left: 0;
         }
       }
+      // Show status out of stock
       .card__status {
         width: 100%;
         font-size: 1.6em;
@@ -218,6 +231,7 @@ export default {
         top: 50%;
         transform: translateY(-50%);
       }
+      // Quick view of cart
       .card__quick__view {
         width: 100%;
         font-size: 1.2em;
@@ -231,6 +245,7 @@ export default {
         background-color: rgb(12, 135, 170);
         bottom: 10px;
       }
+      // Display element when hover
       &:hover {
         .hover {
           visibility: visible;
@@ -238,6 +253,7 @@ export default {
         }
       }
     }
+    // Style card body
     .card__body {
       text-align: left;
       .card__category {
@@ -262,6 +278,7 @@ export default {
       }
     }
     .card__urgent {
+      // style p tag common
       p {
         position: absolute;
         margin: 0;
@@ -270,18 +287,21 @@ export default {
         font-size: 1.4em;
         border-radius: 50%;
       }
+      // style class sale
       .sale {
         padding: 14px 6px;
         background-color: rgb(74, 216, 255);
         top: 30px;
         left: -7px;
       }
+      // style class new
       .new {
         padding: 14px 8px;
         background-color: rgb(0, 102, 0);
         top: 117px;
         left: -7px;
       }
+      // style class hot
       .hot {
         padding: 14px 11px;
         background-color: rgb(204, 0, 0);

@@ -2,6 +2,7 @@
   <div class="app__sidebar">
     <nav class="sidebar__nav">
       <ul>
+        <!-- Filter by category -->
         <li class="nav__title"><h3>Browser</h3></li>
         <li
           class="nav__category"
@@ -9,17 +10,19 @@
           :key="item.idRootCategory"
         >
           <a>{{ item.idRootCategory }}</a>
-
+          <!-- Show component category-child when have category child -->
           <div v-show="item.hasChild">
             <category-child
               :rootCategory="item.idRootCategory"
             ></category-child>
           </div>
         </li>
+        <!-- Filter by color -->
         <li class="nav__title"><h3>Filter by color</h3></li>
         <li class="nav__category" v-for="item in colors" :key="item.id">
           <a>{{ item.name }}<span>({{amountProductByColorID(item.id)}})</span></a>
         </li>
+        <!-- Filter by price -->
       </ul>
     </nav>
   </div>
@@ -68,6 +71,7 @@ export default {
         display: flex;
         flex-direction: column;
         text-align: left;
+        // Style nav titile
         &.nav__title {
           text-transform: uppercase;
           h3 {
@@ -85,6 +89,7 @@ export default {
             }
           }
         }
+        // Style category
         &.nav__category {
           text-transform: capitalize;
           position: relative;
