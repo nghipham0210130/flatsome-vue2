@@ -146,6 +146,7 @@ header {
         }
       }
       ul {
+        margin-bottom: 0;
         @media only screen and (max-width: 900px) {
           margin: 0;
           padding: 0;
@@ -196,7 +197,7 @@ header {
                 line-height: 1.9em;
                 &::after {
                   content: "";
-                  top: -0.6em;
+                  top: -0.5em;
                   margin-bottom: 0;
                   height: 4px;
                   width: 10px;

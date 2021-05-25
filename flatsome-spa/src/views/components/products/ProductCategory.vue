@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { rootCategories } from "../../../data/Product";
+import { rootCategories } from "../../../models/Product";
 export default {
   data() {
     return {

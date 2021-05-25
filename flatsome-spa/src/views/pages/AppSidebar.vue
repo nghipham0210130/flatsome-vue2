@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import { rootCategories, colors, products } from "../../data/Product";
-import CategoryChild from "../components/CategoryChild.vue";
+import { rootCategories, colors, products } from "../../models/Product";
+import CategoryChild from "../components/products/CategoryChild.vue";
 
 export default {
   name: "AppSidebar",
@@ -96,6 +96,7 @@ export default {
           width: 240px;
           border-bottom: 1px solid rgba(119, 119, 119, 0.5);
           a {
+            font-size: 1.4em;
             line-height: 36px;
             color: rgb(52, 73, 99);
             position: relative;

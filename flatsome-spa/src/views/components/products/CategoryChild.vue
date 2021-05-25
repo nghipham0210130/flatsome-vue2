@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { categories } from "../../data/Product";
+import { categories } from "../../../models/Product";
 
 export default {
   props: ["rootCategory"],
@@ -72,7 +72,7 @@ ul {
   li {
     list-style: none;
     padding-left: 20px;
-    line-height: 29px;
+    line-height: 28px;
     position: relative;
     &::before {
       content: "";
@@ -83,6 +83,7 @@ ul {
       left: 4px;
     }
     a {
+      font-size: 1.4em;
       &:hover {
         font-weight: 700px;
         color: #000;

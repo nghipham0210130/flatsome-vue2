@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import { rootCategories } from "../../../data/Product";
+import { rootCategories } from "../../../models/Product";
 export default {
   data() {
     return {
@@ -197,6 +197,9 @@ export default {
   grid-template-rows: 360px 360px 360px;
   column-gap: 20px;
   row-gap: 40px;
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
   .product__card {
     position: relative;
     .hover {
@@ -243,7 +246,7 @@ export default {
         font-weight: 700;
         text-align: center;
         background-color: rgb(12, 135, 170);
-        bottom: 10px;
+        bottom: 8px;
       }
       // Display element when hover
       &:hover {
@@ -284,7 +287,7 @@ export default {
         margin: 0;
         color: #fff;
         text-transform: capitalize;
-        font-size: 1.4em;
+        font-size: 1.6em;
         border-radius: 50%;
       }
       // style class sale

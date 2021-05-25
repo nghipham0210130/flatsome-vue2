@@ -1,30 +1,42 @@
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '../views/pages/Home.vue';
+import Login from '../views/components/authentication/Login.vue';
+import Register from '../views/components/authentication/Register.vue';
 
-const Bags = {
-	template: `
-<div>
-	<h3>Grid for Bags</h3>
-</div>
-  `
-}
+Vue.use(Router);
 
-const Bookings = {
-	template: `
-<div>
-	<h3>Preview of your profile</h3>
-</div>
-  `
-}
-
-export default new VueRouter({
-    mode: 'history',
-    routes: [
-        { path: '/bags',
-        component: Bags,
-    }, {
-        path: '/bookings',
-        components: Bookings
-        }
-    ]
-  })
-  
+export const router = new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/home',
+      component: Home
+    },
+    {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/register',
+      component: Register
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      // lazy-loaded
+      component: () => import('../views/components/authentication/Profile.vue')
+    },
+    {
+      path: '/user',
+      name: 'user',
+      // lazy-loaded
+      component: () => import('../views/pages/BoardUser.vue')
+    }
+  ]
+});

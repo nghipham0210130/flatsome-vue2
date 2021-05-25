@@ -1,33 +1,22 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <div class="container">
-      <app-sidebar></app-sidebar>
-      <app-main></app-main>
-      <router-view></router-view>
-    </div>
+    <home></home>
   </div>
 </template>
 
 <script>
-import Header from './views/pages/Header'
-import AppSidebar from './views/pages/AppSidebar.vue'
-import Main from './views/pages/Main.vue'
+import Home from './views/pages/Home'
 
 export default {
   name: 'App',
   components: {
-    appHeader: Header,
-    appSidebar: AppSidebar,
-    appMain: Main,
+    Home
   }
 }
 </script>
 
 <style lang="scss">
-body {
-  margin: 0;
-}
+
 #app {
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -37,27 +26,28 @@ body {
   font-size: 62.5%;
   font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  body {
+    margin: 0;
+  }
   h1 {
     font-size: 4.8em;
     font-weight: 700;
   }
+
   h2 {
     font-size: 2.4em;
     font-weight: 700;
   }
+
   h3 {
     font-size: 1.8em;
     font-weight: 700;
   }
 
-  router-view {
-    font-size: 60px;
-    color: blue; 
-    float: right;
-  }
   a {
-    font-size: 1.6em;
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .container {
     margin: 0 auto;
