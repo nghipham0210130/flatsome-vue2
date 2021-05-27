@@ -9,7 +9,7 @@
           v-for="item in rootCategories"
           :key="item.idRootCategory"
         >
-          <a>{{ item.idRootCategory }}</a>
+          <a><router-link to="/home/shop/product-list">{{ item.idRootCategory }}</router-link></a>
           <!-- Show component category-child when have category child -->
           <div v-show="item.hasChild">
             <category-child

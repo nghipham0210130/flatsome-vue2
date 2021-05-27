@@ -1,41 +1,52 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
+  <div class="user__profile container">
+    <header class="header">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <strong>My account</strong>
       </h3>
+      <h5>Account details</h5>
     </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
+    <div class="sidebar">
+      <div class="sidebar__content">
+        <div class="user__title" style="background-image: url('../../../assets/img/avatar__empty.jpg')">
+          <img class="user__avatar" src="../../../assets/img/avatar__empty.jpg" alt="Avatar empty">
+          <p class="user__name">zenmatsu93 <span>#10963</span></p>
+        </div>
+        <div class="user__information">
+          <div class="information__link">Dashboard</div>
+          <div class="information__link">Order</div>
+          <div class="information__link">Download</div>
+          <div class="information__link">Address</div>
+          <div class="information__link">Account details</div>
+          <div class="information__link">Wishlist</div>
+          <div class="information__link">Logout</div>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <form action="" class="user__update">
+        <div class="first__name">
+          <label for="fname">First name</label>
+          <input type="text">
+        </div>
+      </form>
+      <button>SAVE CHANGES</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Profile',
+  name: "Profile",
   computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
+    // currentUser() {
+    //   return this.$store.state.auth.user;
+    // }
   },
   mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
-    }
-  }
+    // if (!this.currentUser) {
+    //   this.$router.push('/login');
+    // }
+  },
 };
 </script>

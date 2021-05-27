@@ -3,7 +3,7 @@
     <!-- <div class="product__category__item" v-for="item in rootCategories" :key="item.idRootCategory">
             <img :src="getUrlImageCategory(item.idRootCategory)" alt="Category">
         </div>  -->
-    <div class="product__category__item">
+    <div class="product__category__item" @click="goToProductList()">
       <img
         src="../../../assets/img/product-category/booking.jpeg"
         alt="Category"
@@ -19,7 +19,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Clothing</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -29,7 +29,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Women</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -39,7 +39,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Men</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -49,7 +49,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Bags</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -59,7 +59,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Music</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -69,7 +69,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Posters</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -79,7 +79,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Shoes</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -89,7 +89,7 @@
         alt="Category"
       />
       <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
+        <h5 class="tag__title">Uncategorized</h5>
         <p class="tag__amount">12 Products</p>
       </div>
     </div>
@@ -115,6 +115,9 @@ export default {
     //   });
     //   return amountProduct;
     // },
+    goToProductList() {
+      this.$router.replace({name: 'productListLink'});
+    },
     getUrlImageCategory: function(idRootCategory) {
       const tempUrlImage = this.rootCategories.find(
         (x) => x.idRootCategory === idRootCategory
@@ -129,6 +132,7 @@ export default {
 <style lang="scss" scoped>
 // Style product category
 .product__category {
+  text-align: center;
   display: grid;
   grid-template-columns: repeat(3, calc((100% - 40px) / 3));
   grid-template-rows: 296px 296px 296px;
@@ -138,7 +142,7 @@ export default {
   .product__category__item {
     position: relative;
     img {
-      height: 100%;
+      width: 100%;
     }
     // Tag of category item
     .item__tag {
@@ -167,7 +171,7 @@ export default {
     &:hover {
       .item__tag {
         background-color: rgb(12, 135, 170);
-        .tag__title {
+        .tag__title, .tag__amount {
             color: #fff;
         }
       }

@@ -1,20 +1,13 @@
 <template>
     <div class="main">
-        <!-- <product-category></product-category> -->
-        <product-list></product-list>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-// import ProductCategory from '../components/products/ProductCategory.vue'
-import ProductList from '../components/products/ProductList.vue'
 
     export default {
         name: "Main",
-        components: {
-            // ProductCategory,
-            ProductList,
-        },
     }
 </script>
 

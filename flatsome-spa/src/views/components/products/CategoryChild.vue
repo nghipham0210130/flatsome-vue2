@@ -11,7 +11,7 @@
         <!-- Show list category child of root category -->
         <div v-for="item in categories" :key="item.idCategory">
           <li v-if="item.rootCategory === rootCategory">
-            <a>{{ item.idCategory }}</a>
+            <a><router-link to="/home/shop/product-list">{{ item.idCategory }}</router-link></a>
           </li>
         </div>
       </ul>
@@ -72,7 +72,8 @@ ul {
   li {
     list-style: none;
     padding-left: 20px;
-    line-height: 28px;
+    line-height: 29px;
+    height: 29px;
     position: relative;
     &::before {
       content: "";
@@ -84,6 +85,7 @@ ul {
     }
     a {
       font-size: 1.4em;
+      color: rgb(52, 73, 99);
       &:hover {
         font-weight: 700px;
         color: #000;

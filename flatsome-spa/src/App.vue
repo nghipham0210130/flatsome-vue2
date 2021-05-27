@@ -21,8 +21,7 @@ export default {
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: rgb(0,0,0);
   font-size: 62.5%;
   font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -45,6 +44,7 @@ export default {
   }
 
   a {
+    text-decoration: none;
     &:hover {
       cursor: pointer;
     }

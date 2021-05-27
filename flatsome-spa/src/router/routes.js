@@ -1,42 +1,45 @@
 import Vue from 'vue';
-import Router from 'vue-router';
-import Home from '../views/pages/Home.vue';
-import Login from '../views/components/authentication/Login.vue';
-import Register from '../views/components/authentication/Register.vue';
+import VueRouter from 'vue-router';
+// import Home from '../views/pages/Home';
+import ProductList from '../views/components/products/ProductList'
+import ProductCategory from '../views/components/products/ProductCategory'
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
-export const router = new Router({
+export const router = new VueRouter({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'default',
+      component: ProductCategory
     },
     {
       path: '/home',
-      component: Home
+      name: 'homeLink',
+      component: ProductCategory
     },
     {
-      path: '/login',
-      component: Login
+      path: '/home/shop',
+      name: 'shopLink',
+      component: ProductCategory
     },
     {
-      path: '/register',
-      component: Register
+      path: '/home/shop/product-list',
+      name: 'productListLink',
+      component: ProductList,
     },
-    {
-      path: '/profile',
-      name: 'profile',
-      // lazy-loaded
-      component: () => import('../views/components/authentication/Profile.vue')
-    },
-    {
-      path: '/user',
-      name: 'user',
-      // lazy-loaded
-      component: () => import('../views/pages/BoardUser.vue')
-    }
+    // {
+    //   path: '/profile',
+    //   name: 'profile',
+    //   // lazy-loaded
+    //   component: () => import('../views/components/authentication/Profile.vue')
+    // },
+    // {
+    //   path: '/user',
+    //   name: 'user',
+    //   // lazy-loaded
+    //   component: () => import('../views/pages/BoardUser.vue')
+    // },
   ]
 });
