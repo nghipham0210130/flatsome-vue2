@@ -9,29 +9,30 @@ import VeeValidate from 'vee-validate';
 // import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// Import the Auth0 configuration
-import { domain, clientId } from "../auth_config.json";
+// // Import the Auth0 configuration
+// import { domain, clientId } from "../auth_config.json";
 
-// Import the plugin here
-import { Auth0Plugin } from "./auth";
+// // Import the plugin here
+// import { Auth0Plugin } from "./auth";
 
-// Import modal 
-import Modal from "@burhanahmeed/vue-modal-2";
+// // Import modal 
+// import Modal from "@burhanahmeed/vue-modal-2";
 
 
-// Install the authentication plugin here
-Vue.use(Auth0Plugin, {
-  domain,
-  clientId,
-  // onRedirectCallback: appState => {
-  //   router.push(
-  //     appState && appState.targetUrl
-  //       ? appState.targetUrl
-  //       : window.location.pathname
-  //   );
-  // }
-});
-Vue.use(Modal);
+// // Install the authentication plugin here
+// Vue.use(Auth0Plugin, {
+//   domain,
+//   clientId,
+//   // onRedirectCallback: appState => {
+//   //   router.push(
+//   //     appState && appState.targetUrl
+//   //       ? appState.targetUrl
+//   //       : window.location.pathname
+//   //   );
+//   // }
+// });
+
+// Vue.use(Modal);
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
