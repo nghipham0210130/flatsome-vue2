@@ -3,128 +3,47 @@
     <!-- <div class="product__category__item" v-for="item in rootCategories" :key="item.idRootCategory">
             <img :src="getUrlImageCategory(item.idRootCategory)" alt="Category">
         </div>  -->
-    <div class="product__category__item" @click="goToProductList()">
+    <div class="product__category__item" v-for="(product, index) in products" :key="index" :product="product" @click="goToProductList()">
       <img
-        src="../../../assets/img/product-category/booking.jpeg"
+        :src="product.image"
         alt="Category"
       />
-      <div class="item__tag">
-        <h5 class="tag__title">Booking</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Clothing</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Women</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Men</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Bags</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Music</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Posters</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Shoes</h5>
-        <p class="tag__amount">12 Products</p>
-      </div>
-    </div>
-    <div class="product__category__item">
-      <img
-        src="../../../assets/img/product-category/booking.jpeg"
-        alt="Category"
-      />
-      <div class="item__tag">
-        <h5 class="tag__title">Uncategorized</h5>
-        <p class="tag__amount">12 Products</p>
+      <div class="item__tag">.
+        <h5 class="tag__title">{{product.name}}</h5>
+        <p class="tag__amount">{{product.products_count}} Products</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { rootCategories } from "../../../models/Product";
+import { RepositoryFactory } from '../../../repositories/RepositoryFactory';
+const ProductsRepository = RepositoryFactory.get('products');
+
 export default {
+  name: "product__category",
   data() {
     return {
-      rootCategories,
+      isLoading: false,
+      products: null,
     };
   },
+  created() {
+    this.fetch()
+  },
   methods: {
-    // // analysis amount product follow input category
-    // amountProductByColorID(category) {
-    //   let amountProduct = 0;
-    //   this.products.find(x => {
-    //     if (x.idColor === idColor) {
-    //       amountProduct = amountProduct + x.amountAvailable;
-    //     }
-    //   });
-    //   return amountProduct;
-    // },
+    // fetch data
+    async fetch() {
+      this.isLoading = true;
+      console.log(ProductsRepository);
+      const { data } = await ProductsRepository.get();
+      this.isLoading = false;
+      this.products = data.data;
+    },
+    // Move to productListLink
     goToProductList() {
       this.$router.replace({name: 'productListLink'});
-    },
-    getUrlImageCategory: function(idRootCategory) {
-      const tempUrlImage = this.rootCategories.find(
-        (x) => x.idRootCategory === idRootCategory
-      ).urlImage;
-      console.log(tempUrlImage);
-      return tempUrlImage;
-    },
+    }
   },
 };
 </script>

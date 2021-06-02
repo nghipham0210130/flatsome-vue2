@@ -15,7 +15,6 @@ import Header from './Header'
 import AppSidebar from './AppSidebar'
 import Main from './Main'
 
-
 export default {
   components: {
     appHeader: Header,
