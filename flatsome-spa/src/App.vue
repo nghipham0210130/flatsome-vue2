@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <home></home>
+    <app-layout>
+    </app-layout>
   </div>
 </template>
 
 <script>
-import Home from './views/pages/Home'
+import Layout from './views/pages/Layout'
+
 
 export default {
   name: 'App',
   components: {
-    Home
+    appLayout: Layout,
   }
 }
 </script>
@@ -48,12 +50,6 @@ export default {
     &:hover {
       cursor: pointer;
     }
-  }
-  .container {
-    margin: 0 auto;
-    max-width: 1200px;
-    padding-left: 15px;
-    padding-right: 15px;
   }
 }
 </style>

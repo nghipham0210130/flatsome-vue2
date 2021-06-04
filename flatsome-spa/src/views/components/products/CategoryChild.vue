@@ -1,17 +1,23 @@
 <template>
   <div class="category__child">
     <!-- Show arrow icon when root category have child category -->
-    <div v-if="!isShowCategoryChild" class="category__child--hidden">
+    <div v-if="!isShowCategory" class="category__child--hidden">
       <span @click="showCategoryChild()" class="arrow down"></span>
     </div>
     <!-- Show category child when click arrow icon of root category -->
-    <div v-if="isShowCategoryChild" class="category__child--show">
+    <div v-if="isShowCategory" class="category__child--show">
       <span @click="showCategoryChild()" class="arrow up"></span>
       <ul>
         <!-- Show list category child of root category -->
-        <div v-for="item in categories" :key="item.idCategory">
-          <li v-if="item.rootCategory === rootCategory">
-            <a><router-link to="/home/shop/product-list">{{ item.idCategory }}</router-link></a>
+        <div v-for="item in subCategory" :key="item.idCategory">
+          <li>
+            <router-link
+              :to="{
+                name: 'productListBySubCategory',
+                params: { subCategory: item.name },
+              }"
+              >{{ item.name }}</router-link
+            >
           </li>
         </div>
       </ul>
@@ -20,20 +26,21 @@
 </template>
 
 <script>
-import { categories } from "../../../models/Product";
-
 export default {
-  props: ["rootCategory"],
+  props: {
+    subCategory: Array,
+    // selected: Number,
+    // isShow: Boolean,
+  },
   data() {
     return {
-      isShowCategoryChild: false,
-      categories,
+      isShowCategory: false,
     };
   },
   methods: {
     // Change status show category child when click arrow icon
-    showCategoryChild: function() {
-      this.isShowCategoryChild = !this.isShowCategoryChild;
+    showCategoryChild: function () {
+      this.isShowCategory = !this.isShowCategory;
     },
   },
 };
@@ -84,7 +91,7 @@ ul {
       left: 4px;
     }
     a {
-      font-size: 1.4em;
+      font-size: 2em;
       color: rgb(52, 73, 99);
       &:hover {
         font-weight: 700px;

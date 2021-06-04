@@ -1,0 +1,42 @@
+<template>
+  <div class="layout">
+    <!-- Header -->
+    <app-header></app-header>
+    <!-- Main -->
+    <app-main class="container main">
+      <!-- Show section follow link -->
+      <router-view></router-view>
+    </app-main>
+    <!-- Footer -->
+    <app-footer></app-footer>
+  </div>
+</template>
+
+<script>
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+
+export default {
+  components: {
+    appHeader: Header,
+    appMain: Main,
+    appFooter: Footer,
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.main {
+  padding-top: 116px;
+  box-sizing: border-box;
+  position: relative;
+}
+</style>

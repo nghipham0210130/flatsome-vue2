@@ -57,7 +57,9 @@
 
 <script>
     export default {
-        
+        name: "OrderList",
+        components: {
+        },
     }
 </script>
 

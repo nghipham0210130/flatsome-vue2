@@ -1,49 +1,55 @@
 <template>
-  <div class="product__category">
-    <!-- <div class="product__category__item" v-for="item in rootCategories" :key="item.idRootCategory">
-            <img :src="getUrlImageCategory(item.idRootCategory)" alt="Category">
-        </div>  -->
-    <div class="product__category__item" v-for="(product, index) in products" :key="index" :product="product" @click="goToProductList()">
-      <img
-        :src="product.image"
-        alt="Category"
-      />
-      <div class="item__tag">.
-        <h5 class="tag__title">{{product.name}}</h5>
-        <p class="tag__amount">{{product.products_count}} Products</p>
+  <app-shop>
+    <template v-slot:header__nav>
+    </template>
+    <template v-slot:shop__main>
+      <div class="product__category">
+        <div
+          class="product__category__item"
+          v-for="(product, index) in products"
+          :key="index"
+          :product="product"
+          @click="selected = product.id"
+          :style="{ backgroundImage: `url(${product.image})` }"
+        >
+          <!-- <img :src="product.image" alt="Category" /> -->
+          <div class="item__tag">
+            <h5 class="tag__title">{{ product.name }}</h5>
+            <p class="tag__amount">{{ product.products_count }} Products</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </app-shop>
 </template>
 
 <script>
-import { RepositoryFactory } from '../../../repositories/RepositoryFactory';
-const ProductsRepository = RepositoryFactory.get('products');
+import Shop from "./Shop";
+import { RepositoryFactory } from "../../../repositories/RepositoryFactory";
+const ProductsRepository = RepositoryFactory.get("products");
 
 export default {
-  name: "product__category",
+  components: {
+    appShop: Shop,
+  },
   data() {
     return {
       isLoading: false,
       products: null,
+      selected: undefined,
     };
   },
   created() {
-    this.fetch()
+    this.fetch();
   },
   methods: {
     // fetch data
     async fetch() {
       this.isLoading = true;
-      console.log(ProductsRepository);
       const { data } = await ProductsRepository.get();
       this.isLoading = false;
       this.products = data.data;
     },
-    // Move to productListLink
-    goToProductList() {
-      this.$router.replace({name: 'productListLink'});
-    }
   },
 };
 </script>
@@ -56,13 +62,11 @@ export default {
   grid-template-columns: repeat(3, calc((100% - 40px) / 3));
   grid-template-rows: 296px 296px 296px;
   gap: 20px;
-  column-gap: 20px;
   // Style product category item
   .product__category__item {
     position: relative;
-    img {
-      width: 100%;
-    }
+    background-position: center;
+    background-size: cover;
     // Tag of category item
     .item__tag {
       position: absolute;
@@ -90,8 +94,9 @@ export default {
     &:hover {
       .item__tag {
         background-color: rgb(12, 135, 170);
-        .tag__title, .tag__amount {
-            color: #fff;
+        .tag__title,
+        .tag__amount {
+          color: #fff;
         }
       }
     }

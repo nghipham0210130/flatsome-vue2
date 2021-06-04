@@ -1,242 +1,14 @@
 <template>
-  <div class="product">
-    <!-- Product card  -->
-    <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="new">New</p>
-        <p class="hot">Hot</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-        <p class="hot">Hot</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="new">New</p>
-        <p class="hot">Hot</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-        <p class="hot">Hot</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-        <p class="new">New</p>
-      </div>
-    </div>
+<!-- <label for="numberShow">Showing all 6 results</label>
+                <select name="numberShow" id="numberShow">
+                    <option value="default">Default sorting</option>
+                    <option value="popularity">Sort by popularity</option>
+                    <option value="averageRating">Sort by average rating</option>
+                    <option value="latest">Sort by latest</option>
+                    <option value="priceLowToHigh">Sort by price: low to high</option>
+                    <option value="priceHighToLow">Sort by price: high to low</option>
+                </select> -->
+  <section class="product">
      <div class="product__card">
       <!-- Header card -->
       <div class="card__header">
@@ -272,86 +44,36 @@
         <p class="hot">Hot</p>
       </div>
     </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-        <p class="new">New</p>
-        <p class="hot">Hot</p>
-      </div>
-    </div>
-     <div class="product__card">
-      <!-- Header card -->
-      <div class="card__header">
-        <!-- Image -->
-        <img
-          class="card__image"
-          src="../../../assets/img/product-category/bags.jpeg"
-          alt="Product Item"
-        />
-        <!-- Image when hover -->
-        <img
-          class="card__image hover"
-          src="../../../assets/img/product-category/women.jpeg"
-          alt=""
-        />
-        <!-- Status of product: available or out of stock -->
-        <!-- <div class="card__status">Out of stock</div> -->
-        <div class="card__quick__view hover">Quick view</div>
-      </div>
-      <!-- Body card with description of product -->
-      <div class="card__body">
-        <!-- Category -->
-        <h5 class="card__category">Clothing</h5>
-        <!-- Name -->
-        <h4 class="card__name">Happy Ninja</h4>
-        <!-- Price -->
-        <p class="card__price">$ 35,00</p>
-      </div>
-      <!-- Mark Product: Sale | New | Hot  -->
-      <div class="card__urgent">
-        <p class="sale">Sale!</p>
-        <p class="new">New</p>
-        <p class="hot">Hot</p>
-      </div>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
-import { rootCategories } from "../../../models/Product";
+
+import { RepositoryFactory } from "../../../repositories/RepositoryFactory";
+const ProductsRepository = RepositoryFactory.get("products");
+
 export default {
+  name: "ProductList",
+  props: {
+
+  },
   data() {
     return {
-      rootCategories,
+      isLoading: false,
+      products: null,
     };
+  },
+  created() {
+    this.fetch();
+  },
+  methods: {
+    // fetch data
+    async fetch() {
+      this.isLoading = true;
+      const { data } = await ProductsRepository.getProductsByCategory(this.$route.params, 6);
+      this.isLoading = false;
+      this.products = data.data;
+    },
   },
 };
 </script>

@@ -17,7 +17,7 @@ export default {
     getProductsByCategory(productCategoryId, numberProductPerPage) {
         return Repository.get(`${resource}/category/${productCategoryId}?perPage=${numberProductPerPage}`);
     },
-
+    
     // Get product detail
     getProduct(productId) {
         return Repository.get(`${resource}/${productId}?with=productImages,categories`);

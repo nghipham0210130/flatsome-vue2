@@ -1,60 +1,89 @@
 <template>
-  <div class="app__sidebar">
+  <section class="app__sidebar">
     <nav class="sidebar__nav">
       <ul>
         <!-- Filter by category -->
         <li class="nav__title"><h3>Browser</h3></li>
         <li
           class="nav__category"
-          v-for="item in rootCategories"
-          :key="item.idRootCategory"
+          v-for="item in categoies"
+          :key="item.id"
+          :class="{ active: item.id == selected }"
+          @click="selected = item.id"
         >
-          <a><router-link to="/home/shop/product-list">{{ item.idRootCategory }}</router-link></a>
+          <router-link
+            :to="{
+              name: 'productListByCategory',
+              params: { category: item.name },
+            }"
+            >{{ item.name }}</router-link
+          >
           <!-- Show component category-child when have category child -->
-          <div v-show="item.hasChild">
-            <category-child
-              :rootCategory="item.idRootCategory"
-            ></category-child>
+          <div v-show="item.subCategory.length !== 0">
+            <category-child :subCategory="item.subCategory"></category-child>
+            <!-- <category-child
+              :subCategory="item.subCategory"
+              :selected="selected"
+              :isShow="isShow"
+            ></category-child> -->
           </div>
         </li>
+        <br />
         <!-- Filter by color -->
         <li class="nav__title"><h3>Filter by color</h3></li>
-        <li class="nav__category" v-for="item in colors" :key="item.id">
+        <!-- <li class="nav__category" v-for="item in colors" :key="item.id">
           <a>{{ item.name }}<span>({{amountProductByColorID(item.id)}})</span></a>
-        </li>
+        </li> -->
         <!-- Filter by price -->
       </ul>
     </nav>
-  </div>
+  </section>
 </template>
 
 <script>
-import { rootCategories, colors, products } from "../../models/Product";
-import CategoryChild from "../components/products/CategoryChild.vue";
+import CategoryChild from "./CategoryChild.vue";
+import { RepositoryFactory } from "../../../repositories/RepositoryFactory";
+const ProductsRepository = RepositoryFactory.get("products");
 
 export default {
-  name: "AppSidebar",
+  name: "Sidebar",
   components: {
     CategoryChild,
   },
   data() {
     return {
-      rootCategories,
-      colors,
-      products,
+      isLoading: false,
+      categoies: null,
+      hasSubCategory: false,
+      selected: undefined,
+      // isShow: false,
     };
   },
+  created() {
+    this.fetch();
+  },
   methods: {
-    // analysis amount product follow input idColor
-    amountProductByColorID(idColor) {
-      let amountProduct = 0;
-      this.products.find(x => {
-        if (x.idColor === idColor) {
-          amountProduct = amountProduct + x.amountAvailable;
-        }
-      });
-      return amountProduct;
+    // fetch data
+    async fetch() {
+      this.isLoading = true;
+      const { data } = await ProductsRepository.getSidebar();
+      this.isLoading = false;
+      this.categoies = data.data;
     },
+    // showSubCategory() {
+    //   this.isShow = !this.isShow;
+    //   console.log(this.isShow);
+    // }
+    // // analysis amount product follow input idColor
+    // amountProductByColorID(idColor) {
+    //   let amountProduct = 0;
+    //   this.products.find(x => {
+    //     if (x.idColor === idColor) {
+    //       amountProduct = amountProduct + x.amountAvailable;
+    //     }
+    //   });
+    //   return amountProduct;
+    // },
   },
 };
 </script>
@@ -66,11 +95,12 @@ export default {
   margin-right: 30px;
   .sidebar__nav {
     ul {
-      padding-top: 176px;
+      padding: 0;
       li {
         display: flex;
         flex-direction: column;
         text-align: left;
+        line-height: 40px;
         // Style nav titile
         &.nav__title {
           text-transform: uppercase;
@@ -95,10 +125,15 @@ export default {
           position: relative;
           width: 240px;
           border-bottom: 1px solid rgba(119, 119, 119, 0.5);
+          &.active {
+            a {
+              color: #000;
+            }
+          }
           a {
-            font-size: 1.4em;
+            font-size: 2em;
             line-height: 36px;
-            color: rgb(52, 73, 99);
+            color: rgb(41, 58, 80);
             position: relative;
             span {
               color: rgba(119, 119, 119, 0.5);

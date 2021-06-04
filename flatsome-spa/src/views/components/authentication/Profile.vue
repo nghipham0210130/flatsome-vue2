@@ -1,5 +1,5 @@
 <template>
-  <div class="user__profile container">
+  <main class="user__profile">
     <header class="header">
       <h3>
         <strong>My account</strong>
@@ -32,12 +32,14 @@
       </form>
       <button>SAVE CHANGES</button>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
 export default {
   name: "Profile",
+  components: {
+  },
   computed: {
     // currentUser() {
     //   return this.$store.state.auth.user;
