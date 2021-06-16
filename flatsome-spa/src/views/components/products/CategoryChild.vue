@@ -1,20 +1,29 @@
 <template>
   <div class="category__child">
     <!-- Show arrow icon when root category have child category -->
-    <div v-if="!isShowCategory" class="category__child--hidden">
-      <span @click="showCategoryChild()" class="arrow down"></span>
+    <div
+      v-show="!isShowCategory"
+      @click="changeStatus()"
+      class="category__child--hidden"
+    >
+      <span class="arrow down"></span>
     </div>
     <!-- Show category child when click arrow icon of root category -->
-    <div v-if="isShowCategory" class="category__child--show">
-      <span @click="showCategoryChild()" class="arrow up"></span>
+    <div
+      v-show="isShowCategory"
+      @click="changeStatus()"
+      class="category__child--show"
+    >
+      <span class="arrow up"></span>
+
       <ul>
         <!-- Show list category child of root category -->
         <div v-for="item in subCategory" :key="item.idCategory">
           <li>
             <router-link
               :to="{
-                name: 'productListBySubCategory',
-                params: { subCategory: item.name },
+                name: 'productList',
+                params: { categoryId: item.id },
               }"
               >{{ item.name }}</router-link
             >
@@ -28,9 +37,9 @@
 <script>
 export default {
   props: {
+    selected: Number,
     subCategory: Array,
-    // selected: Number,
-    // isShow: Boolean,
+    isShow: Boolean,
   },
   data() {
     return {
@@ -38,8 +47,12 @@ export default {
     };
   },
   methods: {
-    // Change status show category child when click arrow icon
-    showCategoryChild: function () {
+//     isShowCategory() {
+//       if(this.isShow && this.subCategory[0].parent_id == this.selected) {
+//         console.log("AAAA")
+// ;      }
+//     },
+    changeStatus() {
       this.isShowCategory = !this.isShowCategory;
     },
   },
@@ -91,7 +104,6 @@ ul {
       left: 4px;
     }
     a {
-      font-size: 2em;
       color: rgb(52, 73, 99);
       &:hover {
         font-weight: 700px;

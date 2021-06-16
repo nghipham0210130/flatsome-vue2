@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import { router } from './router/routes'
-// import store from './store';
+import store from './store';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VeeValidate from 'vee-validate';
@@ -24,5 +24,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 new Vue({
   el: '#app',
   router,
+  store: store,
   render: h => h(App)
 }).$mount('#app')

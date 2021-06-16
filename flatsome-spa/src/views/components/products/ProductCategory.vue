@@ -1,55 +1,49 @@
 <template>
-  <app-shop>
-    <template v-slot:header__nav>
-    </template>
-    <template v-slot:shop__main>
-      <div class="product__category">
-        <div
-          class="product__category__item"
-          v-for="(product, index) in products"
-          :key="index"
-          :product="product"
-          @click="selected = product.id"
-          :style="{ backgroundImage: `url(${product.image})` }"
-        >
-          <!-- <img :src="product.image" alt="Category" /> -->
-          <div class="item__tag">
-            <h5 class="tag__title">{{ product.name }}</h5>
-            <p class="tag__amount">{{ product.products_count }} Products</p>
-          </div>
-        </div>
-      </div>
-    </template>
-  </app-shop>
+  <div class="product__category">
+    <div
+      class="product__category__item"
+      v-for="(productCategory, index) in productCategories"
+      :key="index"
+      :product="productCategory"
+      @click="selected = productCategory.id"
+      :style="{ backgroundImage: `url(${productCategory.image})` }"
+    >
+      <router-link
+        :to="{
+          name: 'productList',
+          params: { categoryId: productCategory.id },
+        }"
+        replace
+        class="item__tag"
+      >
+        <h5 class="tag__title">{{ productCategory.name }}</h5>
+        <p class="tag__amount">{{ productCategory.products_count }} Products</p>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
-import Shop from "./Shop";
-import { RepositoryFactory } from "../../../repositories/RepositoryFactory";
-const ProductsRepository = RepositoryFactory.get("products");
+import { mapState, mapActions } from "vuex";
 
 export default {
-  components: {
-    appShop: Shop,
-  },
+  components: {},
   data() {
     return {
-      isLoading: false,
-      products: null,
       selected: undefined,
     };
   },
-  created() {
-    this.fetch();
+  created () {
+    this.getProductCategories;
   },
-  methods: {
-    // fetch data
-    async fetch() {
-      this.isLoading = true;
-      const { data } = await ProductsRepository.get();
-      this.isLoading = false;
-      this.products = data.data;
-    },
+  computed: {
+    ...mapState("PRODUCT", {
+      // Get status open of modal login from store
+      productCategories: "productCategories",
+    }),
+    ...mapActions("PRODUCT", {
+      getProductCategories: "getProductCategories",
+    })
   },
 };
 </script>

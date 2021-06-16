@@ -1,6 +1,7 @@
 import Repository from './Repository';
 
 const resource = "/public";
+const security = "/admin";
 
 export default {
 
@@ -16,12 +17,18 @@ export default {
 
     // Post login (name input[email, password])
     postUserLogin(payload) {
-        return Repository.post(`${resource}/login`, payload);
+        return Repository.post(`${resource}/login`, {
+            username: payload.email,
+            password: payload.password
+        });
     },
 
     // Post register (name input[email, password])
     postUserRegister(payload) {
-        return Repository.post(`${resource}/register`, payload);
+        return Repository.post(`${resource}/register`, {
+            email: payload.email,
+            password: payload.password
+        });
     },
 
     // Update profile user currently (name input [firstnamem lastname, username, email])
@@ -38,4 +45,22 @@ export default {
     updateAddress(payload) {
         return Repository.put(`${resource}/profile/changeaddress`, payload);
     },
+
+    /*METHOD OF ADMIN*/
+    /* POST */
+    // Post Login 
+    postLogin(payload) {
+        return Repository.post(`${security}/login`, {
+            username: payload.email,
+            password: payload.password
+        });
+    },
+
+    // Create Admin
+    createAdmin(payload) {
+        return Repository.post(`${security}`, {
+            avatar: payload.avatar,
+            
+        });
+    }
  }

@@ -2,9 +2,11 @@
   <app-main>
     <div class="shop__header">
       <div class="header__nav">
-        <router-link :to="{name: 'homeLink'}" >Home</router-link>
+        <router-link :to="{ name: 'homeLink' }">Home</router-link>
         /
-        <router-link :to="{name: 'shopLink'}" class="active">Shop</router-link>
+        <router-link :to="{ name: 'shopLink' }" class="active"
+          >Shop</router-link
+        >
         <slot name="header__nav"></slot>
       </div>
       <form>
@@ -12,7 +14,11 @@
       </form>
     </div>
     <sidebar></sidebar>
-    <slot name="shop__main"></slot>
+    <transition>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
   </app-main>
 </template>
 
@@ -30,11 +36,8 @@ export default {
       isActive: true,
     };
   },
-  mounted() {
-    
-  },
-  methods: {
-  },
+  mounted() {},
+  methods: {},
 };
 </script>
 

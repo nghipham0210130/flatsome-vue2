@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { auth } from './auth.module';
+import authStore from './modules/auth';
+import productStore from './modules/product';
+
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    auth
+    AUTH: authStore,
+    PRODUCT: productStore,
   }
 });

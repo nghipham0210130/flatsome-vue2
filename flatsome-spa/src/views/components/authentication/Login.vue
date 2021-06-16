@@ -1,0 +1,294 @@
+<template>
+  <!-- Modal Login -->
+  <div id="loginModal" class="modal">
+    <div class="modal__content">
+      <!-- Form Login -->
+      <form id="loginForm" @submit.prevent="login">
+        <h4 class="login__title">Login</h4>
+        <label for="emailLogin">Username or email address*</label>
+        <input
+          v-model="formLogin.email"
+          type="email"
+          id="emailLogin"
+          name="emailLogin"
+        />
+        <span class="text-danger" v-if="errors.items == null">{{ errors }}</span>
+        <label for="passwordLogin">Password*</label>
+        <input
+          v-model="formLogin.password"
+          type="password"
+          id="passwordLogin"
+          name="passwordLogin"
+        />
+        <span class="text-danger" v-if="errors == null">{{ errors }}</span>
+        <label class="remember__user" for="isRemember">
+          Remember me
+          <input
+            v-model="formLogin.isRemember"
+            type="checkbox"
+            id="isRemember"
+            value="Remember"
+          />
+          <span class="checkmark"></span>
+        </label>
+        <button
+          type="submit"
+          class="btn__signin"
+          @click.prevent="
+            login();
+          "
+        >
+          Log in
+        </button>
+        <a href="#">Lost your password?</a>
+      </form>
+      <hr />
+      <!-- Form Register -->
+      <form id="registerForm" @submit.prevent="register">
+        <h4 class="register__title">Register</h4>
+        <label for="emailRegister">Email address*</label>
+        <input
+          v-model="formRegister.email"
+          type="email"
+          id="emailRegister"
+          name="emailRegister"
+        />
+        <span class="text-danger" v-if="errors == null">{{ errors}}</span>
+        <label for="passwordRegister">Password*</label>
+        <input
+          v-model="formRegister.password"
+          type="password"
+          id="passwordRegister"
+          name="passwordRegister"
+        />
+        <span class="text-danger" v-if="errors == null">{{ errors }}</span>
+        <p>
+          Your personal data will be used to support your experience throughout
+          this website, to manage access to your account, and for other purposes
+          described in our privacy policy.
+        </p>
+        <button
+          type="submit"
+          class="btn__register"
+          @click.prevent="
+            register()
+          "
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations, mapActions } from "vuex";
+import Form from "vform";
+
+export default {
+  data() {
+    return {
+      formLogin: new Form({
+        email: "",
+        password: "",
+        isRemember: false,
+      }),
+      formRegister: new Form({
+        email: "",
+        password: "",
+      }),
+    };
+  },
+  computed: {
+    ...mapState("AUTH", {
+      // Status open of modal login from store
+      openModalLogin: "openModalLogin",
+      // Status logginIn of modal login from store
+      loggingIn: "loggingIn",
+      // Get errors if login or register error
+      errors: "errors",
+    }),
+    ...mapMutations("AUTH", {
+      openModalMutation: "SHOW_MODAL_LOGIN",
+    }),
+    openModal: {
+      // Get open modal login status from store
+      get() {
+        return this.openModalLogin;
+      },
+      // Set open modal login status from local
+      set() {
+        this.openModalMutation();
+      },
+    }
+  },
+  mounted() {
+    this.$nextTick(function () {
+      // Get the modal id
+      var modal = document.getElementById("loginModal");
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          this.openModalMutation;
+          console.log(this.openModalMutation);
+        }
+      };
+    });
+  },
+  methods: {
+    ...mapActions("AUTH", {
+      loginForm: "login",
+      registerForm: "register"
+    }),
+    // Transmission login action with data (emailLogin and passwordLogin)
+    login() {
+      this.loginForm({
+        email: this.formLogin.email,
+        password: this.formLogin.password,
+        isRemember: this.formLogin.isRemember,
+      });
+    },
+    // Transmission register action with data (emailRegister and passwordRegister)
+    register() {
+      this.registerForm({
+        email: this.formRegister.email,
+        password: this.formRegister.password,
+      });
+    },
+    // Reset form
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding-top: 255px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  .modal__content {
+    max-width: 875px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    column-gap: 30px;
+    padding: 30px 35px 65px;
+    font-size: 1.4em;
+    border: 1px solid rgb(128, 128, 128);
+    transform: translateZ(0);
+    background-color: #fff;
+    h4 {
+      text-transform: uppercase;
+      color: rgb(85, 85, 85);
+      font-weight: bold;
+      margin-bottom: 28px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+      font-size: 1.4em;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 28px;
+      padding: 10px 15px;
+      border: 1px solid rgb(221, 221, 221);
+    }
+    a {
+      font-size: 1.4em;
+      text-transform: capitalize;
+      color: rgb(51, 72, 98);
+    }
+    p {
+      font-size: 1.4em;
+      color: rgb(128, 128, 128);
+    }
+    button {
+      display: block;
+      text-transform: uppercase;
+      font-size: 1.6em;
+      font-weight: 400;
+      color: #fff;
+      background-color: rgb(41, 140, 178);
+      margin-bottom: 35px;
+      border: none;
+      padding: 10px 20px;
+    }
+    hr {
+      height: 100%;
+      border: 1px solid rgb(221, 221, 221);
+    }
+    /* The remember */
+    .remember__user {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 1.4em;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin-bottom: 25px;
+      /* Hide the browser's default checkbox */
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        /* When the checkbox is checked, add a blue background */
+        &:checked ~ .checkmark {
+          background-color: #2196f3;
+        }
+        /* Show the checkmark when checked */
+        &:checked ~ .checkmark:after {
+          display: block;
+        }
+      }
+      /* Create a custom checkbox */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        border-radius: 5px;
+        background-color: #eee;
+        /* Create the checkmark/indicator (hidden when not checked) */
+        &:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+        /* Style the checkmark/indicator */
+        &:after {
+          left: 9px;
+          top: 3px;
+          width: 7px;
+          height: 15px;
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+      }
+      /* On mouse-over, add a grey background color */
+      &:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+    }
+  }
+}
+</style>

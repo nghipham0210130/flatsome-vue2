@@ -1,18 +1,37 @@
 <template>
-  <main class="product-detail">
+  <main
+    class="product-detail"
+    v-if="product != null  && getImage(0) != undefined"
+  >
     <div class="product-detail__image">
       <div class="image__main">
-        <img src="../../../assets/img/products/T_7_front.jpeg" alt="" />
+        <div
+          class="card__image"
+          :style="{
+            backgroundImage: `url(${getImage(imageId)})`,
+          }"
+        ></div>
         <span class="icon">
           <font-awesome-icon icon="expand-alt" />
         </span>
       </div>
       <div class="image__option">
         <div class="option__front">
-          <img src="../../../assets/img/products/T_7_front.jpeg" alt="" />
+          <img
+            class="card__image"
+            :src="getImage(0)"
+            alt="Product Item Front"
+            @click="imageId = 0"
+          />
         </div>
         <div class="option__back">
-          <img src="../../../assets/img/products/T_7_back.jpg" alt="" />
+          <!-- Image when hover -->
+          <img
+            class="card__image hover"
+            :src="getImage(1)"
+            alt="Product Item Back"
+            @click="imageId = 1"
+          />
         </div>
       </div>
     </div>
@@ -24,52 +43,103 @@
           <span class="arrow right"></span>
         </div>
       </div>
-      <h3 class="infomation__title">Happy Ninja</h3>
-      <h3 class="infomation__price">$35,00</h3>
+      <h3 class="infomation__title">{{ product.name }}</h3>
+      <h3 class="infomation__price">${{ product.price }}</h3>
       <p class="infomation__detail">
-        Pellentesque habitant morbi tristique senectus et netus et malesuada
-        fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae,
-        ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam
-        egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleigend
-        leo.
+        {{ product.description }}
       </p>
       <div class="information__cart">
-        <div class="quantity">
-          <span class="minus">-</span>
-          <input type="text" value="1" inputmode="numberic" />
-          <span class="plus">+</span>
+        <div class="quantities">
+          <span class="minus" @click="decreaseQuantity">-</span>
+          <input type="text" :value="currentQuantity" inputmode="numberic" />
+          <span class="plus" @click="increaseQuantity">+</span>
         </div>
         <button class="btn btn__add-to-cart">Add to cart</button>
       </div>
       <p class="infomation__category">
-        Categories: <span>Clothing, Hoodies</span>
+        Categories:
+        <span v-if="product.categories[0].parent_id != null">{{
+          getParentCategory(product.categories[0].parent_id)
+        }}</span>
+        <span v-if="product.categories[0].name != undefined">{{
+          product.categories[0].name
+        }}</span>
       </p>
     </div>
   </main>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "ProductDetail",
-  components: {
+  components: {},
+  data() {
+    return {
+      isLoadingProduct: false,
+      isLoadingProducts: false,
+      currentQuantity: 1,
+      imageId: 0,
+    };
   },
-  mounted() {
-    this.$nextTick(function () {
-      document.document.getElementsByClassName("minus")[0].click(function () {
-        var input = this.parent().find(".input");
-        var count = parseInt(input.val()) - 1;
-        count = count < 1 ? 1 : count;
-        input.val(count);
-        input.change();
-        return false;
-      });
-      document.getElementsByClassName("plus")[0].click(function () {
-        var input = this.parent().find(".input");
-        input.val(parseInt(input.val()) + 1);
-        input.change();
-        return false;
-      });
-    });
+  async created() {
+    await this.getProduct(this.$route.params.productId);
+    await this.getSidebar;
+    this.currentRoutePath;
+  },
+  computed: {
+    ...mapState("PRODUCT", {
+      product: "product",
+      categories: "categories",
+      isLoading: "isLoading",
+      loaded: "loaded",
+    }),
+    currentRoutePath() {
+      return this.$route.path;
+    },
+  },
+  mounted() {},
+  methods: {
+    ...mapActions("PRODUCT", {
+      // Action get product
+      getProduct: "getProduct",
+    }),
+
+    // Get parent category for current category
+    getParentCategory(imageId) {
+      const parentCategory = this.categories.find(
+        (category) => category.id == imageId
+      );
+      return parentCategory.name;
+    },
+    // Get image from productImages (id = 0 | 1)
+    getImage(imageId) {
+      if(this.product.productImages[imageId] == null) {
+        return undefined;
+      }
+      if (this.product.productImages[imageId].image == undefined) {
+        return undefined;
+      }
+      if (imageId == 1 || imageId == 0) {
+        return this.product.productImages[imageId].image;
+      }
+      return this.product.productImages[0].image;
+    },
+    // decreasecrease quantities to one if currentQuantity > 0
+    decreaseQuantity() {
+      if (this.currentQuantity > 0) {
+        console.log(this.product.quantities);
+        this.currentQuantity--;
+      }
+    },
+    // increase quantities to one
+    increaseQuantity() {
+      console.log(this.product.quantities);
+      if (this.currentQuantity < this.product.quantities) {
+        this.currentQuantity++;
+      }
+    },
   },
 };
 </script>
@@ -88,6 +158,14 @@ export default {
     .image__main {
       position: relative;
       margin-bottom: 15px;
+      background-position: center;
+      background-size: cover;
+      .card__image {
+        height: 51em;
+        position: relative;
+        background-position: center;
+        background-size: cover;
+      }
       .icon {
         width: 39px;
         height: 39px;
@@ -107,7 +185,7 @@ export default {
           }
         }
         &:hover {
-            cursor: pointer;
+          cursor: pointer;
         }
       }
     }
@@ -160,7 +238,6 @@ export default {
           border: 2px solid rgb(192, 192, 192);
           left: 19px;
           top: -6px;
-          
         }
         &::before {
           content: "";
@@ -173,7 +250,7 @@ export default {
           top: -6px;
         }
         &:hover {
-            cursor: pointer;
+          cursor: pointer;
         }
       }
     }
@@ -211,7 +288,7 @@ export default {
       display: flex;
       flex-direction: row;
       margin-bottom: 37px;
-      .quantity {
+      .quantities {
         margin-right: 20px;
         span {
           cursor: pointer;
@@ -246,7 +323,7 @@ export default {
         padding: 0.375rem 1.25rem;
         border-radius: 0;
         &:hover {
-            opacity: 0.8;
+          opacity: 0.8;
         }
       }
     }

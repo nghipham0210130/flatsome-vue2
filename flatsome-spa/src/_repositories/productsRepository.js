@@ -13,13 +13,13 @@ export default {
         return Repository.get(`${resource}/sidebar?with=subCategory`);
     },
 
-    // Get product by category Id
+    // Get Product By Category
     getProductsByCategory(productCategoryId, numberProductPerPage) {
         return Repository.get(`${resource}/category/${productCategoryId}?perPage=${numberProductPerPage}`);
     },
     
     // Get product detail
     getProduct(productId) {
-        return Repository.get(`${resource}/${productId}?with=productImages,categories`);
+        return Repository.get(`${resource}/product/${productId}?with=productImages,categories`);
     }
  }
