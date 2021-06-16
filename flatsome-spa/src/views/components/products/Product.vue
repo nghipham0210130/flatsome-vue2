@@ -101,9 +101,8 @@ export default {
     position: relative;
     // Style imge
     .card__image {
-      width: 100%;
-      height: 296px;
-      margin-bottom: 8px;
+      max-width: 100%;
+      object-fit: cover;
       &.hover {
         top: 0;
         left: 0;

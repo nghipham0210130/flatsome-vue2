@@ -5,12 +5,11 @@
   >
     <div class="product-detail__image">
       <div class="image__main">
-        <div
-          class="card__image"
-          :style="{
-            backgroundImage: `url(${getImage(imageId)})`,
-          }"
-        ></div>
+        <img
+            class="card__image"
+            :src="getImage(imageId)"
+            alt="Product Item"
+          />
         <span class="icon">
           <font-awesome-icon icon="expand-alt" />
         </span>
@@ -129,7 +128,6 @@ export default {
     // decreasecrease quantities to one if currentQuantity > 0
     decreaseQuantity() {
       if (this.currentQuantity > 0) {
-        console.log(this.product.quantities);
         this.currentQuantity--;
       }
     },
@@ -152,19 +150,16 @@ export default {
   grid-template-columns: 1fr 1fr;
   column-gap: 25px;
   img {
-    width: 100%;
+    max-width: 100%;
   }
   .product-detail__image {
     .image__main {
       position: relative;
       margin-bottom: 15px;
-      background-position: center;
-      background-size: cover;
       .card__image {
+        max-width: 100%;
         height: 51em;
-        position: relative;
-        background-position: center;
-        background-size: cover;
+        object-fit: cover;
       }
       .icon {
         width: 39px;
