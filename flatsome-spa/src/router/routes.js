@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import ProductList from "../views/components/products/ProductList";
 import ProductCategory from "../views/components/products/ProductCategory";
 import ProductDetail from "../views/components/products/ProductDetail";
@@ -58,18 +59,19 @@ export const router = new VueRouter({
       name: "userCurrently",
       children: [
         {
-          // Go to checkout
-          path: "checkout",
-          name: "checkoutLink",
-          component: Checkout,
-        },
-        {
           // Go to profile user currently
           path: "profile",
           name: "profileLink",
           component: Profile,
         },
       ],
+    },
+    {
+      // Go to checkout
+      path: "/Checkout",
+      name: "checkoutLink",
+      component: Checkout,
+      meta: { requiresAuth: true }
     },
   ],
 });
@@ -80,18 +82,8 @@ export const router = new VueRouter({
 
 // Global BEFORE hooks
 router.beforeEach((to, from, next) => {
-
-  // re-route
-  if (to.path === "/foo") {
-    next("/")
-  }
-  else if (to.path === "/error") {
-    const err = new Error("My Error Message")
-    next(err)
-  }
-  else {
+  
     next()
-  }
 })
 
 // Global beforeResolve

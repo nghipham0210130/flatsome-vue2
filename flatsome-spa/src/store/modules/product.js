@@ -25,7 +25,7 @@ const getters = {
     },
     isLoading(state) {
         return state.isLoading;
-    }
+    } 
 };
 const mutations = {
     // Set sidebar 

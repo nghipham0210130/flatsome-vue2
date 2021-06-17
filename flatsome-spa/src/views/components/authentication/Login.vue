@@ -6,21 +6,21 @@
       <form id="loginForm" @submit.prevent="login">
         <h4 class="login__title">Login</h4>
         <label for="emailLogin">Username or email address*</label>
+        <span class="text-danger" v-if="emailError!=null">{{ emailError }}</span>
         <input
           v-model="formLogin.email"
           type="email"
           id="emailLogin"
           name="emailLogin"
         />
-        <span class="text-danger" v-if="errors.items == null">{{ errors }}</span>
         <label for="passwordLogin">Password*</label>
+        <span class="text-danger" v-if="passwordError!=null">{{ passwordError }}</span>
         <input
           v-model="formLogin.password"
           type="password"
           id="passwordLogin"
           name="passwordLogin"
         />
-        <span class="text-danger" v-if="errors == null">{{ errors }}</span>
         <label class="remember__user" for="isRemember">
           Remember me
           <input
@@ -47,21 +47,21 @@
       <form id="registerForm" @submit.prevent="register">
         <h4 class="register__title">Register</h4>
         <label for="emailRegister">Email address*</label>
+        <span class="text-danger" v-if="emailError!=null">{{ emailError }}</span>
         <input
           v-model="formRegister.email"
           type="email"
           id="emailRegister"
           name="emailRegister"
         />
-        <span class="text-danger" v-if="errors == null">{{ errors}}</span>
         <label for="passwordRegister">Password*</label>
+        <span class="text-danger" v-if="passwordError!=null">{{ passwordError }}</span>
         <input
           v-model="formRegister.password"
           type="password"
           id="passwordRegister"
           name="passwordRegister"
         />
-        <span class="text-danger" v-if="errors == null">{{ errors }}</span>
         <p>
           Your personal data will be used to support your experience throughout
           this website, to manage access to your account, and for other purposes
@@ -97,6 +97,8 @@ export default {
         email: "",
         password: "",
       }),
+      emailError: "",
+      passwordError: "",
     };
   },
   computed: {
@@ -104,23 +106,13 @@ export default {
       // Status open of modal login from store
       openModalLogin: "openModalLogin",
       // Status logginIn of modal login from store
-      loggingIn: "loggingIn",
+      isLoggedIn: "isLoggedIn",
       // Get errors if login or register error
-      errors: "errors",
+      errorsFromStore: "errors",
     }),
     ...mapMutations("AUTH", {
       openModalMutation: "SHOW_MODAL_LOGIN",
     }),
-    openModal: {
-      // Get open modal login status from store
-      get() {
-        return this.openModalLogin;
-      },
-      // Set open modal login status from local
-      set() {
-        this.openModalMutation();
-      },
-    }
   },
   mounted() {
     this.$nextTick(function () {
@@ -129,8 +121,7 @@ export default {
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function (event) {
         if (event.target == modal) {
-          this.openModalMutation;
-          console.log(this.openModalMutation);
+          this.location.reload();
         }
       };
     });
@@ -138,24 +129,41 @@ export default {
   methods: {
     ...mapActions("AUTH", {
       loginForm: "login",
-      registerForm: "register"
+      registerForm: "register",
+      closeModalLogin: "closeModalLogin"
     }),
     // Transmission login action with data (emailLogin and passwordLogin)
-    login() {
-      this.loginForm({
+    async login() {
+      await this.loginForm({
         email: this.formLogin.email,
         password: this.formLogin.password,
         isRemember: this.formLogin.isRemember,
       });
+      if(!this.isLoggedIn) {
+        this.getError();
+      }
     },
     // Transmission register action with data (emailRegister and passwordRegister)
-    register() {
-      this.registerForm({
+    async register() {
+      await this.registerForm({
         email: this.formRegister.email,
         password: this.formRegister.password,
       });
+      if(!this.isLoggedIn) {
+        this.getError();
+      }
     },
-    // Reset form
+    async logout() {
+
+    },
+    getError() {
+      if(this.errorsFromStore.email) {
+        this.emailError = this.errorsFromStore.email[0];
+      }
+      if(this.errorsFromStore.password) {
+        this.passwordError = this.errorsFromStore.password[0];
+      }
+    }
   },
 };
 </script>

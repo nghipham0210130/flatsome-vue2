@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseDomain = "https://gumistore.herokuapp.com";
 const baseURL = `${baseDomain}/api`;
-const token = sessionStorage.getItem('token');
+const token = localStorage.getItem('token');
 
 
 export default axios.create({
@@ -13,6 +13,3 @@ export default axios.create({
         "Authorization": `Bearer ${token}`,
     }
 })
-
-//expires_in
-//access_token

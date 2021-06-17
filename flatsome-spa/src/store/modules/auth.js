@@ -3,14 +3,14 @@ const UsersRepository = RepositoryFactory.get("users");
 
 const state = {
     openModalLogin: false,
-    loggingIn: false,
-    errors: null,
-    user: null,
-    token: null,
+    isLoggedIn: false,
+    errors: {},
+    user: {},
+    token: localStorage.getItem("token") || "",
 };
 const getters = {
     authenticated(state) {
-        return state.logginIn;
+        return state.isLoggedIn;
     },
     user(state) {
         return state.user;
@@ -24,11 +24,11 @@ const mutations = {
         state.openModalLogin = !state.openModalLogin;
     },
     LOGIN_SUCCESS(state){
-        state.loggingIn = !state.loggingIn;  
+        state.isLoggedIn = !state.isLoggedIn;  
         state.openModalLogin = !state.openModalLogin;
     },
     REGISTER_SUCCESS(state) {
-        state.loggingIn = !state.loggingIn;
+        state.isLoggedIn = !state.isLoggedIn;
         state.openModalLogin = !state.openModalLogin;
     },
     SET_TOKEN(state, payload) {
@@ -38,46 +38,68 @@ const mutations = {
         state.user = payload;
     },
     LOGOUT_USER(state) {
-        state.currentUser = {}
-    }
+        state.currentUser = {};
+        state.isLoggedIn = !state.isLoggedIn;
+    },
+    SET_ERORRS(state, payload) {
+        state.errors = payload;
+    },
 };
 const actions = {
     async login({commit}, payload) {
         try {
             let response = await UsersRepository.postUserLogin(payload);
-            let token = response.data.access_token
+            let token = response.data.access_token;
+            let user = response.data.user;
+            localStorage.setItem("token", token);
             commit("LOGIN_SUCCESS");
+            commit("SET_USER", user);
             commit('SET_TOKEN', token);
-            console.log(response.data);
         } catch (error) {
+            localStorage.removeItem('token');
             // password don't enough 6 characters
             if (error.response.status === 422) {
-                this.errors = error.response.data.errors.password[0];
-                console.log(error.response);
+                let errors = error.response.data.errors;
+                commit("SET_ERORRS", errors);
             }
             // email wrong or password wrong
             else if (error.response.status === 401) {
-                this.errors = error.response.data.error;
-                console.log(this.errors);
+                let errors = error.response.data.error;
+                commit("SET_ERORRS", errors);
             }
         }
     },
     async register({commit}, payload) {
         try {
             const response = await UsersRepository.postUserRegister(payload);
-            console.log("Response ....");
-            console.log(response);
+            let user = response.data;
+            let token = response.data.access_token;
+            localStorage.setItem("token", token);
+            console.log("Hi", token);
             commit("REGISTER_SUCCESS");
+            commit("SET_USER", user);
+            commit("SET_TOKEN", token);
         } catch (error) {
-            console.log(error.response);
-            // password don't enough 6 characters
+            localStorage.removeItem('token');
+            // email has already been take || password don't enough 6 characters
             if (error.response.status === 422) {
-                this.errors = error.response.data.errors.email[0];
+                let errors = error.response.data.errors;
+                commit("SET_ERORRS", errors);
             }  
             else if (error.response.status === 401) {
-                this.errors = error.response.data.error;
+                let errors = error.response.data.error;
+                commit("SET_ERORRS", errors);
             }
         }
+    },
+    closeModalLogin({commit}) {
+        commit("SHOW_MODAL_LOGIN");
+    },
+    async logout({commit}) {
+        await UsersRepository.getLogout();
+        commit("LOGOUT_USER");
+        commit("SET_TOKEN", null);
+        localStorage.removeItem("token");
     },
 };
 
@@ -88,28 +110,3 @@ export default {
     mutations,
     actions,
 }
-
-
-
-
-// export default {
-//     data() {
-//         return {
-//           isLoading: false,
-//           users: null,
-//         };
-//       },
-//       created() {
-//         this.fetchUser();
-//       },
-//       methods: {
-//         // fetch data for User
-//         async fetchUser() {
-//             this.isLoading = true;
-//             const { dataUser } = await UsersRepository.get();
-//             this.isLoading = false;
-//             this.users = data.data;
-//           },
-//       },
-
-// }

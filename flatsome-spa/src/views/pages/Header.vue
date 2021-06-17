@@ -20,15 +20,15 @@
           <!-- Check that the SDK client is not currently loading before accessing is methods -->
           <li class="nav__account">
 
-            <a v-if="!authenticated" id="loginButtonModal" ref="loginButtonModal" @click="showLoginModal()"
-              >Login {{authenticated}}</a
+            <a v-if="!isLoggedIn" id="loginButtonModal" ref="loginButtonModal" @click="showLoginModal()"
+              >Login</a
             >
-            <a v-if="authenticated">Logout</a>
+            <a v-if="isLoggedIn" @click="logout()">Logout</a>
             <transition>
               <app-login v-show="openModalLogin"></app-login>
             </transition>
           </li>
-          <li class="nav__card"><a href="">Card/$0,00</a><span>0</span></li>
+          <li class="nav__card"><router-link :to="{ name: 'checkoutLink'}" @click="cartHanlde()">Cart/$0,00</router-link><span>0</span></li>
         </ul>
       </nav>
     </div>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import Login from "../components/authentication/Login.vue";
 
 export default {
@@ -52,31 +52,30 @@ export default {
     ...mapState("AUTH", {
       // Get status open of modal login from store
       openModalLogin: "openModalLogin",
+      isLoggedIn: "isLoggedIn",
+      user: "user",
     }),
     ...mapMutations("AUTH", { 
       openModalMutation: "SHOW_MODAL_LOGIN",
     }),
-    // openModal: {
-    //   // Get open modal login status from store
-    //   get() {
-    //     return this.openModalLogin;
-    //   },
-    //   // Set open modal login status from local
-    //   set() {
-    //     this.openModalMutation;
-    //   },
-    // },
     ...mapGetters("AUTH", {
       // Get authenticated
       authenticated: "authenticated",
       user: "user",
     }),
-    
-
   },
   methods: {
+    ...mapActions("AUTH", {
+      logoutFromStore: "logout",
+    }),
     showLoginModal() {
       this.openModalMutation;
+    },
+    async logout() {
+      await this.logoutFromStore();
+    },
+    cartHanlde() {    
+       console.log("Hehe", localStorage.getItem('token'));
     }
   }
 };
