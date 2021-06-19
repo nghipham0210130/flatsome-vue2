@@ -10,6 +10,8 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faExpandAlt } from '@fortawesome/free-solid-svg-icons'
+import VueSimpleAlert from "vue-simple-alert";
+
 
 
 // // Import modal 
@@ -20,6 +22,7 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.use(VueSimpleAlert);
 
 new Vue({
   el: '#app',

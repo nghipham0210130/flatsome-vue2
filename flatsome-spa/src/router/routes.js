@@ -53,21 +53,15 @@ export const router = new VueRouter({
       name: "productDetail",
       component: ProductDetail,
     },
-    // Go to checkout or profile section when logged in
+
+    // Go to profile user currently
     {
-      path: "/:userCurrently/:id",
-      name: "userCurrently",
-      children: [
-        {
-          // Go to profile user currently
-          path: "profile",
-          name: "profileLink",
-          component: Profile,
-        },
-      ],
+      path: "/Profile",
+      name: "profileLink",
+      component: Profile,
     },
+    // Go to checkout
     {
-      // Go to checkout
       path: "/Checkout",
       name: "checkoutLink",
       component: Checkout,
