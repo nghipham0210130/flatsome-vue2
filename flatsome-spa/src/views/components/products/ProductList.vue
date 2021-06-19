@@ -38,9 +38,11 @@ export default {
   },
   async created() {
     await this.getProducts({
-        productCategoryId: this.$route.params.categoryId,
-        numberProductPerPage: this.numberProductsShow
-      });
+      productCategoryId: this.$route.params.categoryId,
+      numberProductPerPage: this.numberProductsShow,
+    });
+  },
+  mouted() {
     this.products = this.productsFromStore;
   },
   computed: {
@@ -49,16 +51,35 @@ export default {
       productsFromStore: "products",
       productCategoryId: "productCategoryId",
     }),
-    currentRoute() {
-      return this.$route.params.categoryId;
-    },
+    ...mapState("AUTH", {
+      user: "user",
+    }),
   },
   methods: {
     ...mapActions("PRODUCT", {
       // Action get product list
       getProducts: "getProducts",
     }),
-  }
+  },
+  // Set guard on the component options object:
+  beforeRouteLeave(to, from, next) {
+    next();
+  },
+  /* Called when this component is reused.
+  Here we have a chance to update the component since mounted()
+  and other life-cycle hooks won't be called when a component is reused.
+  */
+  async beforeRouteUpdate(to, from, next) {
+    // Set products null to create new products (avoid new products push to current products)
+    this.products = null;
+    await this.getProducts({
+      productCategoryId: to.params.categoryId,
+      numberProductPerPage: this.numberProductsShow,
+    });
+    console.log("change", from.params.categoryId, "to", to.params.categoryId);
+    this.products = this.productsFromStore;
+    next();
+  },
 };
 </script>
 

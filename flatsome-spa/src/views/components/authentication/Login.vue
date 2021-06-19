@@ -6,7 +6,9 @@
       <form id="loginForm" @submit.prevent="login">
         <h4 class="login__title">Login</h4>
         <label for="emailLogin">Username or email address*</label>
-        <span class="text-danger" v-if="emailError!=null">{{ emailError }}</span>
+        <span class="text__danger" v-if="emailErrorLogin != null">{{
+          emailErrorLogin
+        }}</span>
         <input
           v-model="formLogin.email"
           type="email"
@@ -14,7 +16,9 @@
           name="emailLogin"
         />
         <label for="passwordLogin">Password*</label>
-        <span class="text-danger" v-if="passwordError!=null">{{ passwordError }}</span>
+        <span class="text__danger" v-if="passwordErrorLogin != null">{{
+          passwordErrorLogin
+        }}</span>
         <input
           v-model="formLogin.password"
           type="password"
@@ -31,13 +35,7 @@
           />
           <span class="checkmark"></span>
         </label>
-        <button
-          type="submit"
-          class="btn__signin"
-          @click.prevent="
-            login();
-          "
-        >
+        <button type="submit" class="btn__signin" @click.prevent="login()">
           Log in
         </button>
         <a href="#">Lost your password?</a>
@@ -47,7 +45,9 @@
       <form id="registerForm" @submit.prevent="register">
         <h4 class="register__title">Register</h4>
         <label for="emailRegister">Email address*</label>
-        <span class="text-danger" v-if="emailError!=null">{{ emailError }}</span>
+        <span class="text__danger" v-if="emailErrorRegister != null">{{
+          emailErrorRegister
+        }}</span>
         <input
           v-model="formRegister.email"
           type="email"
@@ -55,7 +55,9 @@
           name="emailRegister"
         />
         <label for="passwordRegister">Password*</label>
-        <span class="text-danger" v-if="passwordError!=null">{{ passwordError }}</span>
+        <span class="text__danger" v-if="passwordErrorRegister != null">{{
+          passwordErrorRegister
+        }}</span>
         <input
           v-model="formRegister.password"
           type="password"
@@ -67,13 +69,7 @@
           this website, to manage access to your account, and for other purposes
           described in our privacy policy.
         </p>
-        <button
-          type="submit"
-          class="btn__register"
-          @click.prevent="
-            register()
-          "
-        >
+        <button type="submit" class="btn__register" @click.prevent="register()">
           Register
         </button>
       </form>
@@ -82,7 +78,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import Form from "vform";
 
 export default {
@@ -97,21 +93,18 @@ export default {
         email: "",
         password: "",
       }),
-      emailError: "",
-      passwordError: "",
+      emailErrorLogin: "",
+      passwordErrorLogin: "",
+      emailErrorRegister: "",
+      passwordErrorRegister: "",
     };
   },
   computed: {
     ...mapState("AUTH", {
-      // Status open of modal login from store
-      openModalLogin: "openModalLogin",
       // Status logginIn of modal login from store
       isLoggedIn: "isLoggedIn",
       // Get errors if login or register error
       errorsFromStore: "errors",
-    }),
-    ...mapMutations("AUTH", {
-      openModalMutation: "SHOW_MODAL_LOGIN",
     }),
   },
   mounted() {
@@ -130,7 +123,6 @@ export default {
     ...mapActions("AUTH", {
       loginForm: "login",
       registerForm: "register",
-      closeModalLogin: "closeModalLogin"
     }),
     // Transmission login action with data (emailLogin and passwordLogin)
     async login() {
@@ -139,8 +131,26 @@ export default {
         password: this.formLogin.password,
         isRemember: this.formLogin.isRemember,
       });
-      if(!this.isLoggedIn) {
-        this.getError();
+      // Check login not success
+      if (!this.isLoggedIn) {
+        //  Check errors email correctly
+        if (this.errorsFromStore.username) {
+          this.emailErrorLogin = this.errorsFromStore.username[0];
+        }
+        //  Check errors email available
+        if (this.errorsFromStore.error) {
+          this.emailErrorLogin = this.errorsFromStore.error;
+        }
+        //  Check errors password available
+        if (this.errorsFromStore.password) {
+          this.passwordErrorLogin = this.errorsFromStore.password[0];
+        }
+      }
+      else {
+        this.formLogin.email = null;
+        this.formLogin.password = null;
+        this.formLogin.isRemember = false;
+        location.reload();
       }
     },
     // Transmission register action with data (emailRegister and passwordRegister)
@@ -149,21 +159,22 @@ export default {
         email: this.formRegister.email,
         password: this.formRegister.password,
       });
-      if(!this.isLoggedIn) {
-        this.getError();
+      // Check register not success
+      if (!this.isLoggedIn) {
+        //  Check errors email available
+        if (this.errorsFromStore.email) {
+          this.emailErrorRegister = this.errorsFromStore.email[0];
+        }
+        //  Check errors password available
+        if (this.errorsFromStore.password) {
+          this.passwordErrorRegister = this.errorsFromStore.password[0];
+        }
+      } else {
+        this.formLogin.email = null;
+        this.formLogin.password = null;
+        location.reload();
       }
     },
-    async logout() {
-
-    },
-    getError() {
-      if(this.errorsFromStore.email) {
-        this.emailError = this.errorsFromStore.email[0];
-      }
-      if(this.errorsFromStore.password) {
-        this.passwordError = this.errorsFromStore.password[0];
-      }
-    }
   },
 };
 </script>
@@ -230,6 +241,12 @@ export default {
       margin-bottom: 35px;
       border: none;
       padding: 10px 20px;
+    }
+    span {
+      &.text__danger {
+        color: rgb(238, 9, 9);
+        font-size: 1.2em;
+      }
     }
     hr {
       height: 100%;

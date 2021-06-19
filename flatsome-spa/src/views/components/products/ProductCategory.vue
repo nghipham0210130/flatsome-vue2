@@ -6,7 +6,7 @@
       :key="index"
       :product="productCategory"
       @click="selected = productCategory.id"
-      :style="{ backgroundImage: `url(${productCategory.image})` }"
+      :style="{ backgroundImage: `url(${getImage(productCategory)})` }"
     >
       <router-link
         :to="{
@@ -45,6 +45,16 @@ export default {
       getProductCategories: "getProductCategories",
     })
   },
+  methods: {
+    // Get image 
+    getImage(productCategory) {
+      // If image undefined, set image default
+      if(productCategory.image == undefined) {
+        productCategory.image = "../../../assets/img/no_image_available.jpg";
+      }
+      return productCategory.image;
+    }
+  }
 };
 </script>
 
@@ -61,6 +71,7 @@ export default {
     position: relative;
     background-position: center;
     background-size: cover;
+    height: 296px;
     // Tag of category item
     .item__tag {
       position: absolute;

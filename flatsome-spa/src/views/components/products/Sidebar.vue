@@ -9,7 +9,7 @@
           v-for="category in categories"
           :key="category.id"
           :class="{ active: category.id == selected }"
-          @click="selected = category.id; showSubCategory();"
+          @click.capture="selected = category.id; showSubCategory();"
         >
           <router-link
             :to="{

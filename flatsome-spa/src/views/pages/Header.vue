@@ -19,16 +19,38 @@
         <ul class="menu">
           <!-- Check that the SDK client is not currently loading before accessing is methods -->
           <li class="nav__account">
-
-            <a v-if="!isLoggedIn" id="loginButtonModal" ref="loginButtonModal" @click="showLoginModal()"
+            <a
+              v-if="!isLoggedIn"
+              id="loginButtonModal"
+              ref="loginButtonModal"
+              @click="showModalLogin()"
               >Login</a
             >
-            <a v-if="isLoggedIn" @click="logout()">Logout</a>
-            <transition>
-              <app-login v-show="openModalLogin"></app-login>
-            </transition>
+            <app-login v-show="openModalLogin"></app-login>
+            <nav v-if="isLoggedIn" >
+              <a href="#"
+                ><img src="../../assets/img/avatar_icon.png" alt="Avatar Icon"
+              /></a>
+              <ul class="dropdown">
+                <li>
+                  <router-link
+                    :to="{
+                      name: 'profileLink',
+                    }"
+                    >Your Profile</router-link
+                  >
+                </li>
+                <li>
+                  <a @click="logout()">Logout</a>
+                </li>
+              </ul>
+            </nav>
           </li>
-          <li class="nav__card"><router-link :to="{ name: 'checkoutLink'}" @click="cartHanlde()">Cart/$0,00</router-link><span>0</span></li>
+          <li class="nav__card">
+            <router-link :to="{ name: 'checkoutLink' }"
+              >Cart / ${{ totalAmount }}</router-link
+            ><span>{{ numberProduct }}</span>
+          </li>
         </ul>
       </nav>
     </div>
@@ -45,8 +67,7 @@ export default {
     appLogin: Login,
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     ...mapState("AUTH", {
@@ -55,29 +76,34 @@ export default {
       isLoggedIn: "isLoggedIn",
       user: "user",
     }),
-    ...mapMutations("AUTH", { 
-      openModalMutation: "SHOW_MODAL_LOGIN",
+    ...mapMutations("AUTH", {
+      showModalLoginFromStore: "SHOW_MODAL_LOGIN",
     }),
     ...mapGetters("AUTH", {
       // Get authenticated
       authenticated: "authenticated",
       user: "user",
     }),
+    ...mapGetters("PRODUCT", {
+      totalAmount: "totalAmount",
+      numberProduct: "numberProduct",
+    }),
+  },
+  mounted() {
+    console.log(this.totalAmount, this.numberProduct);
   },
   methods: {
     ...mapActions("AUTH", {
       logoutFromStore: "logout",
     }),
-    showLoginModal() {
-      this.openModalMutation;
+    showModalLogin() {
+      this.showModalLoginFromStore;
     },
     async logout() {
       await this.logoutFromStore();
+      this.$router.push({name: "shopLink"});
     },
-    cartHanlde() {    
-       console.log("Hehe", localStorage.getItem('token'));
-    }
-  }
+  },
 };
 </script>
 
@@ -213,10 +239,71 @@ header {
           }
           li {
             display: inline-block;
+            cursor: pointer;
             @media only screen and (max-width: 900px) {
               display: block;
               padding: 20px 20px;
               border-right: 1px solid #f4f4f4;
+            }
+            nav {
+              &:hover > ul,
+              &:focus-within > ul {
+                  visibility: visible;
+                  opacity: 1;
+                  display: block;
+              }
+              ul {
+                padding: 0;
+                visibility: hidden;
+                opacity: 0;
+                min-width: 10rem;
+                position: absolute;
+                transition: all 0.5s ease;
+                margin-top: 1rem;
+                top: 62px;
+                right: 130px;
+                display: none;
+                background-color: #161616ea;
+                z-index: 1;
+                border-radius: 5px;
+                &:hover,
+                &:focus {
+                  visibility: visible;
+                  opacity: 1;
+                  display: block;
+                }
+                li {
+                  clear: both;
+                  width: 100%;
+                  display: block;
+                  float: left;
+                  padding: 1rem;
+                  position: relative;
+                  text-decoration: none;
+                  transition-duration: 0.5s;
+                  border-radius: 5px;
+                  a {
+                    color: rgb(255, 255, 255);
+                    font-size: 1.2em;
+                  }
+                  &:hover{
+                    opacity: 0.8;
+                    background-color: rgb(13, 13, 13);
+                    
+                  }
+                }
+                &::before {
+                  content: "";
+                  position: absolute;
+                  left: 70%;
+                  top: -23px;
+                  width: 0;
+                  height: 0;
+                  border-left: 8px solid transparent;
+                  border-bottom: 23px solid #161616ea;
+                  border-right: 8px solid transparent;
+                }
+              }
             }
             &.nav__card {
               position: relative;

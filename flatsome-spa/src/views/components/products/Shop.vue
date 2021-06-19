@@ -2,9 +2,9 @@
   <app-main>
     <div class="shop__header">
       <div class="header__nav">
-        <router-link :to="{ name: 'homeLink' }">Home</router-link>
+        <router-link :to="{ name: 'homeLink' }" :class="{active: $router.path == '/Home'}">Home</router-link>
         /
-        <router-link :to="{ name: 'shopLink' }" class="active"
+        <router-link :to="{ name: 'shopLink' }" :class="{active: $router.path == '/Shop'}"
           >Shop</router-link
         >
         <slot name="header__nav"></slot>
@@ -16,7 +16,7 @@
     <sidebar></sidebar>
     <transition>
       <keep-alive>
-        <router-view></router-view>
+        <router-view ></router-view>
       </keep-alive>
     </transition>
   </app-main>

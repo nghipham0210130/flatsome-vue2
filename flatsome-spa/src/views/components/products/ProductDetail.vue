@@ -1,15 +1,19 @@
 <template>
-  <main
-    class="product-detail"
-    v-if="product != null  && getImage(0) != undefined"
-  >
+  <main class="product-detail" v-if="product != null">
     <div class="product-detail__image">
       <div class="image__main">
         <img
-            class="card__image"
-            :src="getImage(imageId)"
-            alt="Product Item"
-          />
+          v-if="getImage(0) == undefined"
+          class="card__image"
+          src="../../../assets/img/no_image_available.jpg"
+          alt="Product Item"
+        />
+        <img
+          v-if="getImage(0) != undefined"
+          class="card__image"
+          :src="getImage(imageId)"
+          alt="Product Item"
+        />
         <span class="icon">
           <font-awesome-icon icon="expand-alt" />
         </span>
@@ -53,7 +57,7 @@
           <input type="text" :value="currentQuantity" inputmode="numberic" />
           <span class="plus" @click="increaseQuantity">+</span>
         </div>
-        <button class="btn btn__add-to-cart">Add to cart</button>
+        <button @click="addToCart()" :disabled="product.quantities==0" class="btn btn__add-to-cart">Add to cart</button>
       </div>
       <p class="infomation__category">
         Categories:
@@ -69,7 +73,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "ProductDetail",
@@ -86,6 +90,7 @@ export default {
     await this.getProduct(this.$route.params.productId);
     await this.getSidebar;
     this.currentRoutePath;
+    this.outStockProduct();
   },
   computed: {
     ...mapState("PRODUCT", {
@@ -93,6 +98,17 @@ export default {
       categories: "categories",
       isLoading: "isLoading",
       loaded: "loaded",
+      totalAmount: "totalAmount",
+      orderId: "orderId",
+    }),
+  
+    ...mapState("AUTH", {
+      isLoggedIn: "isLoggedIn",
+      order: "order",
+    }),
+    ...mapMutations("PRODUCT", {
+      updateCart: "UPDATE_CART",
+      setOrderId: "SET_ORDER_ID",
     }),
     currentRoutePath() {
       return this.$route.path;
@@ -103,6 +119,7 @@ export default {
     ...mapActions("PRODUCT", {
       // Action get product
       getProduct: "getProduct",
+      addProductToCart: "addProductToCart",
     }),
 
     // Get parent category for current category
@@ -114,11 +131,13 @@ export default {
     },
     // Get image from productImages (id = 0 | 1)
     getImage(imageId) {
-      if(this.product.productImages[imageId] == null) {
+      if (this.product.productImages[imageId] == null) {
         return undefined;
       }
       if (this.product.productImages[imageId].image == undefined) {
-        return undefined;
+        this.product.productImages[imageId].image =
+          "../../../assets/img/no_image_available.jpg";
+        return this.product.productImages[imageId].image;
       }
       if (imageId == 1 || imageId == 0) {
         return this.product.productImages[imageId].image;
@@ -127,17 +146,40 @@ export default {
     },
     // decreasecrease quantities to one if currentQuantity > 0
     decreaseQuantity() {
-      if (this.currentQuantity > 0) {
+      if (this.currentQuantity > 1) {
         this.currentQuantity--;
       }
     },
     // increase quantities to one
     increaseQuantity() {
-      console.log(this.product.quantities);
       if (this.currentQuantity < this.product.quantities) {
         this.currentQuantity++;
       }
     },
+    outStockProduct() {
+      if (this.product.quantities == 0) {
+        this.currentQuantity = 0;
+      }
+    },
+    addToCart() {
+      if (this.isLoggedIn) {
+      this.addProductToCart({
+        numberProduct: this.currentQuantity,
+        productId: this.product.id,
+        });
+        this.setOrderId();
+        this.order[this.orderId]= {
+          productId: this.product.id, 
+          userId: this.user.id,
+          numberProduct: this.currentQuantity,
+          price: this.product.price,
+          img: this.getImage(0),
+          };
+      }
+    else {
+      this.$alert("Please login to continueu add product to cart");
+    }
+    }
   },
 };
 </script>

@@ -77,8 +77,13 @@ export default {
 
     // Get image from productImages (id = 0 | 1)
     getImage(imageId) {
-      if (this.product.productImages[imageId].image == undefined) {
+      if (this.product.productImages[imageId] == undefined) {
         return undefined;
+      }
+      if (this.product.productImages[imageId].image == undefined) {
+        this.product.productImages[imageId].image =
+          "../../../assets/img/no_image_available.jpg";
+        return this.product.productImages[imageId].image;
       }
       if (imageId == 1 || imageId == 0) {
         return this.product.productImages[imageId].image;
@@ -101,8 +106,10 @@ export default {
     position: relative;
     // Style imge
     .card__image {
-      max-width: 100%;
-      object-fit: cover;
+      width: 100%;
+      &img {
+        object-fit: cover;
+      }
       &.hover {
         top: 0;
         left: 0;
@@ -130,6 +137,7 @@ export default {
       font-weight: 700;
       text-align: center;
       text-transform: uppercase;
+      color: rgb(61, 61, 61);
       padding-top: 25px;
       padding-bottom: 23px;
       background-color: rgba(255, 255, 255, 0.8);

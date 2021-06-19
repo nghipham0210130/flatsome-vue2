@@ -35,11 +35,6 @@ export default {
     font-weight: 700;
   }
 
-  h2 {
-    font-size: 2.4em;
-    font-weight: 700;
-  }
-
   h3 {
     font-size: 1.8em;
     font-weight: 700;
