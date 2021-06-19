@@ -4,7 +4,6 @@ const baseDomain = "https://gumistore.herokuapp.com";
 const baseURL = `${baseDomain}/api`;
 const token = localStorage.getItem('token');
 
-
 export default axios.create({
     baseURL,
     headers: {
