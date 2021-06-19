@@ -9,6 +9,8 @@ const state = {
     productCategoryId: null,
     isLoading: false,
     loaded: false,
+    totalAmount: 0.00,
+    numberProduct: 0,
 };
 const getters = {
     // Product Id
@@ -23,9 +25,18 @@ const getters = {
     productCategory(state) {
         return state.productCategories;
     },
+    // Status loading
     isLoading(state) {
         return state.isLoading;
-    } 
+    },
+    // Total amount in cart
+    totalAmount(state) {
+        return state.totalAmount;
+    },
+    // Number product in cart
+    numberProduct(state) {
+        return state.numberProduct;
+    },
 };
 const mutations = {
     // Set sidebar 
@@ -55,7 +66,7 @@ const mutations = {
 
     // Set data loaded
     SET_LOADED(state, payload) {
-        state.loaded =payload;
+        state.loaded = payload;
     },
 
     // Set product category Id
@@ -63,6 +74,21 @@ const mutations = {
         state.productCategoryId = payload;
     },
 
+    // Update product
+    UPDATE_PRODUCT(state, payload) {
+        state.product = payload;
+    },
+
+    // Add product to cart
+    ADD_PRODUCT_TO_CART(state, payload) {
+        state.numberProduct += payload.numberProduct;
+        state.totalAmount += payload.numberProduct * state.product.price;
+        /*
+        // Use for Admin control
+        payload.newQuantities = state.product.quantities - payload.numberProduct;
+        console.log(state.product.quantities, payload.newQuantities);
+         */
+    },
 };
 const actions = {
     // Get categories for sidebar 
@@ -98,7 +124,7 @@ const actions = {
     async getProduct({commit}, productId) {
         let isLoading = false;
         try {
-            let response = await ProductsRepository.getProduct(productId);
+            let response = await ProductsRepository.getProductDetail(productId);
             isLoading = true;
             commit("SET_PRODUCT", response.data.data);
             commit("SET_LOADING", isLoading);
@@ -108,8 +134,12 @@ const actions = {
             let loaded = true;
             commit("SET_LOADED", loaded);
         }
-    }
+    },
 
+    // Add Product To Cart for User (data on API don't change because login with role user)
+    async addProductToCart({commit}, payload) {
+        commit("ADD_PRODUCT_TO_CART", payload);
+    }
 
 };
 

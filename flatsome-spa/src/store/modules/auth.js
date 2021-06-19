@@ -39,11 +39,20 @@ const mutations = {
     },
     LOGOUT_USER(state) {
         state.currentUser = {};
-        state.isLoggedIn = !state.isLoggedIn;
+        state.isLoggedIn = false;
     },
     SET_ERORRS(state, payload) {
         state.errors = payload;
     },
+    CHANGE_PROFILE_USER(state, payload) {
+        state.user = payload;
+    },
+    CHANGE_PASSWORD_USER(state, payload) {
+        state.user = payload;
+    },
+    CHANGE_ADDRESS_USER(state, payload) {
+        state.user = payload;
+    }
 };
 const actions = {
     async login({commit}, payload) {
@@ -52,11 +61,12 @@ const actions = {
             let token = response.data.access_token;
             let user = response.data.user;
             localStorage.setItem("token", token);
+            console.log(payload);
             commit("LOGIN_SUCCESS");
             commit("SET_USER", user);
             commit('SET_TOKEN', token);
         } catch (error) {
-            localStorage.removeItem('token');
+            localStorage.removeItem("token");
             // password don't enough 6 characters
             if (error.response.status === 422) {
                 let errors = error.response.data.errors;
@@ -64,18 +74,19 @@ const actions = {
             }
             // email wrong or password wrong
             else if (error.response.status === 401) {
-                let errors = error.response.data.error;
+                let errors = error.response.data;
+                console.log(errors);
                 commit("SET_ERORRS", errors);
             }
         }
     },
+    // Register
     async register({commit}, payload) {
         try {
             const response = await UsersRepository.postUserRegister(payload);
             let user = response.data;
             let token = response.data.access_token;
             localStorage.setItem("token", token);
-            console.log("Hi", token);
             commit("REGISTER_SUCCESS");
             commit("SET_USER", user);
             commit("SET_TOKEN", token);
@@ -92,15 +103,44 @@ const actions = {
             }
         }
     },
-    closeModalLogin({commit}) {
-        commit("SHOW_MODAL_LOGIN");
-    },
+    // Logout
     async logout({commit}) {
-        await UsersRepository.getLogout();
         commit("LOGOUT_USER");
-        commit("SET_TOKEN", null);
+        await UsersRepository.getLogout();
         localStorage.removeItem("token");
+        console.log(localStorage.getItem("token"));
     },
+    // Change info User
+    async updateInfoUser({commit}, payload) {
+        try {
+            await UsersRepository.updateProfileUser(payload);
+            commit("CHANGE_PROFILE_USER", payload);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    // Change password User
+    async updatePasswordUser({commit}, payload) {
+        try {
+            await UsersRepository.updatePassword(payload);
+            commit("CHANGE_PASSWORD_USER", payload);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    // Change address User
+    async updateAddressUser({commit}, payload) {
+        try {
+            await UsersRepository.updateAddress(payload);
+            commit("CHANGE_ADDRESS_USER", payload);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
+
+
+    
 };
 
 export default {
