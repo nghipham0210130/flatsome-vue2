@@ -5,6 +5,7 @@ import createPersistedState from 'vuex-persistedstate'
 import authStore from './modules/auth';
 import productStore from './modules/product';
 import orderStore from './modules/order';
+import adminStore from'./modules/admin';
 
 
 
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     AUTH: authStore,
     PRODUCT: productStore,
     ORDER: orderStore,
+    ADMIN: adminStore,
   },
   plugins: [dataState]
 });

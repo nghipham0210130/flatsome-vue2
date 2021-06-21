@@ -76,7 +76,6 @@ export default {
       productCategoryId: to.params.categoryId,
       numberProductPerPage: this.numberProductsShow,
     });
-    console.log("change", from.params.categoryId, "to", to.params.categoryId);
     this.products = this.productsFromStore;
     next();
   },

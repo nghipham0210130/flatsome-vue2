@@ -1,6 +1,7 @@
 <template>
   <!-- Modal Login -->
   <div id="loginModal" class="modal">
+    <button tupe="button" class="modal__icon icon__close" @click="closeModal()">X</button>
     <div class="modal__content">
       <!-- Form Login -->
       <form id="loginForm" @submit.prevent="login">
@@ -78,7 +79,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import Form from "vform";
 
 export default {
@@ -106,18 +107,9 @@ export default {
       // Get errors if login or register error
       errorsFromStore: "errors",
     }),
-  },
-  mounted() {
-    this.$nextTick(function () {
-      // Get the modal id
-      var modal = document.getElementById("loginModal");
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          this.location.reload();
-        }
-      };
-    });
+    ...mapMutations("AUTH", {
+      closeModalLogin: "SHOW_MODAL_LOGIN",
+    })
   },
   methods: {
     ...mapActions("AUTH", {
@@ -175,6 +167,10 @@ export default {
         location.reload();
       }
     },
+    closeModal() {
+      this.closeModalLogin;
+      console.log(this.openModalLogin);
+    }
   },
 };
 </script>
@@ -184,15 +180,25 @@ export default {
   display: block;
   position: fixed;
   z-index: 1;
-  padding-top: 255px;
+  // padding-top: 255px;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
+  .modal__icon {
+    &.icon__close {
+      padding-top: 10px;
+      margin-bottom: 245px; 
+      font-size: 2em;
+      border : none;
+      color: rgb(255, 255, 255);
+      background-color: transparent; 
+      margin-left: 97%;
+    }
+  }
   .modal__content {
     max-width: 875px;
     margin: 0 auto;

@@ -15,6 +15,7 @@
     </div>
     <sidebar></sidebar>
     <transition>
+      
       <keep-alive>
         <router-view ></router-view>
       </keep-alive>

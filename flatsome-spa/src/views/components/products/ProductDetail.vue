@@ -57,7 +57,13 @@
           <input type="text" :value="currentQuantity" inputmode="numberic" />
           <span class="plus" @click="increaseQuantity">+</span>
         </div>
-        <button @click="addToCart()" :disabled="product.quantities==0" class="btn btn__add-to-cart">Add to cart</button>
+        <button
+          @click="addToCart()"
+          :disabled="product.quantities == 0"
+          class="btn btn__add-to-cart"
+        >
+          Add to cart
+        </button>
       </div>
       <p class="infomation__category">
         Categories:
@@ -101,25 +107,32 @@ export default {
       totalAmount: "totalAmount",
       orderId: "orderId",
     }),
-  
     ...mapState("AUTH", {
       isLoggedIn: "isLoggedIn",
+      user: "user",
+    }),
+    ...mapState("ORDER", {
       order: "order",
     }),
     ...mapMutations("PRODUCT", {
       updateCart: "UPDATE_CART",
-      setOrderId: "SET_ORDER_ID",
+    }),
+    ...mapMutations("ORDER", {
+      setUserId: "SET_USER_ID",
+      setOrder: "SET_ORDER",
     }),
     currentRoutePath() {
       return this.$route.path;
     },
   },
-  mounted() {},
   methods: {
     ...mapActions("PRODUCT", {
       // Action get product
       getProduct: "getProduct",
       addProductToCart: "addProductToCart",
+    }),
+    ...mapActions("ORDER", {
+      addProductToCartFromOrderStore: "addProductToCart",
     }),
 
     // Get parent category for current category
@@ -163,23 +176,21 @@ export default {
     },
     addToCart() {
       if (this.isLoggedIn) {
-      this.addProductToCart({
-        numberProduct: this.currentQuantity,
-        productId: this.product.id,
-        });
-        this.setOrderId();
-        this.order[this.orderId]= {
-          productId: this.product.id, 
-          userId: this.user.id,
+        this.addProductToCart({
           numberProduct: this.currentQuantity,
-          price: this.product.price,
-          img: this.getImage(0),
-          };
+          productId: this.product.id,
+        });
+
+        // Set Order
+        this.addProductToCartFromOrderStore({
+          product: this.product,
+          numberProduct: this.currentQuantity,
+          userId: this.user.id,
+        });
+      } else {
+        this.$alert("Please login to continue add product to your cart");
       }
-    else {
-      this.$alert("Please login to continueu add product to cart");
-    }
-    }
+    },
   },
 };
 </script>

@@ -29,15 +29,22 @@
             <app-login v-show="openModalLogin"></app-login>
             <nav v-if="isLoggedIn" >
               <a href="#"
-                ><img src="../../assets/img/avatar_icon.png" alt="Avatar Icon"
-              /></a>
+                >My account</a>
               <ul class="dropdown">
                 <li>
                   <router-link
                     :to="{
                       name: 'profileLink',
                     }"
-                    >Your Profile</router-link
+                    >My Profile</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    :to="{
+                      name: 'orderListLink',
+                    }"
+                    >My Order List</router-link
                   >
                 </li>
                 <li>
@@ -48,7 +55,7 @@
           </li>
           <li class="nav__card">
             <router-link :to="{ name: 'checkoutLink' }"
-              >Cart / ${{ totalAmount }}</router-link
+              >Cart / ${{ totalAmount }},00</router-link
             ><span>{{ numberProduct }}</span>
           </li>
         </ul>
@@ -89,18 +96,19 @@ export default {
       numberProduct: "numberProduct",
     }),
   },
-  mounted() {
-    console.log(this.totalAmount, this.numberProduct);
-  },
   methods: {
     ...mapActions("AUTH", {
       logoutFromStore: "logout",
+    }),
+    ...mapActions("PRODUCT", {
+      resetCart: "RESET_CART",
     }),
     showModalLogin() {
       this.showModalLoginFromStore;
     },
     async logout() {
       await this.logoutFromStore();
+      location.reload();
       this.$router.push({name: "shopLink"});
     },
   },
@@ -296,11 +304,11 @@ header {
                   content: "";
                   position: absolute;
                   left: 70%;
-                  top: -23px;
+                  top: -30px;
                   width: 0;
                   height: 0;
                   border-left: 8px solid transparent;
-                  border-bottom: 23px solid #161616ea;
+                  border-bottom: 30px solid #161616ea;
                   border-right: 8px solid transparent;
                 }
               }

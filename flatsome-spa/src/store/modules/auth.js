@@ -20,6 +20,7 @@ const getters = {
     }
 };
 const mutations = {
+    /* FOR USER */
     SHOW_MODAL_LOGIN(state) {
         state.openModalLogin = !state.openModalLogin;
     },
@@ -52,7 +53,19 @@ const mutations = {
     },
     CHANGE_ADDRESS_USER(state, payload) {
         state.user = payload;
-    }
+    },
+    
+    /* FOR ADMIN */
+    LOGIN_ADMIN_SUCCESS(state){
+        state.isLoggedIn = !state.isLoggedIn;  
+        state.openModalLogin = !state.openModalLogin;
+    },
+    SET_ADMIN(state, payload) {
+        state.user = payload;
+    },
+    LOGOUT_ADMIN(state) {
+        state.isLoggedIn = false;
+    },
 };
 const actions = {
     async login({commit}, payload) {
@@ -61,7 +74,6 @@ const actions = {
             let token = response.data.access_token;
             let user = response.data.user;
             localStorage.setItem("token", token);
-            console.log(payload);
             commit("LOGIN_SUCCESS");
             commit("SET_USER", user);
             commit('SET_TOKEN', token);
@@ -75,7 +87,6 @@ const actions = {
             // email wrong or password wrong
             else if (error.response.status === 401) {
                 let errors = error.response.data;
-                console.log(errors);
                 commit("SET_ERORRS", errors);
             }
         }
@@ -108,7 +119,6 @@ const actions = {
         commit("LOGOUT_USER");
         await UsersRepository.getLogout();
         localStorage.removeItem("token");
-        console.log(localStorage.getItem("token"));
     },
     // Change info User
     async updateInfoUser({commit}, payload) {

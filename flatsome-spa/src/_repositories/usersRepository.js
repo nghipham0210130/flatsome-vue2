@@ -48,7 +48,7 @@ export default {
   // Post Login
   postAdminLogin(payload) {
     return Repository.post(`admin/login`, {
-      username: payload.email,
+      username: payload.username,
       password: payload.password,
     });
   },

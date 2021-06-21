@@ -79,6 +79,12 @@ const mutations = {
         state.product = payload;
     },
 
+    // Set Total Amount
+    RESET_CART(state) {
+        state.numberProduct = 0;
+        state.totalAmount = 0.00;
+    },
+
     // Add product to cart
     ADD_PRODUCT_TO_CART(state, payload) {
         state.numberProduct += payload.numberProduct;
@@ -88,6 +94,11 @@ const mutations = {
         payload.newQuantities = state.product.quantities - payload.numberProduct;
         console.log(state.product.quantities, payload.newQuantities);
          */
+    },
+    // Set number product
+    CHANGE_PRODUCT_TO_CART(state, payload) {
+        state.numberProduct += payload.numberProduct;
+        state.totalAmount += payload.total;
     },
 };
 const actions = {
@@ -137,10 +148,15 @@ const actions = {
     },
 
     // Add Product To Cart for User (data on API don't change because login with role user)
-    async addProductToCart({commit}, payload) {
+    addProductToCart({commit}, payload) {
         commit("ADD_PRODUCT_TO_CART", payload);
-    }
+    },
 
+    // Change Product To Cart
+    changeProductToCart({commit}, payload) {
+        commit("CHANGE_PRODUCT_TO_CART", payload);
+        console.log(payload);
+    },
 };
 
 export default {
