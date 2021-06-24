@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import { Role } from "../_helpers/role";
+import store from "../store/index";
 
 import ProductList from "../views/components/products/ProductList";
 import ProductCategory from "../views/components/products/ProductCategory";
@@ -11,6 +11,7 @@ import Checkout from "../views/components/order/Checkout";
 import OrderDetail from "../views/components/order/OrderDetail";
 import OrderList from "../views/components/order/OrderList";
 import Shop from "../views/components/products/Shop";
+import Login from "../views/components/authentication/Login";
 
 // Router for admin
 import LoginAdmin from "../views/components/admin/LoginAdmin";
@@ -60,6 +61,13 @@ export const router = new VueRouter({
       component: Error,
     },
 
+    // Go to Login User
+    {
+      path: "/Login",
+      name: "loginUser",
+      component: Login,
+    },
+
     // Go to Product Detail
     {
       path: "/Product/:productId",
@@ -78,7 +86,6 @@ export const router = new VueRouter({
       path: "/Checkout",
       name: "checkoutLink",
       component: Checkout,
-      meta: { requiresAuth: true },
     },
     // Go to Order Detail
     {
@@ -106,25 +113,23 @@ export const router = new VueRouter({
       name: "Dashboard",
       component: Dashboard,
       meta: {
-        authorize: [Role.Admin],
+        requiresAuth: true,
       },
       children: [
         {
           path: "Product",
           name: "manageProduct",
           component: ManageProduct,
-          children: [
-            {
-              path: "Edit/:productId",
-              name: "editProduct",
-              component: EditProduct,
-              props: true,
-              // Set  guard on the route definition object
-              beforeEnter: (to, from, next) => {
-                next();
-              },
-            },
-          ],
+        },
+        {
+          path: "EditProduct/:productId",
+          name: "editProduct",
+          component: EditProduct,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
         },
         {
           path: "User",
@@ -152,17 +157,15 @@ export const router = new VueRouter({
 
 // Global BEFORE hooks
 router.beforeEach((to, from, next) => {
-  // redirect to login page if not logged in and trying to access a restricted page
-  const { authorize } = to.meta;
-  const currentUser = localStorage.getItem("admin_token");
-
-  if (authorize) {
-    if (!currentUser) {
-      // not logged in so redirect to login page with the return url
-      return next({ path: "/Admin/Login", query: { returnUrl: to.path } });
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters["ADMIN/authenticated"]) {
+      next();
+      return;
     }
+    next("/Admin/Login");
+  } else {
+    next();
   }
-  next();
 });
 
 // Global beforeResolve

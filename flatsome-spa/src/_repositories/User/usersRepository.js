@@ -1,4 +1,4 @@
-import Repository from "./Repository";
+import Repository from "../Repository";
 
 const resource = "/public";
 export default {
@@ -28,7 +28,7 @@ export default {
     return Repository.get(`${resource}/profile`);
   },
 
-  // Update profile user currently (name input [firstnamem lastname, username, email])
+  // Update profile user currently (name input [firstname, lastname, username, email])
   updateProfileUser(payload) {
     return Repository.patch(`${resource}/profile`, payload);
   },

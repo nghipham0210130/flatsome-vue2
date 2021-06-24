@@ -7,8 +7,7 @@ import productStore from './modules/product';
 import orderStore from './modules/order';
 import adminStore from'./modules/admin';
 
-
-
+// Load Vuex
 Vue.use(Vuex);
 
 // Keep login when refresh browser
@@ -18,7 +17,9 @@ const dataState =
       isLoggedIn: Boolean,
       user: Object,
     }
-  })
+  });
+
+// Create store
 export default new Vuex.Store({
   modules: {
     AUTH: authStore,

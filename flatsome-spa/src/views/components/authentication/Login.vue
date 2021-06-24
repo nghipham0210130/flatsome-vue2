@@ -1,6 +1,6 @@
 <template>
   <!-- Modal Login -->
-  <div id="loginModal" class="modal">
+  <div id="loginModal" class="modal" :key="componentKey">
     <button tupe="button" class="modal__icon icon__close" @click="closeModal()">X</button>
     <div class="modal__content">
       <!-- Form Login -->
@@ -85,6 +85,7 @@ import Form from "vform";
 export default {
   data() {
     return {
+      componentKey: 0,
       formLogin: new Form({
         email: "",
         password: "",
@@ -106,9 +107,11 @@ export default {
       isLoggedIn: "isLoggedIn",
       // Get errors if login or register error
       errorsFromStore: "errors",
+      password: "password",
     }),
     ...mapMutations("AUTH", {
       closeModalLogin: "SHOW_MODAL_LOGIN",
+      setPassword: "SET_PASSWORD",
     })
   },
   methods: {
@@ -142,7 +145,7 @@ export default {
         this.formLogin.email = null;
         this.formLogin.password = null;
         this.formLogin.isRemember = false;
-        location.reload();
+        this.componentKey++;
       }
     },
     // Transmission register action with data (emailRegister and passwordRegister)
@@ -164,12 +167,12 @@ export default {
       } else {
         this.formLogin.email = null;
         this.formLogin.password = null;
-        location.reload();
+        this.componentKey++;
       }
     },
     closeModal() {
       this.closeModalLogin;
-      console.log(this.openModalLogin);
+      this.componentKey++;
     }
   },
 };

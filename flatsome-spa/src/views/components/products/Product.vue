@@ -107,9 +107,7 @@ export default {
     // Style imge
     .card__image {
       width: 100%;
-      &img {
-        object-fit: cover;
-      }
+      object-fit: cover;
       &.hover {
         top: 0;
         left: 0;
@@ -125,6 +123,9 @@ export default {
     .card__image {
       height: 296px;
       margin-bottom: 8px;
+      @media only screen and (max-width: 900px) {
+        height: 240px;
+      }
       &.hover {
         top: 0;
         left: 0;

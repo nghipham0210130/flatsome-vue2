@@ -12,49 +12,66 @@ const state = {
     coupon: 0,
 };
 const getters = {
+
+    // Get orders
     getOrders(state) {
         return state.orders;
     },
-    getOorderList(state) {
+
+    // Get orderList
+    getOrderList(state) {
         return state.order;
     },
+
+    // Get user id
     getUserId(state) {
         return state.userId;
     },
+
+    // Get order id
     getOderId(state) {
         return state.orderId;
     },
+
+    // Get product
     getProduct(state) {
         return state.product;
     },
-    
 };
 const mutations = {
+
+    // Set order list
     SET_ORDER_LIST(state, payload) {
         state.orderList[state.orderListId] = payload;
         state.orderListId++;
     },
+
     // Set order
     SET_ORDER(state, payload) {
         state.order = payload;
     },
+
     // Set orders (contain order element after add to cart)
     SET_ORDERS(state, payload) {
         state.orders[state.orderId] = payload;
         state.orderId++;
     },
+
     // Set user id
     SET_USER_ID(state, payload) {
         state.userId = payload;
     },
+
     // Set coupon to discount
     SET_COUPON(state, payload){
         state.coupon = payload;
     },
+
     // Change orders
     CHANGE_ORDERS(state, payload) {
         state.orders[payload.index].numberProduct = payload.numberProduct;
     },
+
     // Reset orders when complete payment
     RESET_ORDERS(state) {
         while(state.orders.length > 0) {
@@ -62,10 +79,12 @@ const mutations = {
         }
         state.orderId = 0;
     },
+
     // Reset coupon when complete payment
     RESET_COUPON(state) {
         state.coupon = 0;
     },
+
     // Delete order in cart
     DELETE_ORDER_IN_CART(state, payload) {
         state.orders.splice(payload.index+1, 1);
@@ -73,6 +92,7 @@ const mutations = {
 };
 
 const actions = {
+
     // Add product to cart
     addProductToCart({commit}, payload) {
         commit("SET_ORDER", payload);
@@ -106,7 +126,6 @@ const actions = {
         commit("RESET_ORDERS");
         commit("RESET_COUPON");
     }
-
 };
 
 export default {

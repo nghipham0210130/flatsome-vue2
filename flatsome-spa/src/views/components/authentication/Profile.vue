@@ -19,7 +19,7 @@
           <div class="user__name">
             zenmatsu93
             <span
-              ><i> #{{ userFromStore.id }}</i></span
+              ><i> #{{ formInfo.userId }}</i></span
             >
           </div>
         </div>
@@ -119,7 +119,7 @@
             }}</span>
             <br />
             <input
-              type="password"
+              type="text"
               id="currentPassword"
               name="currentPassword"
             />
@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Form from "vform";
 
 export default {
@@ -169,6 +169,9 @@ export default {
         emailAddress: "",
         address: "",
         phone: "",
+        avatar: "",
+        userId: "",
+        emailVerifiedAt: "",
       }),
       formPassword: new Form({
         currentPassword: "",
@@ -182,13 +185,20 @@ export default {
   },
   created() {
     this.getInitFormInfo();
-    console.log(this.userFromStore);
+    console.log("Hello", this.passwordFromStore);
   },
   computed: {
-    ...mapState("AUTH", {
+    ...mapGetters("AUTH", {
       // Get current user
       userFromStore: "user",
+      passwordFromStore: "getPassword",
     }),
+  },
+  mounted () {
+    this.getInitFormInfo();
+    console.log(this.formPassword.currentPassword,
+          this.formPassword.newPassword,
+          this.formPassword.comfirmPassword);
   },
   methods: {
     ...mapActions("AUTH", {
@@ -209,7 +219,6 @@ export default {
         address: this.formInfo.address,
         phone: this.formInfo.phone,
       });
-      location.reload();
     },
     // Update password User
     async savePasswordUser() {
@@ -222,22 +231,26 @@ export default {
       ) {
         await this.updatePasswordUser({
           password: this.formPassword.newPassword,
+          password_confirmation: this.formPassword.comfirmPassword
         });
       }
     },
     getInitFormInfo() {
-      this.formInfo = {
+        this.formInfo = {
         firstName: this.userFromStore.firstname,
         lastName: this.userFromStore.lastname,
         userName: this.userFromStore.username,
         emailAddress: this.userFromStore.email,
         address: this.userFromStore.address,
         phone: this.userFromStore.phone,
-      };
+        avatar: this.userFromStore.avatar,
+        userId: this.userFromStore.id,
+        emailVerifiedAt: this.userFromStore.email_verified_at,
+    }
     },
     // Check password
     checkPassword(currentPassword, newPassword, passwordConfirm) {
-      if (currentPassword != this.userFromStore.password) {
+      if (currentPassword != this.passwordFromStore) {
         this.errorCurrPass =
           "Current password is wrong. Please enter password again!";
         return false;
@@ -255,10 +268,10 @@ export default {
       return true;
     },
     getImage() {
-      if (this.userFromStore.avatar == null | undefined) {
+      if (this.formInfo.avatar == null | undefined) {
         return "../../../assets/img/avatar_icon.png";
       }
-      return this.userFromStore.avatar;
+      return this.formInfo.avatar;
     }
   },
 };

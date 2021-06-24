@@ -90,7 +90,10 @@ export default {
   column-gap: 20px;
   row-gap: 40px;
   @media only screen and (max-width: 900px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 240px 240px 240px;
+    column-gap: 15px;
+    row-gap: 100px;
   }
   a {
     &.product__card {

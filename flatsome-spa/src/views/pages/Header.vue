@@ -1,7 +1,7 @@
 <template>
   <header>
     <!-- Header -->
-    <div class="header">
+    <div class="header" :key="componentKey">
       <!-- Logo -->
       <div class="header__logo">
         <router-link :to="{ name: 'shopLink' }">
@@ -74,7 +74,9 @@ export default {
     appLogin: Login,
   },
   data() {
-    return {};
+    return {
+      componentKey: 0,
+    };
   },
   computed: {
     ...mapState("AUTH", {
@@ -108,8 +110,8 @@ export default {
     },
     async logout() {
       await this.logoutFromStore();
-      location.reload();
-      this.$router.push({name: "shopLink"});
+      localStorage.removeItem("token");
+      this.componentKey++;
     },
   },
 };
@@ -185,6 +187,9 @@ header {
               position: absolute;
               top: 86px;
               right: 0;
+              li:hover {
+                background-color: rgba(13, 13, 13);
+              }
             }
             li {
               &:hover {

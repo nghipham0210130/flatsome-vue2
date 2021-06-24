@@ -6,74 +6,72 @@ const state = {
     isLoggedIn: false,
     errors: {},
     user: {},
+    password: "",
     token: localStorage.getItem("token") || "",
 };
 const getters = {
-    authenticated(state) {
-        return state.isLoggedIn;
+    isAuthenticated(state) {
+        return !!state.user;
     },
     user(state) {
         return state.user;
     },
     errors(state) {
         return state.errors;
+    },
+    getPassword(state) {
+        return state.password;
     }
 };
 const mutations = {
-    /* FOR USER */
+    
     SHOW_MODAL_LOGIN(state) {
         state.openModalLogin = !state.openModalLogin;
     },
+
     LOGIN_SUCCESS(state){
-        state.isLoggedIn = !state.isLoggedIn;  
+        state.isLoggedIn = !state.isLoggedIn;
         state.openModalLogin = !state.openModalLogin;
     },
+
     REGISTER_SUCCESS(state) {
         state.isLoggedIn = !state.isLoggedIn;
         state.openModalLogin = !state.openModalLogin;
     },
+
     SET_TOKEN(state, payload) {
         state.token = payload;
     },
+
     SET_USER(state, payload) {
         state.user = payload;
     },
+
+    SET_PASSWORD (state, payload) {
+        state.password = payload;
+        console.log(state.password);
+    },
+
     LOGOUT_USER(state) {
         state.currentUser = {};
         state.isLoggedIn = false;
     },
+
     SET_ERORRS(state, payload) {
         state.errors = payload;
     },
-    CHANGE_PROFILE_USER(state, payload) {
-        state.user = payload;
-    },
-    CHANGE_PASSWORD_USER(state, payload) {
-        state.user = payload;
-    },
-    CHANGE_ADDRESS_USER(state, payload) {
-        state.user = payload;
-    },
-    
-    /* FOR ADMIN */
-    LOGIN_ADMIN_SUCCESS(state){
-        state.isLoggedIn = !state.isLoggedIn;  
-        state.openModalLogin = !state.openModalLogin;
-    },
-    SET_ADMIN(state, payload) {
-        state.user = payload;
-    },
-    LOGOUT_ADMIN(state) {
-        state.isLoggedIn = false;
-    },
 };
 const actions = {
+
+    // Login
     async login({commit}, payload) {
         try {
             let response = await UsersRepository.postUserLogin(payload);
             let token = response.data.access_token;
             let user = response.data.user;
+            console.log(response.data);
             localStorage.setItem("token", token);
+            commit("SET_PASSWORD", payload.password);
             commit("LOGIN_SUCCESS");
             commit("SET_USER", user);
             commit('SET_TOKEN', token);
@@ -91,6 +89,7 @@ const actions = {
             }
         }
     },
+
     // Register
     async register({commit}, payload) {
         try {
@@ -100,6 +99,7 @@ const actions = {
             localStorage.setItem("token", token);
             commit("REGISTER_SUCCESS");
             commit("SET_USER", user);
+            commit("SET_PASSWORD", payload.password);
             commit("SET_TOKEN", token);
         } catch (error) {
             localStorage.removeItem('token');
@@ -114,43 +114,43 @@ const actions = {
             }
         }
     },
+
     // Logout
     async logout({commit}) {
         commit("LOGOUT_USER");
         await UsersRepository.getLogout();
-        localStorage.removeItem("token");
     },
+
     // Change info User
     async updateInfoUser({commit}, payload) {
         try {
             await UsersRepository.updateProfileUser(payload);
-            commit("CHANGE_PROFILE_USER", payload);
+            commit("SET_USER", payload);
         } catch (error) {
             console.log(error);
         }
     },
+
+    // Change address User
+    async updateAddressUser({commit}, payload) {
+        try {
+            console.log(payload);
+            await UsersRepository.updateAddress(payload);
+            commit("SET_USER", payload);
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    
     // Change password User
     async updatePasswordUser({commit}, payload) {
         try {
             await UsersRepository.updatePassword(payload);
-            commit("CHANGE_PASSWORD_USER", payload);
+            commit("SET_PASSWORD", payload);
         } catch (error) {
             console.log(error);
         }
     },
-    // Change address User
-    async updateAddressUser({commit}, payload) {
-        try {
-            await UsersRepository.updateAddress(payload);
-            commit("CHANGE_ADDRESS_USER", payload);
-        } catch (error) {
-            console.log(error);
-        }
-    },
-
-
-
-    
 };
 
 export default {

@@ -223,11 +223,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.container {
-  margin-left: 1500px;
-}
 .checkout {
   padding-top: 69px;
+  @media only screen and (max-width: 900px) {
+    padding-top: 15px;
+  }
   .checkout__process {
     font-size: 2.4em;
     color: rgb(204, 204, 204);
@@ -235,8 +235,15 @@ export default {
     display: flex;
     margin-bottom: 50px;
     margin-left: 130px;
+    @media only screen and (max-width: 900px) {
+      font-size: 1.6em;
+      margin-left: 30px;
+    }
     > div:not(:last-child) {
       margin-right: 100px;
+      @media only screen and (max-width: 900px) {
+        margin-right: 50px;
+      }
       &::after {
         content: "";
         border: solid rgb(204, 204, 204);
@@ -279,12 +286,22 @@ export default {
     display: grid;
     grid-template-columns: 60% 40%;
     font-size: 1.6em;
+    @media only screen and (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
     .checkout__cart__item:not(:last-child) {
-      padding-right: 30px;
+      // padding-right: 30px;
       border-right: 1px solid rgb(204, 204, 204);
       margin-right: 30px;
+      @media only screen and (max-width: 900px) {
+        border-right: none;
+        margin-right: 0;
+      }
     }
     .checkout__cart__item {
+      @media only screen and (max-width: 900px) {
+        margin-bottom: 50px;
+      }
       .title {
         p {
           margin-bottom: 0;
@@ -298,6 +315,14 @@ export default {
         .title {
           display: grid;
           grid-template-columns: 50% 15% 20% 15%;
+          @media only screen and (max-width: 900px) {
+            grid-template-columns: 80% 20%;
+          }
+          p:not(:first-child, :last-child) {
+            @media only screen and (max-width: 900px) {
+              display: none;
+            }
+          }
           p:last-child {
             text-align: right;
           }
@@ -308,6 +333,14 @@ export default {
           margin-bottom: 20px;
           padding-bottom: 20px;
           border-bottom: 1px solid rgb(204, 204, 204);
+          @media only screen and (max-width: 900px) {
+            grid-template-columns: 80% 20%;
+            padding-right: 0;
+            &:nth-child(n) {
+              text-align: right;
+            }
+          }
+
           p:last-child {
             text-align: right;
           }
@@ -335,10 +368,16 @@ export default {
             }
             .image__icon {
               margin-right: 5px;
+              &:hover {
+                cursor: pointer;
+              }
             }
             .image__name {
               margin-right: 5px;
               color: rgb(69, 89, 113);
+              @media only screen and (max-width: 900px) {
+                text-align: left;
+              }
             }
           }
           .product__price {
@@ -353,11 +392,15 @@ export default {
                 width: 20px;
                 height: 40px;
                 background: #f2f2f2;
-                padding: 8px 5px 8px 5px;
+                padding: 8px 5px;
                 border: 1px solid #ddd;
                 display: inline-block;
                 vertical-align: middle;
                 text-align: center;
+                @media only screen and (max-width: 900px) {
+                  height: 30px;
+                  padding: 3px 2px;
+                }
               }
             }
 
@@ -369,11 +412,22 @@ export default {
               border: 1px solid #ddd;
               display: inline-block;
               vertical-align: middle;
+              @media only screen and (max-width: 900px) {
+                height: 30px;
+                width: 30px;
+                text-align: center;
+                font-size: 1.2em;
+              }
             }
           }
         }
         .footer {
           font-size: 1em;
+          @media only screen and (max-width: 900px) {
+            font-size: .8em;
+            display: flex;
+            justify-content: space-between;
+          }
           .footer__continue__shopping {
             text-transform: uppercase;
             font-weight: 600;
@@ -382,6 +436,10 @@ export default {
             border-color: rgb(68, 96, 132);
             margin-right: 20px;
             padding: 10px 30px;
+            @media only screen and (max-width: 900px) {
+              padding: 6px 15px;
+              margin-right: 0;
+            }
           }
           .footer__update__cart {
             text-transform: uppercase;
@@ -390,6 +448,10 @@ export default {
             background-color: rgb(143, 160, 181);
             border: none;
             padding: 10px 30px;
+            @media only screen and (max-width: 900px) {
+              padding: 8px 15px;
+              justify-content: right;
+            }
             // add active when change product of cart
             &:hover,
             &.active {

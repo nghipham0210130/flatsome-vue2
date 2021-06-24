@@ -6,7 +6,7 @@
         <div class="product__info">
           <img :src="getImage(index)" alt="Image product" />
           <div class="infor__description">
-            <p>{{ data.product.description }}</p>
+            <p>{{ data.product.description | abbreviate  }}</p>
             <p>x {{ data.numberProduct }}</p>
           </div>
         </div>
@@ -35,8 +35,17 @@
         <span>${{ getTotalPayment() }},00</span>
       </div>
     </div>
-    <button type="button" class="btn btn--gray" @click="cancelThisOrder()">Cancel this order</button>
-    <button type="button" class="btn btn--orange" @click="addToOrderList()">Payment</button>
+    <button type="button" class="btn" @click="cancelThisOrder()">
+        Delete order
+      </button>
+    <div class="button__group">
+      <button type="button" class="btn btn--gray" @click="backToCart()">
+        Back to cart
+      </button>
+      <button type="button" class="btn btn--orange" @click="addToOrderList()">
+        Payment
+      </button>
+    </div>
   </div>
 </template>
 
@@ -69,8 +78,10 @@ export default {
       resetCart: "RESET_CART",
     }),
   },
-  mounted() {
-      console.log(this.orderList);
+  filters: {
+    abbreviate(text) {
+      return text && text.slice(0, 50);
+    },
   },
   methods: {
     ...mapActions("ORDER", {
@@ -139,11 +150,14 @@ export default {
     },
     // Action cancel this order
     cancelThisOrder() {
-        this.cancelThisOrderFromStore();
-        this.resetCart;
-        this.$router.push({
+      this.cancelThisOrderFromStore();
+      this.resetCart;
+      this.$router.push({
         name: "shopLink",
       });
+    },
+    backToCart() {
+      this.$router.push({name: "checkoutLink"});
     }
   },
 };
@@ -157,6 +171,9 @@ export default {
     text-transform: uppercase;
     margin-bottom: 65px;
     margin-left: 20px;
+    @media only screen and (max-width: 900px) {
+      margin-bottom: 20px;
+    }
   }
   .product__list {
     font-size: 1.4em;
@@ -168,6 +185,9 @@ export default {
       display: grid;
       grid-template-columns: 80% 20%;
       grid-template-rows: 200px;
+      @media only screen and (max-width: 900px) {
+        grid-template-rows: 150px;
+      }
       div {
         border-bottom: none;
       }
@@ -204,6 +224,9 @@ export default {
       display: grid;
       grid-template-columns: 80% 20%;
       text-align: right;
+      @media only screen and (max-width: 900px) {
+        font-size: 1.4em;
+      }
       &:not(:last-child) {
         line-height: 40px;
       }
@@ -212,6 +235,9 @@ export default {
         span {
           font-size: 2em;
           color: rgb(246, 66, 47);
+          @media only screen and (max-width: 900px) {
+            font-size: 1.6em;
+          }
         }
       }
       p {
@@ -221,23 +247,30 @@ export default {
       }
     }
   }
-  button {
-    font-size: 2em;
+  .button__group {
     float: right;
-    text-transform: uppercase;
-    padding: 10px 15px;
-    border: none;
-    color: rgb(255, 255, 255);
-    &:hover {
-      opacity: 0.8;
-    }
-    &.btn--orange {
-        background-color: rgb(246, 66, 47);
-    }
-    &.btn--gray {
-         background-color: rgb(80, 77, 77);
-         margin-right: 10px;
-    }
+      button {
+        font-size: 2em;
+        text-transform: uppercase;
+        padding: 10px 15px;
+        border: none;
+        color: rgb(255, 255, 255);
+        @media only screen and (max-width: 900px) {
+          font-size: 1.6em;
+          padding: 6px 8px;
+        }
+        &:hover {
+          opacity: 0.8;
+        }
+        &.btn--orange {
+          background-color: rgb(246, 66, 47);
+        }
+        &.btn--gray {
+          background-color: rgb(80, 77, 77);
+          margin-right: 10px;
+        }
+      }
   }
+
 }
 </style>

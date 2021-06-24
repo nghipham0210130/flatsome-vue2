@@ -95,6 +95,7 @@ const mutations = {
         console.log(state.product.quantities, payload.newQuantities);
          */
     },
+
     // Set number product
     CHANGE_PRODUCT_TO_CART(state, payload) {
         state.numberProduct += payload.numberProduct;
@@ -121,6 +122,7 @@ const actions = {
             console.log(error);
         }
     },
+    
     //Get product list follow category, inputs are productCategoryId, numberProductPerPage
     async getProducts({commit}, {productCategoryId, numberProductPerPage}) {
         try {

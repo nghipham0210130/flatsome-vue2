@@ -33,7 +33,7 @@ export default {
       selected: undefined,
     };
   },
-  created () {
+  created() {
     this.getProductCategories;
   },
   computed: {
@@ -43,18 +43,18 @@ export default {
     }),
     ...mapActions("PRODUCT", {
       getProductCategories: "getProductCategories",
-    })
+    }),
   },
   methods: {
-    // Get image 
+    // Get image
     getImage(productCategory) {
       // If image undefined, set image default
-      if(productCategory.image == undefined) {
+      if (productCategory.image == undefined) {
         productCategory.image = "../../../assets/img/no_image_available.jpg";
       }
       return productCategory.image;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -66,12 +66,19 @@ export default {
   grid-template-columns: repeat(3, calc((100% - 40px) / 3));
   grid-template-rows: 296px 296px 296px;
   gap: 20px;
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 240px 240px 240px;
+  }
   // Style product category item
   .product__category__item {
     position: relative;
     background-position: center;
     background-size: cover;
     height: 296px;
+    @media only screen and (max-width: 900px) {
+      height: 240px;
+    }
     // Tag of category item
     .item__tag {
       position: absolute;

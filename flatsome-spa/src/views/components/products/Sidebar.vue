@@ -98,6 +98,9 @@ export default {
   display: block;
   float: left;
   margin-right: 30px;
+  @media only screen and (max-width: 900px) {
+    display: none;
+  }
   .sidebar__nav {
     ul {
       padding: 0;
