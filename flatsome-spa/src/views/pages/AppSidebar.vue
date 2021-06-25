@@ -98,7 +98,7 @@ export default {
           a {
             font-size: 1.4em;
             line-height: 36px;
-            color: rgb(52, 73, 99);
+            color: rgb(55, 76, 101);
             position: relative;
             span {
               color: rgba(119, 119, 119, 0.5);
