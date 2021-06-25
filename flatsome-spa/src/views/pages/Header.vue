@@ -126,6 +126,8 @@ header {
   position: fixed;
   width: 100%;
   z-index: 1;
+  left: 0;
+  top: 0;
   .header {
     display: flex;
     justify-content: space-between;

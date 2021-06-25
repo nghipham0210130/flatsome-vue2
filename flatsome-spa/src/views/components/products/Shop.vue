@@ -2,7 +2,7 @@
   <app-main>
     <div class="shop__header">
       <div class="header__nav">
-        <router-link :to="{ name: 'homeLink' }" :class="{active: $router.path == '/Home'}">Home</router-link>
+        <router-link :to="{ name: 'homeLink' }" :class="{active: $router.path == '/'}">Home</router-link>
         /
         <router-link :to="{ name: 'shopLink' }" :class="{active: $router.path == '/Shop'}"
           >Shop</router-link

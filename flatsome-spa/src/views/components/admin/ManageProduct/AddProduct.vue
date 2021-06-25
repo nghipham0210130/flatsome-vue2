@@ -1,6 +1,6 @@
 <template>
   <div class="add__product">
-    <h4 class="title">Add Product</h4>
+    <h2 class="title">Add Product</h2>
     <form id="addProductForm" @submit.prevent="addProductForm">
       <div class="text__danger" v-if="errorsForm.length">
         <ul>
@@ -10,22 +10,22 @@
         </ul>
       </div>
       <div class="form__group">
-        <label for="name">Name</label>
+        <label for="nameNewProduct">Name</label>
         <br />
-        <input type="text" id="name" name="name" v-model="product.name" />
+        <input type="text" id="nameNewProduct" name="nameNewProduct" v-model="product.name" />
       </div>
       <div class="form__group">
-        <label for="price">Price</label>
+        <label for="priceNewProduct">Price</label>
         <br />
-        <input type="number" id="price" name="price" v-model="product.price" />
+        <input type="number" id="priceNewProduct" name="priceNewProduct" v-model="product.price" />
       </div>
       <div class="form__group">
-        <label for="quantities">Quantity</label>
+        <label for="quantitiesNewProduct">Quantity</label>
         <br />
         <input
           type="number"
-          id="quantities"
-          name="quantities"
+          id="quantitiesNewProduct"
+          name="quantitiesNewProduct"
           v-model="product.quantities"
         />
       </div>
@@ -39,14 +39,14 @@
           v-model="product.categories"
         />
       </div>
-      <div class="form__group">
-        <label for="imagesNewProduct">Images</label>
-        <br />
+      <div class="form__group custom__file">
+        <label for="categoriesNewProduct">Image Product</label>
+        <br/>
         <input
-          type="text"
+          type="file"
           id="imagesNewProduct"
           name="imagesNewProduct"
-          v-model="product.image"
+          @change="saveImage"
         />
       </div>
       <div class="form__group">
@@ -92,7 +92,6 @@ export default {
       errorsForm: [],
     };
   },
-  async created() {},
   computed: {
     ...mapGetters("ADMIN", {
       productListFromStore: "getProducts",
@@ -101,56 +100,63 @@ export default {
   methods: {
     ...mapActions("ADMIN", {
       addProductFromStore: "addProduct",
+      importImage: "importImage",
     }),
 
     // Save new product
     async saveProduct() {
       this.errorsForm = [];
       if (!this.product.name) {
-        this.errorsForm.push("Name is requires");
+        this.errorsForm.push("Name is requires!");
       }
       if (!this.product.price) {
-        this.errorsForm.push("Price is requires");
+        this.errorsForm.push("Price is requires!");
       }
       if (!this.product.quantities) {
-        this.errorsForm.push("Quantities is requires");
+        this.errorsForm.push("Quantities is requires!");
       }
       if (!this.product.description) {
-        this.errorsForm.push("Description is requires");
+        this.errorsForm.push("Description is requires!");
       }
 
-      if(!this.errorsForm.length) {
+      if (!this.errorsForm.length) {
         let formData = new FormData();
-         formData.append('name', this.product.name);
-         formData.append('price', this.product.price);
-         formData.append('quantities', this.product.quantities);
-         formData.append('description', this.product.description);
-         formData.append('categories', this.product.categories);
-         formData.append('image', this.product.image);
-         // Send a JSON oject
-        await this.addProductFromStore(formData);
+        formData.append("name", this.product.name);
+        formData.append("price", this.product.price);
+        formData.append("quantities", this.product.quantities);
+        formData.append("description", this.product.description);
+        formData.append("categories", this.product.categories);
+        formData.append("image", this.image);
+
+        // Send a JSON oject
+        await this.addProductFromStore(formData).then((response) => {
+          if(response) {
+            document.getElementById("nameNewProduct").value = "";
+            document.getElementById("priceNewProduct").value = "";
+            document.getElementById("quantitiesNewProduct").value = "";
+            document.getElementById("categoriesNewProduct").value = "";
+            document.getElementById("imagesNewProduct").value = "";
+            document.getElementById("descriptionNewProduct").value = "";
+            this.$alert("Add Product Success");
+          }
+        }).catch(error => {
+          console.log(error);
+          this.errorsForm.push(error.response);
+        });
+
         this.product = {};
       }
     },
 
-    //   if (!this.errorsForm.length) {
-
-    //     await this.addProductFromStore({
-    //       name: this.product.name,
-    //       price: this.product.price,
-    //       quantities: this.product.quantities,
-    //       description: this.product.description,
-    //       categories: this.product.categories,
-    //       image: this.product.image,
-    //     }).then((res) => console.log(res));
-    //   }
-    // },
-
-    //
+    // Save image
+    async saveImage(e) {
+      this.image = await this.importImage(e.target.files[0]);
+      console.log(this.image);
+    },
 
     // Refresh form
     refresh() {
-     this.product = {};
+      this.product = {};
     },
   },
 };
@@ -158,21 +164,32 @@ export default {
 
 <style lang="scss" scoped>
 .add__product {
-  margin-left: 30px;
   width: 100%;
-  h4 {
-    margin-bottom: 60px;
+  h2 {
+    font-size: 2em;
     font-weight: 600;
+    margin-bottom: 30px;
+    @media only screen and (max-width: 900px) {
+      font-size: 1.8em;
+    }
+  }
+  .text__danger {
+    color: rgb(253, 24, 24);
+    font-size: 1.6em;
+    font-weight: 600;
+    ul {
+      list-style-type: none;
+    }
   }
   div {
     margin-bottom: 20px;
     label {
       font-size: 1.4em;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
     }
     input {
-      width: 100%;
+      width: calc(100% - 24px);
       padding: 10px;
       font-size: 1.4em;
     }
@@ -190,6 +207,9 @@ export default {
       margin-bottom: 30px;
       padding: 10px 15px;
       border: none;
+      &:hover {
+        cursor: pointer;
+      }
     }
     .btn__group__cancel {
       background-color: rgb(150, 10, 10);

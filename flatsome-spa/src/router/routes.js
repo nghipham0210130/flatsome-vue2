@@ -10,8 +10,9 @@ import Profile from "../views/components/authentication/Profile";
 import Checkout from "../views/components/order/Checkout";
 import OrderDetail from "../views/components/order/OrderDetail";
 import OrderList from "../views/components/order/OrderList";
-import Shop from "../views/components/products/Shop";
 import Login from "../views/components/authentication/Login";
+import Home from "../views/components/products/Home";
+import Shop from "../views/components/products/Shop";
 
 // Router for admin
 import LoginAdmin from "../views/components/admin/LoginAdmin";
@@ -34,6 +35,10 @@ export const router = new VueRouter({
     {
       path: "/",
       name: "homeLink",
+      component: Home,
+    },
+    {
+      path: "/Shop",
       component: Shop,
       children: [
         {
@@ -168,21 +173,21 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-// Global beforeResolve
-router.beforeResolve((to, from, next) => {
-  console.log("Global -- beforeResolve - fired. ");
-  next();
-});
+// // Global beforeResolve
+// router.beforeResolve((to, from, next) => {
+//   console.log("Global -- beforeResolve - fired. ");
+//   next();
+// });
 
-//Global AFTER hooks:
-router.afterEach((to, from) => {
-  // This fires after each route is entered
-  console.log(
-    `Global -- afterEach - Just moved from  '${from.path}' to '${to.path}'  `
-  );
-});
+// //Global AFTER hooks:
+// router.afterEach((to, from) => {
+//   // This fires after each route is entered
+//   console.log(
+//     `Global -- afterEach - Just moved from  '${from.path}' to '${to.path}'  `
+//   );
+// });
 
-// Register an Error Handler:
-router.onError((err) => {
-  console.error("Handling this error", err.message);
-});
+// // Register an Error Handler:
+// router.onError((err) => {
+//   console.error("Handling this error", err.message);
+// });

@@ -9,6 +9,7 @@ const state = {
   token: localStorage.getItem("admin__token") || "",
   products: {},
   product: {},
+  image: null,
 };
 const getters = {
   authenticated(state) {
@@ -74,6 +75,7 @@ const mutations = {
     state.product = payload;
     const newProducts = state.products.concat(state.product);
     state.products = newProducts;
+    console.log(state.products.length);
   },
 
   // Edit product
@@ -83,6 +85,11 @@ const mutations = {
         product = payload;
       }
     })
+  },
+
+  // Import image
+  IMPORT_PRODUCT(state, payload) {
+    state.image = payload;
   }
 };
 const actions = {
@@ -91,14 +98,8 @@ const actions = {
   async loginAdmin({ commit }, payload) {
     try {
       let response = await UsersRepository.postAdminLogin(payload);
-      let token = response.data.access_token;
-      let admin = response.data.admin;
-      console.log(token, admin);
-      // let d = new Date();
-      // d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
-      // let expires = "expires=" + d.toUTCString();
-      // document.cookie = "admin_token" + token + "," + expires + "path=Admin/Dashboard";
-      // document.cookie.set("admin_token", token, "expiring time");
+      let token = await response.data.access_token;
+      let admin = await response.data.admin;
       localStorage.setItem("admin__token", token);
       commit("LOGIN_SUCCESS");
       commit("SET_ADMIN", admin);
@@ -121,14 +122,14 @@ const actions = {
   // Logout
   async logout({ commit }) {
     commit("LOGOUT_ADMIN");
-    await UsersRepository.getLogoutAdmin()
+    await UsersRepository.getLogoutAdmin();
   },
 
   // Get Products
   async getProducts({ commit }, payload) {
     try {
       let response = await ProductsRepository.showProducts(payload);
-      let products = response.data.data;
+      let products = await response.data.data;
       commit("SET_PRODUCTS", products);
     } catch (error) {
       console.log(error);
@@ -173,20 +174,21 @@ const actions = {
   // Create Product
   async addProduct({commit}, payload) {
     try {
-      console.log("New Project");
-      await ProductsRepository.createProduct(payload).then((response) => {
-        if(response.status) {
-          console.log("Success");
-        } else {
-          console.log("Error");
-        }
-      }
-        );
+      await ProductsRepository.createProduct(payload);
       commit("ADD_PRODUCT", payload);
     } catch (error) {
       console.log(error);
     }
+  },
 
+  // Import image 
+  async importImage({commit}, payload) {
+    try {
+      await ProductsRepository.importCsvProduct(payload);
+      commit("IMPORT_PRODUCT", payload);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 };

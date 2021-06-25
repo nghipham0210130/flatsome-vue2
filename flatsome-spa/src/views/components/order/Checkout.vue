@@ -271,7 +271,7 @@ export default {
     span {
       font-size: 0.8em;
       color: rgb(251, 251, 251);
-      text-align: justify;
+      justify-content: center;
       text-align-last: center;
       width: 1.5em;
       height: 1.5em;
@@ -280,6 +280,7 @@ export default {
       position: absolute;
       top: 0.2em;
       left: -2em;
+      padding: auto;
     }
   }
   .checkout__cart {
@@ -290,7 +291,7 @@ export default {
       grid-template-columns: 1fr;
     }
     .checkout__cart__item:not(:last-child) {
-      // padding-right: 30px;
+      padding-right: 30px;
       border-right: 1px solid rgb(204, 204, 204);
       margin-right: 30px;
       @media only screen and (max-width: 900px) {
@@ -390,31 +391,31 @@ export default {
               &.minus,
               &.plus {
                 width: 20px;
-                height: 40px;
+                height: 30px;
                 background: #f2f2f2;
-                padding: 8px 5px;
+                padding: 1px 3px;
                 border: 1px solid #ddd;
                 display: inline-block;
                 vertical-align: middle;
                 text-align: center;
                 @media only screen and (max-width: 900px) {
-                  height: 30px;
+                  height: 26px;
                   padding: 3px 2px;
                 }
               }
             }
 
             input {
-              height: 40px;
-              width: 40px;
+              width: 30px;
+              height: 30px;
               text-align: center;
-              font-size: 1.4em;
+              font-size: 1em;
               border: 1px solid #ddd;
               display: inline-block;
               vertical-align: middle;
               @media only screen and (max-width: 900px) {
-                height: 30px;
                 width: 30px;
+                height: 30px;
                 text-align: center;
                 font-size: 1.2em;
               }
@@ -519,7 +520,7 @@ export default {
           }
         }
         .coupon__input {
-          width: 100%;
+          width: calc(100% - 14px);
           font-size: 1em;
           padding-left: 10px;
           padding-top: 8px;
@@ -529,6 +530,7 @@ export default {
         }
         .coupon__button {
           @extend .coupon__input;
+          width: 100%;
           background-color: rgb(249, 249, 249);
           &:hover {
             cursor: pointer;

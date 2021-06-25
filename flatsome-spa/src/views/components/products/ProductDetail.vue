@@ -21,11 +21,11 @@
         />
         <transition name="zoomImage">
           <img
-          v-if="show"
-          class="card__image zoom"
-          :src="getImage(imageId)"
-          alt="Product Zoom"
-        />
+            v-if="show"
+            class="card__image zoom"
+            :src="getImage(imageId)"
+            alt="Product Zoom"
+          />
         </transition>
         <span @click="show = !show" class="icon">
           <font-awesome-icon icon="expand-alt" />
@@ -37,7 +37,7 @@
             class="card__image"
             :src="getImage(0)"
             alt="Product Item Front"
-            @click="imageId = 0, changeActive()"
+            @click="(imageId = 0), changeActive()"
           />
         </div>
         <div class="option__back" :class="{ active: isActiveBack }">
@@ -46,17 +46,21 @@
             class="card__image hover"
             :src="getImage(1)"
             alt="Product Item Back"
-            @click="imageId = 1, changeActive()"
+            @click="(imageId = 1), changeActive()"
           />
         </div>
       </div>
     </div>
     <div class="product-detail__infomation">
       <div class="information__link">
-        <h5>{{getLinktoProduct(product.categories[0].parent_id)}}</h5>
+        <h5>{{ getLinktoProduct(product.categories[0].parent_id) }}</h5>
         <ul class="link__transform">
-          <li class="prev" @click="goPrevProduct()"><span class="arrow left"></span></li>
-          <li class="next" @click="goNextProduct()"><span class="arrow right"></span></li>
+          <li class="prev" @click="goPrevProduct()">
+            <span class="arrow left"></span>
+          </li>
+          <li class="next" @click="goNextProduct()">
+            <span class="arrow right"></span>
+          </li>
         </ul>
       </div>
       <h3 class="infomation__title">{{ product.name }}</h3>
@@ -85,8 +89,8 @@
             product.categories != undefined &&
             product.categories[0].parent_id != null
           "
-          >{{ getParentCategory(product.categories[0].parent_id) }}, </span
-        >
+          >{{ getParentCategory(product.categories[0].parent_id) }},
+        </span>
         <span
           v-if="
             product.categories != undefined &&
@@ -172,18 +176,21 @@ export default {
 
     // Get Link to product
     getLinktoProduct(categoryId) {
-      if(this.product.categories == undefined ) {
+      if (this.product.categories == undefined) {
         let link = "Home / Shop";
         return link;
-      }
-      else if(this.product.categories[0].parent_id == null ) {
+      } else if (this.product.categories[0].parent_id == null) {
         let link = "Home / Shop / " + this.product.categories[0].name;
         return link;
       }
-      let link = "Home / Shop / " + this.getParentCategory(categoryId) + "/" + this.product.categories[0].name;
+      let link =
+        "Home / Shop / " +
+        this.getParentCategory(categoryId) +
+        "/" +
+        this.product.categories[0].name;
       return link;
     },
-  
+
     // Get parent category for current category
     getParentCategory(categoryId) {
       const parentCategory = this.categories.find(
@@ -247,7 +254,6 @@ export default {
 
     // Go to prev product in the same product category
     goPrevProduct() {
-      console.log("HAHAHA");
       if (this.currentIndex == 0) {
         return;
       }
@@ -285,12 +291,11 @@ export default {
       if (this.isActiveFront) {
         this.isActiveBack = true;
         this.isActiveFront = false;
-      }
-      else {
+      } else {
         this.isActiveBack = false;
         this.isActiveFront = true;
       }
-    }
+    },
   },
 };
 </script>
@@ -310,10 +315,9 @@ export default {
     max-width: 100%;
   }
   .product__detail__image {
-    
-  @media only screen and (max-width: 900px) {
-    margin-bottom: 30px;
-  }
+    @media only screen and (max-width: 900px) {
+      margin-bottom: 30px;
+    }
     .image__main {
       position: relative;
       margin-bottom: 15px;
@@ -362,7 +366,8 @@ export default {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       column-gap: 20px;
-      div:hover, .active{
+      div:hover,
+      .active {
         cursor: pointer;
         border: 2px solid rgb(204, 204, 204);
       }
@@ -404,7 +409,6 @@ export default {
           top: -6px;
           &.prev {
             left: -5px;
-            
           }
           &.next {
             left: 39px;

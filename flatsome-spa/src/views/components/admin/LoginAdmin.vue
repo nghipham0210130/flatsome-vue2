@@ -54,6 +54,7 @@ export default {
       isLoggedIn: "isLoggedIn",
       // Get errors if login or register error
       errorsFromStore: "errors",
+      admin: "admin",
     }),
   },
   methods: {
@@ -106,6 +107,7 @@ export default {
     transform: translateZ(0);
     background-color: #fff;
     h4 {
+      font-size: 2em;
       text-transform: uppercase;
       color: rgb(85, 85, 85);
       font-weight: bold;

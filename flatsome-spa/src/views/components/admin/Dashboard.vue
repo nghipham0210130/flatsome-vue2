@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <main class="dashboard" :key="componentKey">
     <nav class="dashboard__sidebar">
       <h2>Dashboard</h2>
       <ul>
@@ -29,7 +29,7 @@
     <div class="dashboard__content">
       <router-view> </router-view>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -38,7 +38,9 @@ import { mapState, mapActions } from "vuex";
 export default {
   name: "dashboard",
   data() {
-    return {};
+    return {
+      componentKey: 0,
+    };
   },
   computed: {
     ...mapState("ADMIN", {
@@ -52,7 +54,8 @@ export default {
     }),
     async logout() {
       await this.logoutFromStore();
-      this.$router.push({name: "loginAdminLink"});
+      localStorage.removeItem("admin_token");
+      location.reload();
     },
   },
 };
@@ -61,27 +64,49 @@ export default {
 .dashboard {
   display: grid;
   grid-template-columns: 20% 80%;
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
   .dashboard__sidebar {
     width: 100%;
     h2 {
       font-weight: 600;
       font-size: 3.6em;
       text-align: center;
+      margin-bottom: 50px;
+      @media only screen and (max-width: 900px) {
+        font-size: 2.8em;
+        margin-bottom: 30px;
+      }
     }
     ul {
       list-style-type: none;
       padding-left: 0;
       background-color: rgb(68, 96, 132);
+      @media only screen and (max-width: 900px) {
+        display: flex;
+        width: 100%;
+        margin-bottom: 30px;
+      }
       li {
         line-height: 50px;
+        @media only screen and (max-width: 900px) {
+            line-height: 30px;
+            text-align: center;
+        }
         border: 1px solid rgb(54, 76, 105);
         a {
           font-size: 2.4em;
           color: rgb(255, 255, 255);
           padding: 15px;
+          @media only screen and (max-width: 900px) {
+            font-size: 1.8em;
+            padding: 10px 0;
+          }
         }
       }
     }
   }
+
 }
 </style>

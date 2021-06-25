@@ -10,23 +10,23 @@ const token = localStorage.getItem('admin__token');
 const instance = axios.create({
     baseURL,
     headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: 'application/json, text/javascript',
+        'Content-Type': 'application/json/x-www-form-urlencoded; charser=utf-8',
+        'X-Requested-With': 'XMLHttpRequest',
         'Authorization': `Bearer ${token}`,
+        credentials: 'include',
         withCredentials,
     },
+    mode: 'cords',
+    cache: 'default',
 });
 
 instance.interceptors.response.use(undefined, function (error) {
     if (error) {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
+        if (error.response.status === 401) {
             store.dispatch("logout");
             return router.push("/Admin/Login");
         }
     }
 })
-
-
 export default  instance;

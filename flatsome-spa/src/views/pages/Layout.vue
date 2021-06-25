@@ -27,6 +27,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.layout {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .container {
   margin: 0 auto;
   max-width: 1200px;
@@ -38,5 +45,7 @@ export default {
   padding-top: 116px;
   box-sizing: border-box;
   position: relative;
+  margin-bottom: 50px;
+  min-height: calc(100vh - 210px);
 }
 </style>

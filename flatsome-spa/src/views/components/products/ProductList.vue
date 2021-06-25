@@ -1,18 +1,23 @@
 <template id="productList" >
-  <!-- <label for="numberShow">Showing all 6 results</label>
-  <select name="numberShow" id="numberShow">
-      <option value="default">Default sorting</option>
-      <option value="popularity">Sort by popularity</option>
-      <option value="averageRating">Sort by average rating</option>
-      <option value="latest">Sort by latest</option>
-      <option value="priceLowToHigh">Sort by price: low to high</option>
-      <option value="priceHighToLow">Sort by price: high to low</option>
-  </select> -->
-
-  <section class="product__list">
-    <div v-for="(product, index) in products" :key="index" :product="product">
-      <div class="product__card">
-        <product :productId="product.id"></product>
+  <section>
+    <div class="product__list__show">
+      <label for="numberShow">Showing all {{ showNumber }} results</label>
+      <select name="numberShow" id="numberShow" v-model="showNumber">
+        <option
+          v-for="(item, index) in showsOptions"
+          :key="index"
+          @click="changeShow(item.number)"
+        >
+          {{ item.number }} products
+        </option>
+        <option @click="changeShow(products.length)">Show all</option>
+      </select>
+    </div>
+    <div class="product__list">
+      <div v-for="(product, index) in products" :key="index" :product="product">
+        <div class="product__card">
+          <product :productId="product.id"></product>
+        </div>
       </div>
     </div>
   </section>
@@ -20,8 +25,13 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-
 import Product from "./Product";
+
+const showsOptions = [
+  { id: 0, number: 6 },
+  { id: 1, number: 8 },
+  { id: 2, number: 24 },
+];
 
 export default {
   name: "ProductList",
@@ -31,15 +41,18 @@ export default {
   data() {
     return {
       isLoading: false,
-      numberProductsShow: 6,
       productId: null,
       products: null,
+      showsOptions: [],
+      showNumber: 6,
+      numberProductPerPage: 6,
     };
   },
   async created() {
+    this.showsOptions = showsOptions;
     await this.getProducts({
       productCategoryId: this.$route.params.categoryId,
-      numberProductPerPage: this.numberProductsShow,
+      numberProductPerPage: this.numberProductPerPage,
     });
   },
   mouted() {
@@ -60,6 +73,10 @@ export default {
       // Action get product list
       getProducts: "getProducts",
     }),
+
+    changeShow(value) {
+      this.showNumber = value;
+    },
   },
   // Set guard on the component options object:
   beforeRouteLeave(to, from, next) {
@@ -74,7 +91,7 @@ export default {
     this.products = null;
     await this.getProducts({
       productCategoryId: to.params.categoryId,
-      numberProductPerPage: this.numberProductsShow,
+      numberProductPerPage: this.numberProductPerPage,
     });
     this.products = this.productsFromStore;
     next();
@@ -83,6 +100,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product__list__show {
+  text-align: right;
+  font-size: 1.6em;
+  margin-bottom: 30px;
+  label {
+    margin-right: 5px;
+    font-weight: 600;
+  }
+}
 .product__list {
   display: grid;
   grid-template-columns: repeat(3, calc((100% - 40px) / 3));
