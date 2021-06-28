@@ -64,10 +64,12 @@ export default {
     }),
     // Transmission login action with data (emailLogin and passwordLogin)
     async login() {
-      await this.loginForm({
+      const data = {
         username: this.formLogin.email,
         password: this.formLogin.password,
-      });
+      }
+      console.log("This login local", data);
+      await this.loginForm(data);
       // Check login not success
       if (!this.isLoggedIn) {
         //  Check errors email correctly
@@ -85,7 +87,6 @@ export default {
       } else {
         this.formLogin.email = null;
         this.formLogin.password = null;
-        this.formLogin.isRemember = false;
         this.$router.push({ name: "Dashboard" });
       }
     },

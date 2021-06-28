@@ -17,7 +17,14 @@ export default {
   // Create Product
   // Input image[], name, description, price, quantites, categories[]
   createProduct(payload) {
-    return adminRepository.post(`product`, payload);
+    return adminRepository.post(`product`, {
+      image: payload.image,
+      name: payload.name,
+      description: payload.description,
+      price: payload.price,
+      quantities: payload.quantities,
+      categories: payload.categories,
+    });
   },
 
   // Import csv Product

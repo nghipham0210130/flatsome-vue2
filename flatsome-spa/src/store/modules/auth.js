@@ -66,23 +66,26 @@ const actions = {
     // Login
     async login({commit}, payload) {
         try {
-            let response = await UsersRepository.postUserLogin(payload);
+            console.log("From store", payload);
+            const response = await UsersRepository.postUserLogin(payload);
             let token = response.data.access_token;
             let user = response.data.user;
-            console.log(response.data);
+            console.log(response);
             localStorage.setItem("token", token);
             commit("SET_PASSWORD", payload.password);
             commit("LOGIN_SUCCESS");
             commit("SET_USER", user);
-            commit('SET_TOKEN', token);
+            commit("SET_TOKEN", token);
         } catch (error) {
             localStorage.removeItem("token");
+            console.log("Eror", error.response);
+
             // password don't enough 6 characters
             if (error.response.status === 422) {
                 let errors = error.response.data.errors;
                 commit("SET_ERORRS", errors);
             }
-            // email wrong or password wrong
+            // email wrong or password wrong 
             else if (error.response.status === 401) {
                 let errors = error.response.data;
                 commit("SET_ERORRS", errors);

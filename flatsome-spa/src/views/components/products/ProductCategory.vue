@@ -38,9 +38,10 @@ export default {
   },
   computed: {
     ...mapState("PRODUCT", {
-      // Get status open of modal login from store
+      // Get state productCategories from store
       productCategories: "productCategories",
     }),
+    // Get getProductCategories from store
     ...mapActions("PRODUCT", {
       getProductCategories: "getProductCategories",
     }),

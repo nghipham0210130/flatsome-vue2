@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import store from "../store/index";
 
 import ProductList from "../views/components/products/ProductList";
@@ -17,11 +16,18 @@ import Shop from "../views/components/products/Shop";
 // Router for admin
 import LoginAdmin from "../views/components/admin/LoginAdmin";
 import Dashboard from "../views/components/admin/Dashboard";
+
 import ManageProduct from "../views/components/admin/ManageProduct/ManageProduct";
 import EditProduct from "../views/components/admin/ManageProduct/EditProduct";
-import ManageBill from "../views/components/admin/ManageBill";
-import ManageUser from "../views/components/admin/ManageUser";
-import ManageAdmin from "../views/components/admin/ManageAdmin";
+
+import ManageBill from "../views/components/admin/ManageBill/ManageBill";
+import EditBill from "../views/components/admin/ManageBill/EditBill";
+
+import ManageUser from "../views/components/admin/ManageUser/ManageUser";
+import EditUser from "../views/components/admin/ManageUser/EditUser";
+
+import ManageAdmin from "../views/components/admin/ManageAdmin/ManageAdmin";
+import EditAdmin from "../views/components/admin/ManageAdmin/EditAdmin";
 
 Vue.use(VueRouter);
 
@@ -86,12 +92,14 @@ export const router = new VueRouter({
       name: "profileLink",
       component: Profile,
     },
+
     // Go to checkout
     {
       path: "/Checkout",
       name: "checkoutLink",
       component: Checkout,
     },
+
     // Go to Order Detail
     {
       path: "/OrderDetail",
@@ -99,14 +107,17 @@ export const router = new VueRouter({
       component: OrderDetail,
       props: true,
     },
+
     // Go to Order List
     {
       path: "/OrderList",
       name: "orderListLink",
       component: OrderList,
     },
-    // nếu không sẽ chuyển đến trang shop
+
+    // Default page to redirect
     { path: "*", redirect: "/Shop" },
+    
     // Go to admin login
     {
       path: "/Admin/Login",
@@ -142,14 +153,44 @@ export const router = new VueRouter({
           component: ManageUser,
         },
         {
+          path: "EditUser/:userId",
+          name: "editUser",
+          component: EditUser,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
+        },
+        {
           path: "Bill",
           name: "manageBill",
           component: ManageBill,
         },
         {
+          path: "BillProduct/:billId",
+          name: "editBill",
+          component: EditBill,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
+        },
+        {
           path: "Admin",
           name: "manageAdmin",
           component: ManageAdmin,
+        },
+        {
+          path: "AdminProduct/:adminId",
+          name: "editAdmin",
+          component: EditAdmin,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
         },
       ],
     },

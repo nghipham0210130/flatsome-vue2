@@ -4,7 +4,9 @@ const resource = "/admin";
 export default {
 
   /*METHOD OF ADMIN*/
+
   /* METHOD POST */
+
   // Post Login
   postAdminLogin(payload) {
     return adminRepository.post(`${resource}/login`, {
@@ -46,7 +48,7 @@ export default {
   },
 
   // Search user
-  searchCategory(payload) {
+  searchUser(payload) {
     return adminRepository.post(`user/search`, {
         word: payload.word,
     });
@@ -70,7 +72,7 @@ export default {
 
   // Get list user
   getUserList(numberUserPerPage) {
-    return adminRepository.get(`${resource}/?perPage=${numberUserPerPage}`);
+    return adminRepository.get(`/user?perPage=${numberUserPerPage}`);
   },
 
   // Get Admin
@@ -85,28 +87,13 @@ export default {
 
   /* METHOD PATCH */
   // Update Admin
+  // Input: avatar, name, username, email, password
   updateAdmin(adminId, payload) {
-      return adminRepository.patch(`${resource}/${adminId}`, {
-        avatar: payload.avatar,
-        name: payload.name,
-        username: payload.username,
-        email: payload.email,
-        password: payload.password,
-      });
+      return adminRepository.patch(`${resource}/${adminId}`, payload);
   },
 
-  // Update User
   updateUser(userId, payload) {
-    return adminRepository.patch(`user/${userId}`, {
-        avatar: payload.avatar,
-        firstName: payload.firstName,
-        lastName: payload.lasetName,
-        userName: payload.userName,
-        email: payload.email,
-        password: payload.password,
-        address: payload.address,
-        phone: payload.phone,
-      });
+    return adminRepository.patch(`user/${userId}`, payload);
   },
 
   /* METHOD DELETE */
