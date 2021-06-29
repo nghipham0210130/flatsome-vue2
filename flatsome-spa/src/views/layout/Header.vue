@@ -4,7 +4,7 @@
     <div class="header" :key="componentKey">
       <!-- Logo -->
       <div class="header__logo">
-        <router-link :to="{ name: 'shopLink' }">
+        <router-link :to="{ name: 'productCategoryLink' }">
           <img src="../../assets/img/logo-light.png" alt="Logo" />
         </router-link>
       </div>
@@ -66,7 +66,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import Login from "../components/authentication/Login.vue";
+import Login from "../components/Login";
 
 export default {
   name: "appHeader",

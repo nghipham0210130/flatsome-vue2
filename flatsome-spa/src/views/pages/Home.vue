@@ -2,7 +2,7 @@
   <main class="home">
     <h2 class="home__title">Welcome To Home Page</h2>
     <div class="home__link">
-      <router-link :to="{ name: 'shopLink' }"
+      <router-link :to="{ name: 'productCategoryLink' }"
         >Click here to go shopping
       </router-link>
     </div>

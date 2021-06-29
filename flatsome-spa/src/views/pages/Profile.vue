@@ -1,5 +1,5 @@
 <template>
-  <main class="user__profile">
+  <div class="user__profile">
     <div class="user__profile__title">
       <h2 class="">
         <strong>My account</strong>
@@ -150,7 +150,7 @@
         </form>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script>

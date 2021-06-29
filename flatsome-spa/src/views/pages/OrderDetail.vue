@@ -145,7 +145,7 @@ export default {
       });
       this.resetCart;
       this.$router.push({
-        name: "shopLink",
+        name: "productCategoryLink",
       });
     },
     // Action cancel this order
@@ -153,7 +153,7 @@ export default {
       this.cancelThisOrderFromStore();
       this.resetCart;
       this.$router.push({
-        name: "shopLink",
+        name: "productCategoryLink",
       });
     },
     backToCart() {

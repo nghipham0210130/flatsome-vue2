@@ -2,20 +2,20 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store/index";
 
-import ProductList from "../views/components/products/ProductList";
-import ProductCategory from "../views/components/products/ProductCategory";
-import ProductDetail from "../views/components/products/ProductDetail";
-import Profile from "../views/components/authentication/Profile";
-import Checkout from "../views/components/order/Checkout";
-import OrderDetail from "../views/components/order/OrderDetail";
-import OrderList from "../views/components/order/OrderList";
-import Login from "../views/components/authentication/Login";
-import Home from "../views/components/products/Home";
-import Shop from "../views/components/products/Shop";
+// Pages for User
+import ProductList from "../views/pages/ProductList";
+import ProductCategory from "../views/pages/ProductCategory";
+import ProductDetail from "../views/pages/ProductDetail";
+import Profile from "../views/pages/Profile";
+import Checkout from "../views/pages/Checkout";
+import OrderDetail from "../views/pages/OrderDetail";
+import OrderList from "../views/pages/OrderList";
+import Home from "../views/pages/Home";
+import Shop from "../views/pages/Shop";
 
-// Router for admin
-import LoginAdmin from "../views/components/admin/LoginAdmin";
-import Dashboard from "../views/components/admin/Dashboard";
+// Pages for Admin 
+import LoginAdmin from "../views/pages/LoginAdmin";
+import Dashboard from "../views/pages/Dashboard";
 
 import ManageProduct from "../views/components/admin/ManageProduct/ManageProduct";
 import EditProduct from "../views/components/admin/ManageProduct/EditProduct";
@@ -49,7 +49,7 @@ export const router = new VueRouter({
       children: [
         {
           path: "/Shop",
-          name: "shopLink",
+          name: "productCategoryLink",
           component: ProductCategory,
         },
         {
@@ -70,13 +70,6 @@ export const router = new VueRouter({
       path: "/error",
       name: "error",
       component: Error,
-    },
-
-    // Go to Login User
-    {
-      path: "/Login",
-      name: "loginUser",
-      component: Login,
     },
 
     // Go to Product Detail

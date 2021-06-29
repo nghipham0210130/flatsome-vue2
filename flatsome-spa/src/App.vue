@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Layout from './views/pages/Layout'
+import Layout from './views/layout/Layout'
 
 
 export default {

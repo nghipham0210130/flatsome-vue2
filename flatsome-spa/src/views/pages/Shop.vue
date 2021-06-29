@@ -1,5 +1,5 @@
 <template>
-  <app-main>
+  <div class="shop">
     <div class="shop__header">
       <div class="header__nav">
         <router-link :to="{ name: 'homeLink' }" :class="{active: $router.path == '/'}">Home</router-link>
@@ -20,17 +20,15 @@
         <router-view ></router-view>
       </keep-alive>
     </transition>
-  </app-main>
+    </div>
 </template>
 
 <script>
-import Sidebar from "./Sidebar";
-import Main from "../../pages/Main";
+import Sidebar from "../layout/Sidebar";
 
 export default {
   components: {
     sidebar: Sidebar,
-    appMain: Main,
   },
   data() {
     return {

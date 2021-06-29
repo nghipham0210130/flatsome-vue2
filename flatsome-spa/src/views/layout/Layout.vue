@@ -3,10 +3,10 @@
     <!-- Header -->
     <app-header></app-header>
     <!-- Main -->
-    <app-main class="container main">
+    <main class="container main">
       <!-- Show section follow link -->
       <router-view></router-view>
-    </app-main>
+    </main>
     <!-- Footer -->
     <app-footer></app-footer>
   </div>
@@ -14,13 +14,11 @@
 
 <script>
 import Header from "./Header";
-import Main from "./Main";
 import Footer from "./Footer";
 
 export default {
   components: {
     appHeader: Header,
-    appMain: Main,
     appFooter: Footer,
   },
 };
