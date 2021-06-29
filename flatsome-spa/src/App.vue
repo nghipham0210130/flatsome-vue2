@@ -26,7 +26,6 @@ export default {
   color: rgb(0,0,0);
   font-size: 62.5%;
   font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
   body {
     margin: 0;
   }
