@@ -47,9 +47,8 @@ const mutations = {
         state.user = payload;
     },
 
-    SET_PASSWORD (state, payload) {
-        state.password = payload;
-        console.log(state.password);
+    UPDATE_PASSWORD (state, payload) {
+        state.password = payload.password_confirmation;
     },
 
     LOGOUT_USER(state) {
@@ -59,6 +58,18 @@ const mutations = {
 
     SET_ERORRS(state, payload) {
         state.errors = payload;
+    },
+
+    UPDATE_INFO_USER(state, payload) {
+        state.user.firstname = payload.firstname,
+        state.user.lastname = payload.lastname,
+        state.user.username = payload.username,
+        state.user.email = payload.email
+    },
+
+    UPDATE_ADDRESS_USER(state, payload) {
+        state.user.address = payload.address,
+        state.user.phone = payload.phone
     },
 };
 const actions = {
@@ -128,7 +139,7 @@ const actions = {
     async updateInfoUser({commit}, payload) {
         try {
             await UsersRepository.updateProfileUser(payload);
-            commit("SET_USER", payload);
+            commit("UPDATE_INFO_USER", payload);
         } catch (error) {
             console.log(error);
         }
@@ -137,9 +148,8 @@ const actions = {
     // Change address User
     async updateAddressUser({commit}, payload) {
         try {
-            console.log(payload);
             await UsersRepository.updateAddress(payload);
-            commit("SET_USER", payload);
+            commit("UPDATE_ADDRESS_USER", payload);
         } catch (error) {
             console.log(error);
         }
@@ -149,7 +159,7 @@ const actions = {
     async updatePasswordUser({commit}, payload) {
         try {
             await UsersRepository.updatePassword(payload);
-            commit("SET_PASSWORD", payload);
+            commit("UPDATE_PASSWORD", payload);
         } catch (error) {
             console.log(error);
         }

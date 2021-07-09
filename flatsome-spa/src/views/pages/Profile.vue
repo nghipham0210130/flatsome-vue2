@@ -1,5 +1,5 @@
 <template>
-  <div class="user__profile">
+  <main class="user__profile">
     <div class="user__profile__title">
       <h2 class="">
         <strong>My account</strong>
@@ -8,14 +8,8 @@
     </div>
     <div class="main">
       <nav class="navbar">
-        <div
-          class="user__title"
-        >
-          <img
-            class="user__avatar"
-            :src="getImage()"
-            alt="Avatar empty"
-          />
+        <div class="user__title">
+          <img class="user__avatar" :src="getImage()" alt="Avatar empty" />
           <div class="user__name">
             zenmatsu93
             <span
@@ -44,7 +38,7 @@
                 type="text"
                 id="fName"
                 name="fName"
-                v-model="formInfo.firstName"
+                v-model="formInfo.firstname"
               />
             </div>
             <div class="info__lastame">
@@ -54,18 +48,16 @@
                 type="text"
                 id="lName"
                 name="lName"
-                v-model="formInfo.lastName"
+                v-model="formInfo.lastname"
               />
             </div>
           </div>
           <div class="info__username">
-            <label for="uName">User name</label>
+            <label>User name</label>
             <br />
             <input
               type="text"
-              id="uName"
-              name="uName"
-              v-model="formInfo.userName"
+              v-model="formInfo.username"
             />
           </div>
           <div class="info__note">
@@ -75,32 +67,26 @@
             </i>
           </div>
           <div class="info__email__address">
-            <label for="emailAddress">Email address</label>
+            <label>Email address</label>
             <br />
             <input
               type="text"
-              id="emailAddress"
-              name="emailAddress"
-              v-model="formInfo.emailAddress"
+              v-model="formInfo.email"
             />
           </div>
           <div class="info__address">
-            <label for="address">Address</label>
+            <label>Address</label>
             <br />
             <input
               type="text"
-              id="address"
-              name="address"
               v-model="formInfo.address"
             />
           </div>
           <div class="info__phone">
-            <label for="phone">Phone</label>
+            <label>Phone</label>
             <br />
             <input
               type="text"
-              id="phone"
-              name="phone"
               v-model="formInfo.phone"
             />
           </div>
@@ -111,38 +97,35 @@
         <h4 class="update__password title">PASSWORD CHANGE</h4>
         <form id="changePasswordForm" @submit.prevent="changePasswordUser">
           <div class="current__password">
-            <label for="currentPassword"
+            <label
               >Current password (leave blank to leave unchanged)</label
             >
-            <span class="text__danger" v-if="errorCurrPass">  {{
-              errorCurrPass
-            }}</span>
+            <span class="text__danger" v-if="errorCurrPass">
+              {{ errorCurrPass }}</span
+            >
             <br />
-            <input
-              type="text"
-              id="currentPassword"
-              name="currentPassword"
-            />
+            <input type="password" v-model="formPassword.currentPassword" />
           </div>
           <div class="new__password">
-            <label for="newPassword"
+            <label
               >New password(leave blank to leave unchanged)</label
             >
-            <span class="text__danger" v-if="errorNewPass">  {{
-              errorNewPass
-            }}</span>
-            <br />
-            <input type="password" id="newPassword" name="newPassword" />
-          </div>
-          <div class="confirm__password">
-            <label for="confirmPassword">Confirm new password</label>
-            <span class="text__danger" v-if="errorPassConfirm">  {{ errorPassConfirm }}</span>
+            <span class="text__danger" v-if="errorNewPass">
+              {{ errorNewPass }}</span
+            >
             <br />
             <input
               type="password"
-              id="confirmPassword"
-              name="confirmPassword"
+              v-model="formPassword.newPassword"
             />
+          </div>
+          <div class="confirm__password">
+            <label>Confirm new password</label>
+            <span class="text__danger" v-if="errorPassConfirm">
+              {{ errorPassConfirm }}</span
+            >
+            <br />
+            <input type="password" v-model="formPassword.comfirmPassword" />
           </div>
           <button type="submit" @click.prevent="savePasswordUser()">
             SAVE CHANGES PASSWORD
@@ -150,7 +133,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -163,10 +146,10 @@ export default {
   data() {
     return {
       formInfo: new Form({
-        firstName: "",
-        lastName: "",
-        userName: "",
-        emailAddress: "",
+        firstname: "",
+        lastname: "",
+        username: "",
+        email: "",
         address: "",
         phone: "",
         avatar: "",
@@ -185,7 +168,6 @@ export default {
   },
   created() {
     this.getInitFormInfo();
-    console.log("Hello", this.passwordFromStore);
   },
   computed: {
     ...mapGetters("AUTH", {
@@ -193,12 +175,6 @@ export default {
       userFromStore: "user",
       passwordFromStore: "getPassword",
     }),
-  },
-  mounted () {
-    this.getInitFormInfo();
-    console.log(this.formPassword.currentPassword,
-          this.formPassword.newPassword,
-          this.formPassword.comfirmPassword);
   },
   methods: {
     ...mapActions("AUTH", {
@@ -210,10 +186,10 @@ export default {
     // Update info User
     async saveInfoUser() {
       await this.updateInfoUser({
-        firstname: this.formInfo.firstName,
-        lastname: this.formInfo.lastName,
-        username: this.formInfo.userName,
-        email: this.formInfo.emailAddress,
+        firstname: this.formInfo.firstname,
+        lastname: this.formInfo.lastname,
+        username: this.formInfo.username,
+        email: this.formInfo.email,
       });
       await this.updateAddressUser({
         address: this.formInfo.address,
@@ -231,22 +207,23 @@ export default {
       ) {
         await this.updatePasswordUser({
           password: this.formPassword.newPassword,
-          password_confirmation: this.formPassword.comfirmPassword
+          password_confirmation: this.formPassword.comfirmPassword,
         });
+        this.formPassword = {};
       }
     },
     getInitFormInfo() {
-        this.formInfo = {
-        firstName: this.userFromStore.firstname,
-        lastName: this.userFromStore.lastname,
-        userName: this.userFromStore.username,
-        emailAddress: this.userFromStore.email,
+      this.formInfo = {
+        firstname: this.userFromStore.firstname,
+        lastname: this.userFromStore.lastname,
+        username: this.userFromStore.username,
+        email: this.userFromStore.email,
         address: this.userFromStore.address,
         phone: this.userFromStore.phone,
         avatar: this.userFromStore.avatar,
         userId: this.userFromStore.id,
         emailVerifiedAt: this.userFromStore.email_verified_at,
-    }
+      };
     },
     // Check password
     checkPassword(currentPassword, newPassword, passwordConfirm) {
@@ -255,7 +232,7 @@ export default {
           "Current password is wrong. Please enter password again!";
         return false;
       }
-      if (newPassword.length() < 6) {
+      if (newPassword.length < 6) {
         this.errorNewPass =
           "Password must have 6 or more characters. Please enter new password again! ";
         return false;
@@ -268,11 +245,11 @@ export default {
       return true;
     },
     getImage() {
-      if (this.formInfo.avatar == null | undefined) {
+      if ((this.formInfo.avatar == null) | undefined) {
         return "../../../assets/img/avatar_icon.png";
       }
       return this.formInfo.avatar;
-    }
+    },
   },
 };
 </script>
@@ -386,6 +363,10 @@ export default {
         margin-bottom: 30px;
         padding: 10px 15px;
         border: none;
+        &:hover {
+          cursor: pointer;
+          opacity: 0.8;
+        }
       }
     }
   }
@@ -400,6 +381,3 @@ export default {
   }
 }
 </style>
-
-
-
