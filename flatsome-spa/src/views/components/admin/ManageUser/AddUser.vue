@@ -146,7 +146,6 @@ export default {
       }
 
       if (!this.errorsForm.length) {
-
         let data = {
           username: this.user.username,
           email: this.user.email,

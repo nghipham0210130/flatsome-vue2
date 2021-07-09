@@ -63,7 +63,6 @@ export default {
   data() {
     return {
       componentKey: 0,
-      numberUserPerPage: 12,
       users: [],
       pageOfItems : [],
       customStyles,
@@ -72,7 +71,8 @@ export default {
   }, 
 
   async created() {
-    await this.getUsers();
+    let numberUserPerPage = this.usersFromStore.length;
+    await this.getUsers(numberUserPerPage);
     this.users = this.usersFromStore;
   },
   computed: {
@@ -94,8 +94,8 @@ export default {
     }),
 
     // Get users
-    async getUsers() {
-      await this.getUsersFromStore(this.usersFromStore.length);
+    async getUsers(numberUserPerPage) {
+      await this.getUsersFromStore(numberUserPerPage);
 
     },
 

@@ -107,12 +107,6 @@ export default {
         componentKey: 0,
         user: {},
         errorsForm: [],
-        username: "",
-        email: "",
-        firstname: "",
-        lastname: "",
-        address: "",
-        phone: "",
     };
   },
   async created() {
@@ -166,6 +160,7 @@ export default {
         }
         
         await this.editUserFromStore({userId: this.userId, payload: dataForm});
+        location.reload();
         this.componentKey++;
       },
 
@@ -235,6 +230,10 @@ export default {
       margin-bottom: 30px;
       padding: 10px 15px;
       border: none;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
     }
     .btn__group__cancel {
       background-color: rgb(73, 70, 70);
