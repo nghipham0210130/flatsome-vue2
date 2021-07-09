@@ -14,8 +14,8 @@ import Home from "../views/pages/Home";
 import Shop from "../views/pages/Shop";
 
 // Pages for Admin 
-import LoginAdmin from "../views/pages/LoginAdmin";
-import Dashboard from "../views/pages/Dashboard";
+import LoginAdmin from "../views/pages/admin/LoginAdmin";
+import Dashboard from "../views/pages/admin/Dashboard";
 
 import ManageProduct from "../views/components/admin/ManageProduct/ManageProduct";
 import EditProduct from "../views/components/admin/ManageProduct/EditProduct";
