@@ -18,7 +18,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+*, ::after, ::before {
+  box-sizing: border-box;
+  margin: 0;
+}
 #app {
   font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -26,9 +29,6 @@ export default {
   color: rgb(0,0,0);
   font-size: 62.5%;
   font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
-  body {
-    margin: 0;
-  }
   h1 {
     font-size: 4.8em;
     font-weight: 700;
