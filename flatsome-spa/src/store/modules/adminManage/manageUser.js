@@ -102,33 +102,11 @@ const mutations = {
     state.users = payload;
   },
 
-  //Reset User list when Delete a product
-  RESET_USERS(state, payload) {
-    const newUsers = state.users.filter(user => user.id !== payload);
-    state.products = newUsers;
-  },
-
   // Add User
   ADD_USER(state, payload) {
     state.user = payload;
     const newUsers = state.users.concat(state.user);
-    console.log(newUsers);
     state.users = newUsers;
-    console.log(state.users);
-  },
-
-  // Set user
-  SET_USER(state, payload) {
-    state.user = payload;
-  },
-
-  // Edit user
-  EDIT_USER(state, userId, payload) {
-    state.users.forEach(user => {
-      if(user.id == userId) {
-        user = payload;
-      }
-    })
   },
 };
 const actions = {
@@ -164,63 +142,7 @@ const actions = {
     commit("LOGOUT_ADMIN");
     await UsersRepository.getLogoutAdmin();
   },
-
-  // Get Products
-  async getProducts({ commit }, payload) {
-    try {
-      let response = await ProductsRepository.showProducts(payload);
-      let products = await response.data.data;
-      commit("SET_PRODUCTS", products);
-    } catch (error) {
-      console.log(error.response);
-    }
-  },
-
-  // Edit Product
-  async editProduct({ commit }, {productId, payload}) {
-    try {
-      await ProductsRepository.updateProduct(productId, payload);
-      commit("EDIT_PRODUCT", productId, payload);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  // Get Product
-  async getProduct({ commit }, productId) {
-    try {
-      if(productId != undefined) {
-        let response = await ProductsRepository.getProduct(productId);
-        let product = response.data.data;
-        commit("SET_PRODUCT", product);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  // Delete product
-  async deleteProduct({ commit }, productId) {
-    try {
-      // Creat new products without product has id = productId
-      commit("RESET_PRODUCTS", productId);
-      await ProductsRepository.deleteProduct(productId);
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  // Create Product
-  async addProduct({commit}, payload) {
-    try {
-      console.log("From Store", payload);
-      await ProductsRepository.createProduct(payload);
-      commit("ADD_PRODUCT", payload);
-    } catch (error) {
-      console.log("Error", error.response); 
-    }
-  },
-
+  
   // Import image 
   async importImage({commit}, payload) {
     try {
@@ -274,7 +196,7 @@ const actions = {
     try {
       // Creat new products without product has id = productId
       commit("RESET_USERS", userId);
-      await UsersRepository.deleteUser(userId);
+      await UsersRepository.deleteProduct(userId);
     } catch (error) {
       console.log(error);
     }
@@ -285,7 +207,7 @@ const actions = {
     try {
       console.log(payload);
       await UsersRepository.createUser(payload);
-      commit("ADD_USER", payload);
+      commit("                 ", payload);
     } catch (error) {
       console.log("Error", error.response); 
     }

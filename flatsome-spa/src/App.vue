@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Layout from './views/pages/Layout'
+import Layout from './views/layout/Layout'
 
 
 export default {
@@ -25,8 +25,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: rgb(0,0,0);
   font-size: 62.5%;
-  font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
   body {
     margin: 0;
   }

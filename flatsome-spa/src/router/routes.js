@@ -1,27 +1,33 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import store from "../store/index";
 
-import ProductList from "../views/components/products/ProductList";
-import ProductCategory from "../views/components/products/ProductCategory";
-import ProductDetail from "../views/components/products/ProductDetail";
-import Profile from "../views/components/authentication/Profile";
-import Checkout from "../views/components/order/Checkout";
-import OrderDetail from "../views/components/order/OrderDetail";
-import OrderList from "../views/components/order/OrderList";
-import Login from "../views/components/authentication/Login";
-import Home from "../views/components/products/Home";
-import Shop from "../views/components/products/Shop";
+// Pages for User
+import ProductList from "../views/pages/ProductList";
+import ProductCategory from "../views/pages/ProductCategory";
+import ProductDetail from "../views/pages/ProductDetail";
+import Profile from "../views/pages/Profile";
+import Checkout from "../views/pages/Checkout";
+import OrderDetail from "../views/pages/OrderDetail";
+import OrderList from "../views/pages/OrderList";
+import Home from "../views/pages/Home";
+import Shop from "../views/pages/Shop";
 
-// Router for admin
-import LoginAdmin from "../views/components/admin/LoginAdmin";
-import Dashboard from "../views/components/admin/Dashboard";
+// Pages for Admin 
+import LoginAdmin from "../views/pages/LoginAdmin";
+import Dashboard from "../views/pages/Dashboard";
+
 import ManageProduct from "../views/components/admin/ManageProduct/ManageProduct";
 import EditProduct from "../views/components/admin/ManageProduct/EditProduct";
-import ManageBill from "../views/components/admin/ManageBill";
-import ManageUser from "../views/components/admin/ManageUser";
-import ManageAdmin from "../views/components/admin/ManageAdmin";
+
+import ManageBill from "../views/components/admin/ManageBill/ManageBill";
+import EditBill from "../views/components/admin/ManageBill/EditBill";
+
+import ManageUser from "../views/components/admin/ManageUser/ManageUser";
+import EditUser from "../views/components/admin/ManageUser/EditUser";
+
+import ManageAdmin from "../views/components/admin/ManageAdmin/ManageAdmin";
+import EditAdmin from "../views/components/admin/ManageAdmin/EditAdmin";
 
 Vue.use(VueRouter);
 
@@ -43,7 +49,7 @@ export const router = new VueRouter({
       children: [
         {
           path: "/Shop",
-          name: "shopLink",
+          name: "productCategoryLink",
           component: ProductCategory,
         },
         {
@@ -66,13 +72,6 @@ export const router = new VueRouter({
       component: Error,
     },
 
-    // Go to Login User
-    {
-      path: "/Login",
-      name: "loginUser",
-      component: Login,
-    },
-
     // Go to Product Detail
     {
       path: "/Product/:productId",
@@ -86,12 +85,14 @@ export const router = new VueRouter({
       name: "profileLink",
       component: Profile,
     },
+
     // Go to checkout
     {
       path: "/Checkout",
       name: "checkoutLink",
       component: Checkout,
     },
+
     // Go to Order Detail
     {
       path: "/OrderDetail",
@@ -99,14 +100,17 @@ export const router = new VueRouter({
       component: OrderDetail,
       props: true,
     },
+
     // Go to Order List
     {
       path: "/OrderList",
       name: "orderListLink",
       component: OrderList,
     },
-    // nếu không sẽ chuyển đến trang shop
+
+    // Default page to redirect
     { path: "*", redirect: "/Shop" },
+    
     // Go to admin login
     {
       path: "/Admin/Login",
@@ -142,14 +146,44 @@ export const router = new VueRouter({
           component: ManageUser,
         },
         {
+          path: "EditUser/:userId",
+          name: "editUser",
+          component: EditUser,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
+        },
+        {
           path: "Bill",
           name: "manageBill",
           component: ManageBill,
         },
         {
+          path: "BillProduct/:billId",
+          name: "editBill",
+          component: EditBill,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
+        },
+        {
           path: "Admin",
           name: "manageAdmin",
           component: ManageAdmin,
+        },
+        {
+          path: "AdminProduct/:adminId",
+          name: "editAdmin",
+          component: EditAdmin,
+          props: true,
+          // Set  guard on the route definition object
+          beforeEnter: (to, from, next) => {
+            next();
+          },
         },
       ],
     },

@@ -120,29 +120,26 @@ export default {
       }
 
       if (!this.errorsForm.length) {
-        let formData = new FormData();
-        formData.append("name", this.product.name);
-        formData.append("price", this.product.price);
-        formData.append("quantities", this.product.quantities);
-        formData.append("description", this.product.description);
-        formData.append("categories", this.product.categories);
-        formData.append("image", this.image);
+        // let formData = new FormData();
+        // formData.append("name", this.product.name);
+        // formData.append("price", this.product.price);
+        // formData.append("quantities", this.product.quantities);
+        // formData.append("description", this.product.description);
+        // formData.append("categories", this.product.categories);
+        // formData.append("image", this.image);
 
-        // Send a JSON oject
-        await this.addProductFromStore(formData).then((response) => {
-          if(response) {
-            document.getElementById("nameNewProduct").value = "";
-            document.getElementById("priceNewProduct").value = "";
-            document.getElementById("quantitiesNewProduct").value = "";
-            document.getElementById("categoriesNewProduct").value = "";
-            document.getElementById("imagesNewProduct").value = "";
-            document.getElementById("descriptionNewProduct").value = "";
-            this.$alert("Add Product Success");
-          }
-        }).catch(error => {
-          console.log(error);
-          this.errorsForm.push(error.response);
-        });
+        let data = {
+          name: this.product.name,
+          price: this.product.price,
+          quantities: this.product.quantities,
+          description: this.product.description,
+          categories: this.product.categories,
+          image: this.image,
+        }
+
+        console.log(data);
+        // Send a oject
+        await this.addProductFromStore(data);
 
         this.product = {};
       }

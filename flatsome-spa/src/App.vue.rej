@@ -1,0 +1,11 @@
+diff a/flatsome-spa/src/App.vue b/flatsome-spa/src/App.vue	(rejected hunks)
+@@ -29,9 +29,6 @@
+   color: rgb(0,0,0);
+   font-size: 62.5%;
+   font-family: 'Myriad Pro', Helvetica, Arial, sans-serif;
+-  body {
+-    margin: 0;
+-  }
+   h1 {
+     font-size: 4.8em;
+     font-weight: 700;

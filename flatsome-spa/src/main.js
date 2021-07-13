@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import { router } from './router/routes'
 import store from './store';
 
-import VeeValidate from 'vee-validate';
+import { ValidationProvider, ValidationObserver } from 'vee-validate/dist/vee-validate.esm';
 import VueSimpleAlert from "vue-simple-alert";
 import JwPagination from "jw-vue-pagination";
 
@@ -24,9 +24,11 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-Vue.use(VeeValidate);
+// Vue.use(VeeValidate);
 Vue.use(VueSimpleAlert);
 Vue.component('jw-pagination', JwPagination);
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
 
 new Vue({
   el: '#app',
