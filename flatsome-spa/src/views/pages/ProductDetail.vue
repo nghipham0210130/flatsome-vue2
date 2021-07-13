@@ -10,7 +10,7 @@
         <img
           v-if="getImage(0) == undefined"
           class="card__image"
-          src="../../../assets/img/no_image_available.jpg"
+          src="../../assets/img/no_image_available.jpg"
           alt="Product Item"
         />
         <img
@@ -186,7 +186,7 @@ export default {
       let link =
         "Home / Shop / " +
         this.getParentCategory(categoryId) +
-        "/" +
+        " / " +
         this.product.categories[0].name;
       return link;
     },

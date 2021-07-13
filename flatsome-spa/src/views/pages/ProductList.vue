@@ -25,7 +25,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import Product from "./Product";
+import Product from "../components/Product";
 
 const showsOptions = [
   { id: 0, number: 6 },

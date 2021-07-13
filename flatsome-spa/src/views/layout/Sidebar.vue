@@ -44,7 +44,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
-import CategoryChild from "./CategoryChild.vue";
+import CategoryChild from "../components/CategoryChild.vue";
 
 export default {
   name: "Sidebar",
