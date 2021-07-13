@@ -39,7 +39,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
-
 const customLabels = {
     first: '<<',
     last: '>>',
